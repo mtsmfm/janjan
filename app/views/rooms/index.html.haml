@@ -1,0 +1,9 @@
+= form_for Room.new do |f|
+  = f.submit
+
+%ul
+  - @rooms.each do |room|
+    %li
+      = form_for [room, room.joins.new] do |f|
+        = room.id
+        = f.submit
