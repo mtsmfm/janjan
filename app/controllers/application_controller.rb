@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
     return @current_user if @current_user
 
     @current_user =
-      if session[:user_id]
+      if session[:user_id] && User.exists?(session[:user_id])
         User.find(session[:user_id])
       else
         User.create.tap do |user|

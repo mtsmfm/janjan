@@ -1,1 +1,8 @@
-= @room.id
+%h1 room #{@room.id}
+
+%ul
+  - if current_user.hand
+    - current_user.hand.tiles.each do |tile|
+      %li= tile.kind
+
+= button_to 'Start', start_room_actions_path(@room)
