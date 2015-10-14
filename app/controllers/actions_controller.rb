@@ -8,7 +8,7 @@ class ActionsController < ApplicationController
     room.transaction do
       game = room.create_game!
 
-      tiles = (Tile::KINDS).shuffle.map do |kind|
+      tiles = (Tile::KINDS * 4).shuffle.map do |kind|
         Tile.new(kind: kind)
       end
 
