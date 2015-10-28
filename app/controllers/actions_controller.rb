@@ -19,6 +19,8 @@ class ActionsController < ApplicationController
       end
 
       game.create_wall!(tiles: tiles)
+
+      Action::Start.create!(user: current_user, game: game)
     end
 
     render json: current_user.hand.tiles
