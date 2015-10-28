@@ -3,6 +3,8 @@ class ActionsController < ApplicationController
   end
 
   def start
+    raise if Action::Start.able?(user: current_user, room: room)
+
     room = current_user.room
 
     room.transaction do

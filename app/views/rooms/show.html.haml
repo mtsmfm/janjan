@@ -5,4 +5,5 @@
     - current_user.hand.tiles.each do |tile|
       %li= tile.kind
 
-= button_to 'Start', start_room_actions_path(@room)
+- if Action::Start.able?(user: current_user, room: @room)
+  = button_to 'Start', start_room_actions_path(@room)
