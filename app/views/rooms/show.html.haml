@@ -1,6 +1,6 @@
 %h1 room #{@room.id}
 
-- if @room.game.wall
+- if @room.game
   %h2 wall: #{@room.game.wall.tiles.count}
 
 - if current_user.river
