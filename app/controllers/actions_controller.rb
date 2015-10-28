@@ -23,6 +23,6 @@ class ActionsController < ApplicationController
       Action::Start.create!(user: current_user, game: game)
     end
 
-    render json: current_user.hand.tiles
+    redirect_to room
   end
 end
