@@ -4,6 +4,7 @@ Rails.application.routes.draw do
     resources :actions, only: [] do
       collection do
         post :start
+        post :draw
       end
     end
   end

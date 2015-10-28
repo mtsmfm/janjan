@@ -7,3 +7,6 @@
 
 - if Action::Start.able?(user: current_user, room: @room)
   = button_to 'Start', start_room_actions_path(@room)
+
+- if Action::Draw.able?(user: current_user, room: @room)
+  = button_to 'Draw', draw_room_actions_path(@room)

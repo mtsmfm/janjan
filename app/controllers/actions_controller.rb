@@ -25,4 +25,17 @@ class ActionsController < ApplicationController
 
     redirect_to room
   end
+
+  def draw
+    room = current_user.room
+    game = room.game
+
+    game.transaction do
+      current_user.hand.tiles << game.wall.tiles.first
+
+      Action::Draw.create!(user: current_user, game: game)
+    end
+
+    redirect_to room
+  end
 end
