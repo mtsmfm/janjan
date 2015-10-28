@@ -1,7 +1,7 @@
 %h1 room #{@room.id}
 
-%ul
-  - if current_user.hand
+- if current_user.hand
+  %ul
     - current_user.hand.tiles.each do |tile|
       %li= tile.kind
 
