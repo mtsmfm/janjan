@@ -3,9 +3,9 @@ class ActionsController < ApplicationController
   end
 
   def start
-    raise if Action::Start.able?(user: current_user, room: room)
-
     room = current_user.room
+
+    raise unless Action::Start.able?(user: current_user, room: room)
 
     room.transaction do
       game = room.create_game!
