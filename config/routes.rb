@@ -5,6 +5,7 @@ Rails.application.routes.draw do
       collection do
         post :start
         post :draw
+        post :discard
       end
     end
   end

@@ -16,6 +16,7 @@ class ActionsController < ApplicationController
 
       room.users.each do |user|
         game.hands.create!(user: user, tiles: tiles.shift(13))
+        game.rivers.create!(user: user)
       end
 
       game.create_wall!(tiles: tiles)
@@ -34,6 +35,19 @@ class ActionsController < ApplicationController
       current_user.hand.tiles << game.wall.tiles.first
 
       Action::Draw.create!(user: current_user, game: game)
+    end
+
+    redirect_to room
+  end
+
+  def discard
+    room = current_user.room
+    game = room.game
+
+    game.transaction do
+      current_user.river.tiles << current_user.hand.tiles.find(params[:id])
+
+      Action::Discard.create!(user: current_user, game: game)
     end
 
     redirect_to room

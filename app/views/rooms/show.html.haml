@@ -1,9 +1,24 @@
 %h1 room #{@room.id}
 
-- if current_user.hand
+- if @room.game.wall
+  %h2 wall: #{@room.game.wall.tiles.count}
+
+- if current_user.river
+  %h2 river: #{current_user.river.tiles.count}
   %ul
-    - current_user.hand.tiles.each do |tile|
-      %li= tile.kind
+    - current_user.river.tiles.each do |tile|
+      %li
+        = tile.kind
+
+- if current_user.hand
+  %h2 hand: #{current_user.hand.tiles.count}
+  %ul
+    - current_user.hand.tiles.sort_by(&:kind).each do |tile|
+      %li
+        = tile.kind
+        - if Action::Discard.able?(user: current_user, room: @room)
+          = button_to 'Discard', discard_room_actions_path(@room, id: tile.id)
+
 
 - if Action::Start.able?(user: current_user, room: @room)
   = button_to 'Start', start_room_actions_path(@room)
