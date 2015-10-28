@@ -11,7 +11,7 @@ class Action::Draw < Action::Base
       when Action::Start
         last_action.user == user
       when Action::Discard
-        game.next_user(last_action.user)
+        game.next_user(last_action.user) == user
       else
         false
       end
