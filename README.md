@@ -1,28 +1,22 @@
-== README
+# Janjan
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Requirements
 
-Things you may want to cover:
+- Ruby
+- bundler
+- bower
+- postgresql
+- redis
 
-* Ruby version
+## Setup
 
-* System dependencies
+    bin/setup
 
-* Configuration
+  For debugging, it is recommended to add `a` to `d` subdomains for localhost.
 
-* Database creation
+    # /etc/hosts
+    127.0.0.1       localhost a.localhost b.localhost c.localhost d.localhost
 
-* Database initialization
+## Run
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+    bin/rails s -b 0.0.0.0
