@@ -7,7 +7,7 @@
       .tile{data: {tile: tile.kind}}
 
 %h2 hand: #{current_user.hand.tiles.count}
-%ul
+%ul.hand
   - current_user.hand.tiles.sort_by(&:kind).each do |tile|
     %li
       .tile{data: {tile: tile.kind}}
