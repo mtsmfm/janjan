@@ -1,4 +1,6 @@
 class ActionsController < ApplicationController
+  after_action :notify_action_created
+
   def create
   end
 
@@ -51,5 +53,13 @@ class ActionsController < ApplicationController
     end
 
     redirect_to room
+  end
+
+  private
+
+  def notify_action_created
+    (current_user.room.users - [current_user]).each do |user|
+      ActionCable.server.broadcast "web_notifications_#{user.id}", {}
+    end
   end
 end
