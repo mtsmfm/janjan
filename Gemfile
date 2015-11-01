@@ -2,11 +2,13 @@ source 'https://rubygems.org'
 
 gem 'rails', '4.2.4'
 
+gem 'actioncable', github: 'rails/actioncable'
 gem 'coffee-rails'
 gem 'haml-rails'
 gem 'jbuilder'
 gem 'jquery-rails'
 gem 'pg'
+gem 'puma'
 gem 'sass-rails'
 gem 'uglifier'
 

@@ -11,6 +11,8 @@ Rails.application.routes.draw do
       end
     end
   end
+
+  match '/websocket', to: ActionCable.server, via: [:get, :post]
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
