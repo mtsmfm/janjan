@@ -1,7 +1,7 @@
 %h2 wall: #{@room.game.wall.tiles.count}
 
 %h2 river: #{current_user.river.tiles.count}
-%ul
+%ul.river
   - current_user.river.tiles.each do |tile|
     %li
       .tile{data: {tile: tile.kind}}
