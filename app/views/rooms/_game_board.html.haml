@@ -1,12 +1,10 @@
 %h2 wall: #{@room.game.wall.tiles.count}
 
-%h2 river: #{current_user.river.tiles.count}
 %ul.river
   - current_user.river.tiles.each do |tile|
     %li
       .tile{data: {tile: tile.kind}}
 
-%h2 hand: #{current_user.hand.tiles.count}
 %ul.hand
   - current_user.hand.tiles.sort_by(&:kind).each do |tile|
     %li
