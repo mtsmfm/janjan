@@ -8,14 +8,14 @@
   %ul
     - current_user.river.tiles.each do |tile|
       %li
-        = tile.kind
+        .tile{data: {tile: tile.kind}}
 
 - if current_user.hand
   %h2 hand: #{current_user.hand.tiles.count}
   %ul
     - current_user.hand.tiles.sort_by(&:kind).each do |tile|
       %li
-        = tile.kind
+        .tile{data: {tile: tile.kind}}
         - if Action::Discard.able?(user: current_user, room: @room)
           = button_to 'Discard', discard_room_actions_path(@room, id: tile.id)
 

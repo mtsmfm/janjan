@@ -1,0 +1,5 @@
+.tile
+  <% Tile::KINDS.each.with_index do |kind, i| %>
+  &[data-tile="<%= kind %>"]
+    +tj-icon($tj-var-<%= kind %>)
+  <% end %>
