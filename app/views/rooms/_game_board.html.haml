@@ -1,9 +1,28 @@
 %h2 wall: #{@room.game.wall.tiles.count}
 
-%ul.river
-  - current_user.river.tiles.each do |tile|
-    %li
-      .tile{data: {tile: tile.kind}}
+- users = [current_user]
+- 3.times do
+  - users << @room.game.next_user(users.last)
+
+.rivers
+  .rivers__left
+    %ul{class: 'river river--3'}
+      - users[3].river.tiles.each do |tile|
+        %li.tile{data: {tile: tile.kind}}
+
+  .rivers__center
+    %ul{class: 'river river--0'}
+      - users[0].river.tiles.each do |tile|
+        %li.tile{data: {tile: tile.kind}}
+
+    %ul{class: 'river river--2'}
+      - users[2].river.tiles.each do |tile|
+        %li.tile{data: {tile: tile.kind}}
+
+  .rivers__right
+    %ul{class: 'river river--1'}
+      - users[1].river.tiles.each do |tile|
+        %li.tile{data: {tile: tile.kind}}
 
 %ul.hand
   - current_user.hand.tiles.sort_by(&:kind).each do |tile|
