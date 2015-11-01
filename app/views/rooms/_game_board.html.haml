@@ -7,21 +7,21 @@
 .rivers
   .rivers__left
     %ul{class: 'river river--3'}
-      - users[3].river.tiles.each do |tile|
+      - users[3].river.tiles.order(:updated_at).each do |tile|
         %li.tile{data: {tile: tile.kind}}
 
   .rivers__center
     %ul{class: 'river river--0'}
-      - users[0].river.tiles.each do |tile|
+      - users[0].river.tiles.order(:updated_at).each do |tile|
         %li.tile{data: {tile: tile.kind}}
 
     %ul{class: 'river river--2'}
-      - users[2].river.tiles.each do |tile|
+      - users[2].river.tiles.order(:updated_at).each do |tile|
         %li.tile{data: {tile: tile.kind}}
 
   .rivers__right
     %ul{class: 'river river--1'}
-      - users[1].river.tiles.each do |tile|
+      - users[1].river.tiles.order(:updated_at).each do |tile|
         %li.tile{data: {tile: tile.kind}}
 
 %ul.hand
