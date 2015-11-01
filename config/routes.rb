@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  root to: redirect('/rooms')
+
   resources :rooms do
     resources :joins
     resources :actions, only: [] do
