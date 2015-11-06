@@ -1,0 +1,16 @@
+test:
+  override:
+    - /bin/true
+
+deployment:
+  production:
+    branch: master
+    commands:
+      - |
+        if [ -z "${BUNDLE_UPDATE}" ] ; then
+          echo 'TODO: deploy'
+        else
+          gem update bundler --no-document
+          gem install circleci-bundle-update-pr
+          circleci-bundle-update-pr CircleCI circleci@example.com
+        fi
