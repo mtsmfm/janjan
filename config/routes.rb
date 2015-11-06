@@ -8,6 +8,7 @@ Rails.application.routes.draw do
         post :start
         post :draw
         post :discard
+        post :self_pick
       end
     end
   end

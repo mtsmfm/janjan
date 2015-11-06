@@ -55,6 +55,17 @@ class ActionsController < ApplicationController
     redirect_to room
   end
 
+  def self_pick
+    room = current_user.room
+    game = room.game
+
+    game.transaction do
+      Action::SelfPick.create!(user: current_user, game: game)
+    end
+
+    redirect_to room
+  end
+
   private
 
   def notify_action_created

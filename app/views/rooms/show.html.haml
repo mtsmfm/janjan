@@ -8,3 +8,6 @@
 
 - if Action::Draw.able?(user: current_user, room: @room)
   = button_to 'Draw', draw_room_actions_path(@room)
+
+- if Action::SelfPick.able?(user: current_user, room: @room)
+  = button_to 'SelfPick', self_pick_room_actions_path(@room)

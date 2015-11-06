@@ -17,4 +17,8 @@ class Game < ActiveRecord::Base
 
     users[index]
   end
+
+  def end?
+    actions.last.instance_of?(Action::SelfPick)
+  end
 end
