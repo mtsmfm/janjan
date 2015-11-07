@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/rails/actioncable.git
-  revision: e2ed68cc70925372681c2fb50b505b110825c8f7
+  revision: 63cdbf87ddaeb6bbc852de7ca2c504b7f6a22321
   specs:
     actioncable (0.0.3)
       actionpack (>= 4.2.0)
@@ -69,7 +69,7 @@ GEM
     erubis (2.7.0)
     eventmachine (1.0.8)
     execjs (2.6.0)
-    faye-websocket (0.10.0)
+    faye-websocket (0.10.1)
       eventmachine (>= 0.12.0)
       websocket-driver (>= 0.5.1)
     globalid (0.3.6)
@@ -119,7 +119,7 @@ GEM
       pry (~> 0.10)
     pry-rails (0.3.4)
       pry (>= 0.9.10)
-    puma (2.14.0)
+    puma (2.15.2)
     rack (1.6.4)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -177,7 +177,7 @@ GEM
     uglifier (2.7.2)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
-    websocket-driver (0.6.2)
+    websocket-driver (0.6.3)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
 
