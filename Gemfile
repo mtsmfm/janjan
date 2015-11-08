@@ -19,11 +19,11 @@ gem 'sass-rails'
 gem 'uglifier'
 
 group :development do
-  gem 'pry-rails'
   gem 'spring'
 end
 
 group :development, :test do
   gem 'byebug'
   gem 'pry-byebug'
+  gem 'pry-rails'
 end
