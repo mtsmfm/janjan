@@ -12,9 +12,7 @@ class ActionsController < ApplicationController
     room.transaction do
       game = room.create_game!
 
-      tiles = (Tile::KINDS * 4).shuffle.map do |kind|
-        Tile.new(kind: kind)
-      end
+      tiles = Tile.build_tiles
 
       room.users.each do |user|
         game.hands.create!(user: user, tiles: tiles.shift(13))

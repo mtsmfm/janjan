@@ -38,4 +38,12 @@ class Tile < ActiveRecord::Base
   )
 
   belongs_to :game
+
+  class << self
+    def build_tiles
+      (Tile::KINDS * 4).shuffle.map do |kind|
+        Tile.new(kind: kind)
+      end
+    end
+  end
 end

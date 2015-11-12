@@ -22,6 +22,15 @@ group :development do
   gem 'spring'
 end
 
+group :test do
+  gem 'capybara'
+  gem 'capybara-puma'
+  gem 'connection_pool'
+  gem 'launchy'
+  gem 'mocha'
+  gem 'selenium-webdriver'
+end
+
 group :development, :test do
   gem 'byebug'
   gem 'pry-byebug'
