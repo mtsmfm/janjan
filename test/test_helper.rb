@@ -3,7 +3,7 @@ require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 require 'capybara/rails'
 require 'mocha/mini_test'
-require 'pry-rescue/minitest'
+require 'pry-rescue/minitest' unless ENV['CI']
 
 Rake::Task['db:test:prepare'].invoke
 
