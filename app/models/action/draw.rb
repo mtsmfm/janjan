@@ -9,9 +9,9 @@ class Action::Draw < Action::Base
 
       case last_action
       when Action::Start
-        last_action.user == user
+        last_action.seat == user.seat
       when Action::Discard
-        game.next_user(last_action.user) == user
+        last_action.seat.next == user.seat
       else
         false
       end

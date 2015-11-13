@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(version: 20151013124540) do
     t.integer  "game_id",    null: false
     t.string   "type",       null: false
     t.integer  "tile_id"
-    t.integer  "user_id"
+    t.integer  "seat_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -29,14 +29,14 @@ ActiveRecord::Schema.define(version: 20151013124540) do
 
   create_table "fields", force: :cascade do |t|
     t.integer  "game_id",    null: false
-    t.integer  "user_id"
+    t.integer  "seat_id"
     t.string   "type",       null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   add_index "fields", ["game_id"], name: "index_fields_on_game_id", using: :btree
-  add_index "fields", ["user_id"], name: "index_fields_on_user_id", using: :btree
+  add_index "fields", ["seat_id"], name: "index_fields_on_seat_id", using: :btree
 
   create_table "games", force: :cascade do |t|
     t.integer  "room_id",    null: false
@@ -61,6 +61,17 @@ ActiveRecord::Schema.define(version: 20151013124540) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "seats", force: :cascade do |t|
+    t.integer  "user_id",    null: false
+    t.integer  "game_id",    null: false
+    t.string   "position",   null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "seats", ["game_id"], name: "index_seats_on_game_id", using: :btree
+  add_index "seats", ["user_id"], name: "index_seats_on_user_id", using: :btree
+
   create_table "tiles", force: :cascade do |t|
     t.integer  "field_id",   null: false
     t.string   "kind",       null: false
@@ -76,12 +87,14 @@ ActiveRecord::Schema.define(version: 20151013124540) do
   end
 
   add_foreign_key "actions", "games"
+  add_foreign_key "actions", "seats"
   add_foreign_key "actions", "tiles"
-  add_foreign_key "actions", "users"
   add_foreign_key "fields", "games"
-  add_foreign_key "fields", "users"
+  add_foreign_key "fields", "seats"
   add_foreign_key "games", "rooms"
   add_foreign_key "joins", "rooms"
   add_foreign_key "joins", "users"
+  add_foreign_key "seats", "games"
+  add_foreign_key "seats", "users"
   add_foreign_key "tiles", "fields"
 end

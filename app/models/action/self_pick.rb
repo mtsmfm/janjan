@@ -9,7 +9,7 @@ class Action::SelfPick < Action::Base
 
       case last_action
       when Action::Draw
-        last_action.user == user && WinDetector.new(user.hand.tiles.map(&:kind)).win?
+        last_action.seat == user.seat && WinDetector.new(user.seat.hand.tiles.map(&:kind)).win?
       else
         false
       end

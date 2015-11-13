@@ -21,9 +21,17 @@ class Init < ActiveRecord::Migration
       t.timestamps null: false
     end
 
+    create_table :seats do |t|
+      t.references :user, foreign_key: true, index: true, null: false
+      t.references :game, foreign_key: true, index: true, null: false
+      t.string :position, null: false
+
+      t.timestamps null: false
+    end
+
     create_table :fields do |t|
       t.references :game, foreign_key: true, index: true, null: false
-      t.references :user, foreign_key: true, index: true
+      t.references :seat, foreign_key: true, index: true
       t.string :type, null: false
 
       t.timestamps null: false
@@ -40,7 +48,7 @@ class Init < ActiveRecord::Migration
       t.references :game, foreign_key: true, index: true, null: false
       t.string :type, null: false
       t.references :tile, foreign_key: true
-      t.references :user, foreign_key: true
+      t.references :seat, foreign_key: true
 
       t.timestamps null: false
     end

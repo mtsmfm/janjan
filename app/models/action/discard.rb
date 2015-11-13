@@ -9,7 +9,7 @@ class Action::Discard < Action::Base
 
       case last_action
       when Action::Draw
-        last_action.user == user
+        last_action.seat == user.seat
       else
         false
       end
