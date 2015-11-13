@@ -1,9 +1,6 @@
 class User < ActiveRecord::Base
-  has_many :joins
+  has_one :join
   has_one :hand, class_name: 'Field::Hand'
   has_one :river, class_name: 'Field::River'
-
-  def room
-    joins.first.room
-  end
+  has_one :room, through: :join
 end
