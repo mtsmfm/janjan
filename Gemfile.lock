@@ -52,6 +52,8 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.3.8)
     arel (6.0.3)
+    binding_of_caller (0.7.2)
+      debug_inspector (>= 0.0.1)
     builder (3.2.2)
     byebug (8.1.0)
     capybara (2.5.0)
@@ -76,6 +78,7 @@ GEM
       execjs
     coffee-script-source (1.9.1.1)
     connection_pool (2.2.0)
+    debug_inspector (0.0.2)
     em-hiredis (0.3.0)
       eventmachine (~> 1.0)
       hiredis (~> 0.5.0)
@@ -104,6 +107,7 @@ GEM
       nokogiri (~> 1.6.0)
       ruby_parser (~> 3.5)
     i18n (0.7.0)
+    interception (0.5)
     jbuilder (2.3.2)
       activesupport (>= 3.0.0, < 5)
       multi_json (~> 1.2)
@@ -138,6 +142,12 @@ GEM
       pry (~> 0.10)
     pry-rails (0.3.4)
       pry (>= 0.9.10)
+    pry-rescue (1.4.2)
+      interception (>= 0.5)
+      pry
+    pry-stack_explorer (0.4.9.2)
+      binding_of_caller (>= 0.7)
+      pry (>= 0.9.11)
     puma (2.15.3)
     rack (1.6.4)
     rack-test (0.6.3)
@@ -192,6 +202,8 @@ GEM
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (>= 2.8, < 4.0)
+    tapp (1.5.0)
+      thor
     thor (0.19.1)
     thread_safe (0.3.5)
     tilt (2.0.1)
@@ -227,11 +239,14 @@ DEPENDENCIES
   pg
   pry-byebug
   pry-rails
+  pry-rescue
+  pry-stack_explorer
   puma
   rails (= 4.2.4)
   sass-rails
   selenium-webdriver
   spring
+  tapp
   uglifier
 
 BUNDLED WITH
