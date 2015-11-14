@@ -21,10 +21,12 @@ class Init < ActiveRecord::Migration
       t.timestamps null: false
     end
 
+    execute %(CREATE TYPE seat_position AS ENUM (%s);) % (0..3).map {|s| %('#{s}') }.join(?,)
+
     create_table :seats do |t|
       t.references :user, foreign_key: true, index: true, null: false
       t.references :game, foreign_key: true, index: true, null: false
-      t.string :position, null: false
+      t.column :position, :seat_position, null: false
 
       t.timestamps null: false
     end

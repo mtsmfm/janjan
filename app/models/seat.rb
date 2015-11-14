@@ -1,5 +1,5 @@
 class Seat < ActiveRecord::Base
-  enum position: %w(east south west north).tap {|a| break a.zip(a).to_h }
+  enum position: %i(east south west north)
 
   has_one :river, class_name: 'Field::River'
   has_one :hand, class_name: 'Field::Hand'
