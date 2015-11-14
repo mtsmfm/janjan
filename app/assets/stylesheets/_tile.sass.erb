@@ -1,4 +1,9 @@
 .tile
+  width: $tile-size
+  height: $tile-size
+  background-color: white
+  color: black
+
   <% Tile::KINDS.each.with_index do |kind, i| %>
   &[data-tile="<%= kind %>"]
     +tj-icon($tj-var-<%= kind %>)
