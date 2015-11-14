@@ -23,9 +23,8 @@ ActiveRecord::Schema.define(version: 20151013124540) do
     t.integer  "seat_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["game_id"], name: "index_actions_on_game_id", using: :btree
   end
-
-  add_index "actions", ["game_id"], name: "index_actions_on_game_id", using: :btree
 
   create_table "fields", force: :cascade do |t|
     t.integer  "game_id",    null: false
@@ -33,28 +32,25 @@ ActiveRecord::Schema.define(version: 20151013124540) do
     t.string   "type",       null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["game_id"], name: "index_fields_on_game_id", using: :btree
+    t.index ["seat_id"], name: "index_fields_on_seat_id", using: :btree
   end
-
-  add_index "fields", ["game_id"], name: "index_fields_on_game_id", using: :btree
-  add_index "fields", ["seat_id"], name: "index_fields_on_seat_id", using: :btree
 
   create_table "games", force: :cascade do |t|
     t.integer  "room_id",    null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["room_id"], name: "index_games_on_room_id", using: :btree
   end
-
-  add_index "games", ["room_id"], name: "index_games_on_room_id", using: :btree
 
   create_table "joins", force: :cascade do |t|
     t.integer  "user_id",    null: false
     t.integer  "room_id",    null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["room_id"], name: "index_joins_on_room_id", using: :btree
+    t.index ["user_id"], name: "index_joins_on_user_id", using: :btree
   end
-
-  add_index "joins", ["room_id"], name: "index_joins_on_room_id", using: :btree
-  add_index "joins", ["user_id"], name: "index_joins_on_user_id", using: :btree
 
   create_table "rooms", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -67,19 +63,17 @@ ActiveRecord::Schema.define(version: 20151013124540) do
     t.string   "position",   null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["game_id"], name: "index_seats_on_game_id", using: :btree
+    t.index ["user_id"], name: "index_seats_on_user_id", using: :btree
   end
-
-  add_index "seats", ["game_id"], name: "index_seats_on_game_id", using: :btree
-  add_index "seats", ["user_id"], name: "index_seats_on_user_id", using: :btree
 
   create_table "tiles", force: :cascade do |t|
     t.integer  "field_id",   null: false
     t.string   "kind",       null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["field_id"], name: "index_tiles_on_field_id", using: :btree
   end
-
-  add_index "tiles", ["field_id"], name: "index_tiles_on_field_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.datetime "created_at", null: false
