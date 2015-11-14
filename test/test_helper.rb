@@ -10,7 +10,7 @@ Rake::Task['db:test:prepare'].invoke
 Dir[Rails.root.join('test/support/**')].each {|f| require f }
 
 class ActiveSupport::TestCase
-  self.use_transactional_fixtures = false
+  self.use_transactional_tests = false
 end
 
 ActionDispatch::IntegrationTest.include(Capybara::DSL)
