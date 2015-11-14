@@ -219,6 +219,7 @@ CREATE TABLE seats (
     user_id integer NOT NULL,
     game_id integer NOT NULL,
     "position" seat_position NOT NULL,
+    point integer NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );

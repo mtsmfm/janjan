@@ -27,6 +27,7 @@ class Init < ActiveRecord::Migration
       t.references :user, foreign_key: true, index: true, null: false
       t.references :game, foreign_key: true, index: true, null: false
       t.column :position, :seat_position, null: false
+      t.integer :point, null: false
 
       t.timestamps null: false
     end

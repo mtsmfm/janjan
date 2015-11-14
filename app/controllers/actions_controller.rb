@@ -12,7 +12,7 @@ class ActionsController < ApplicationController
     room.transaction do
       game = room.create_game!
       room.users.zip(Seat.positions.keys) do |user, pos|
-        game.seats.create!(position: pos, user: user)
+        game.seats.create!(position: pos, user: user, point: 25000)
       end
 
       tiles = Tile.build_tiles
