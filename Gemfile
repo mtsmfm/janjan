@@ -6,15 +6,17 @@ else
   ruby '2.2.3'
 end
 
-gem 'rails', '4.2.4'
+gem 'rails', github: 'rails/rails'
 
 gem 'actioncable', github: 'rails/actioncable'
+gem 'arel', github: 'rails/arel'
 gem 'coffee-rails'
 gem 'haml-rails'
 gem 'jbuilder'
 gem 'jquery-rails'
 gem 'pg'
 gem 'puma'
+gem 'rack', github: 'rack/rack'
 gem 'sass-rails'
 gem 'uglifier'
 
