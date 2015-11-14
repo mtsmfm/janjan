@@ -7,6 +7,7 @@
 - bower
 - postgresql
 - redis
+- phantomjs >= 2 for testing
 
 ## Setup
 
