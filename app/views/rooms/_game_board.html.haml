@@ -1,32 +1,24 @@
-%h2 wall: #{@room.game.wall.tiles.count}
-
 - users = [current_user]
 - 3.times do
   - users << @room.game.next_user(users.last)
 
-.rivers
-  .rivers__left
-    %ul{class: 'river river--3'}
-      - users[3].river.tiles.order(:updated_at).each do |tile|
-        %li.tile{data: {tile: tile.kind}}
+%ul.game-info
+  %ul wall: #{@room.game.wall.tiles.count}
+.game-board
+  - users.each.with_index do |user, i|
+    %div{class: "user-field user-field--#{i}"}
+      .center-area
+        .player-info{data: {position: user.seat.position}}
+          .player-info__point= user.seat.point
+          .player-info__name user #{user.id}
+        %ul.river
+          - user.river.tiles.order(:updated_at).each do |tile|
+            %li.tile{data: {tile: tile.kind}}
 
-  .rivers__center
-    %ul{class: 'river river--0'}
-      - users[0].river.tiles.order(:updated_at).each do |tile|
-        %li.tile{data: {tile: tile.kind}}
-
-    %ul{class: 'river river--2'}
-      - users[2].river.tiles.order(:updated_at).each do |tile|
-        %li.tile{data: {tile: tile.kind}}
-
-  .rivers__right
-    %ul{class: 'river river--1'}
-      - users[1].river.tiles.order(:updated_at).each do |tile|
-        %li.tile{data: {tile: tile.kind}}
-
-%ul.hand
-  - current_user.hand.tiles.sort_by(&:kind).each do |tile|
-    %li
-      .tile{data: {tile: tile.kind}}
-        - if Action::Discard.able?(user: current_user, room: @room)
-          = button_to 'Discard', discard_room_actions_path(@room, id: tile.id)
+      - if user == current_user
+        %ul.hand
+          - current_user.hand.tiles.sort_by(&:kind).each do |tile|
+            %li
+              .tile{data: {tile: tile.kind}}
+                - if Action::Discard.able?(user: current_user, room: @room)
+                  = button_to 'Discard', discard_room_actions_path(@room, id: tile.id)

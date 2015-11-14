@@ -1,0 +1,67 @@
+.game-board
+  width:  $game-board-size
+  height: $game-board-size
+  position: relative
+
+.river
+  position: absolute
+  display: flex
+  flex-wrap: wrap
+  border: 1px black solid
+  width: 100%
+  height: $river-height
+  bottom: 0
+
+.center-area
+  width:  $center-area-size
+  height: $center-area-size
+  top: ($game-board-size - $center-area-size) / 2 + $center-area-size / 2
+  left: ($game-board-size - $center-area-size) / 2
+  position: absolute
+
+.game-info
+  position: absolute
+  left: 0
+
+.hand
+  display: flex
+  flex-wrap: wrap
+  position: absolute
+  justify-content: center
+  border: 1px black solid
+  bottom: 0
+  width: 100%
+
+.player-info
+  display: flex
+  flex-direction: column
+  flex-wrap: wrap
+  text-align: center
+  height: 50%
+  padding: 30% 20% 0
+  font-size: $tile-size / 2.1
+
+  @each $wind in east 東, south 南, west 西, north 北
+    &[data-position="#{nth($wind, 1)}"]::before
+      content: '#{nth($wind, 2)}'
+      font-size: $tile-size
+
+.room-info
+  position: absolute
+  right: 0
+
+.user-field
+  width: 100%
+  height: 100%
+  position: absolute
+
+  &--0
+
+  &--1
+    transform: rotate(-90deg)
+
+  &--2
+    transform: rotate(180deg)
+
+  &--3
+    transform: rotate(90deg)
