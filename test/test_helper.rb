@@ -5,8 +5,6 @@ require 'capybara/rails'
 require 'mocha/mini_test'
 require 'pry-rescue/minitest' unless ENV['CI']
 
-Rake::Task['db:test:prepare'].invoke
-
 Dir[Rails.root.join('test/support/**')].each {|f| require f }
 
 class ActiveSupport::TestCase
