@@ -3,6 +3,7 @@
   height: $tile-size
   background-color: white
   color: black
+  border-radius: $tile-size * 0.15
 
   <% Tile::KINDS.each.with_index do |kind, i| %>
   &[data-tile="<%= kind %>"]
