@@ -3,14 +3,7 @@ Rails.application.routes.draw do
 
   resources :rooms do
     resources :joins
-    resources :actions, only: [] do
-      collection do
-        post :start
-        post :draw
-        post :discard
-        post :self_pick
-      end
-    end
+    resources :actions, only: :create
   end
 
   match '/websocket', to: ActionCable.server, via: [:get, :post]

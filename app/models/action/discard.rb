@@ -14,5 +14,15 @@ class Action::Discard < Action::Base
         false
       end
     end
+
+    def act!(user:, room:, params:)
+      game = room.game
+
+      game.transaction do
+        user.river.tiles << user.hand.tiles.find(params[:id])
+
+        Action::Discard.create!(seat: user.seat, game: game)
+      end
+    end
   end
 end

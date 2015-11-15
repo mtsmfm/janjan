@@ -21,4 +21,4 @@
             %li
               .tile{data: {tile: tile.kind}}
                 - if Action::Discard.able?(user: current_user, room: @room)
-                  = button_to 'Discard', discard_room_actions_path(@room, id: tile.id)
+                  = button_to 'Discard', room_actions_path(@room, id: tile.id, type: :discard)

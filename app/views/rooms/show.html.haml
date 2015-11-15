@@ -5,10 +5,10 @@
   = render 'game_board'
 
 - if Action::Start.able?(user: current_user, room: @room)
-  = button_to 'Start', start_room_actions_path(@room)
+  = button_to 'Start', room_actions_path(@room, type: :start)
 
 - if Action::Draw.able?(user: current_user, room: @room)
-  = button_to 'Draw', draw_room_actions_path(@room)
+  = button_to 'Draw', room_actions_path(@room, type: :draw)
 
 - if Action::SelfPick.able?(user: current_user, room: @room)
-  = button_to 'SelfPick', self_pick_room_actions_path(@room)
+  = button_to 'SelfPick', room_actions_path(@room, type: :self_pick)

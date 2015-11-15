@@ -14,5 +14,13 @@ class Action::SelfPick < Action::Base
         false
       end
     end
+
+    def act!(user:, room:, params:)
+      game = room.game
+
+      game.transaction do
+        Action::SelfPick.create!(seat: user.seat, game: game)
+      end
+    end
   end
 end

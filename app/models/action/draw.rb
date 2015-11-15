@@ -16,5 +16,15 @@ class Action::Draw < Action::Base
         false
       end
     end
+
+    def act!(user:, room:, params:)
+      game = room.game
+
+      game.transaction do
+        user.hand.tiles << game.wall.tiles.first
+
+        Action::Draw.create!(seat: user.seat, game: game)
+      end
+    end
   end
 end
