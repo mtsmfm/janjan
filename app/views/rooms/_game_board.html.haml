@@ -1,23 +1,19 @@
-- users = [current_user]
-- 3.times do
-  - users << @room.game.next_user(users.last)
-
 %ul.game-info
   %ul wall: #{@room.game.wall.tiles.count}
 .game-board
-  - users.each.with_index do |user, i|
+  - 3.times.inject([current_user.seat]) {|seats| seats << seats.last.next }.each.with_index do |seat, i|
     %div{class: "user-field user-field--#{i}"}
       .center-area
-        .player-info{data: {position: user.seat.position}}
-          .player-info__point= user.seat.point
-          .player-info__name user #{user.id}
+        .player-info{data: {position: seat.position}}
+          .player-info__point= seat.point
+          .player-info__name seat.user #{seat.user.id}
         %ul.river
-          - user.river.tiles.order(:updated_at).each do |tile|
+          - seat.river.tiles.order(:updated_at).each do |tile|
             %li.tile{data: {tile: tile.kind}}
 
-      - if user == current_user
+      - if seat == current_user.seat
         %ul.hand
-          - current_user.hand.tiles.sort_by(&:kind).each do |tile|
+          - seat.hand.tiles.sort_by(&:kind).each do |tile|
             %li
               .tile{data: {tile: tile.kind}}
                 - if Action::Discard.able?(user: current_user, room: @room)
