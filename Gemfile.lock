@@ -7,7 +7,7 @@ GIT
 
 GIT
   remote: git://github.com/rails/actioncable.git
-  revision: 63cdbf87ddaeb6bbc852de7ca2c504b7f6a22321
+  revision: 6be2604aa719713c602b8a873337d328196f8f57
   specs:
     actioncable (0.0.3)
       actionpack (>= 4.2.0)
@@ -27,7 +27,7 @@ GIT
 
 GIT
   remote: git://github.com/rails/rails.git
-  revision: fdf5d4dfc30ce5a599392305567c0230c21b9b84
+  revision: e38e0c61e9d73b3531a02c6dd44c9694f64f2c0a
   specs:
     actionmailer (5.0.0.alpha)
       actionpack (= 5.0.0.alpha)
