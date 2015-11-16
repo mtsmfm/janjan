@@ -4,11 +4,6 @@
 - if @room.game
   = render 'game_board'
 
-- if Action::Start.able?(user: current_user, room: @room)
-  = button_to 'Start', room_actions_path(@room, type: :start)
-
-- if Action::Draw.able?(user: current_user, room: @room)
-  = button_to 'Draw', room_actions_path(@room, type: :draw)
-
-- if Action::SelfPick.able?(user: current_user, room: @room)
-  = button_to 'SelfPick', room_actions_path(@room, type: :self_pick)
+= button_to_action_if_able user: current_user, room: @room, type: :start
+= button_to_action_if_able user: current_user, room: @room, type: :draw
+= button_to_action_if_able user: current_user, room: @room, type: :self_pick

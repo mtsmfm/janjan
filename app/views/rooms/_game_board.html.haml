@@ -16,5 +16,4 @@
           - seat.hand.tiles.sort_by(&:kind).each do |tile|
             %li
               .tile{data: {tile: tile.kind}}
-                - if Action::Discard.able?(user: current_user, room: @room)
-                  = button_to 'Discard', room_actions_path(@room, id: tile.id, type: :discard)
+                = button_to_action_if_able user: current_user, room: @room, type: :discard, params: {id: tile.id}
