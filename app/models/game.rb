@@ -8,17 +8,6 @@ class Game < ActiveRecord::Base
 
   belongs_to :room
 
-  def next_user(user)
-    index = {
-      0 => 1,
-      1 => 2,
-      2 => 3,
-      3 => 0,
-    }[users.index(user)]
-
-    users[index]
-  end
-
   def end?
     actions.last.instance_of?(Action::SelfPick)
   end
