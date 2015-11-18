@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :rooms do
     resources :joins
     resources :actions, only: :create
+    resources :games
   end
 
   match '/websocket', to: ActionCable.server, via: [:get, :post]

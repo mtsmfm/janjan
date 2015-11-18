@@ -15,5 +15,7 @@ class RoomsController < ApplicationController
 
   def show
     @room = Room.find(params[:id])
+
+    redirect_to [@room, @room.game] if @room.game
   end
 end

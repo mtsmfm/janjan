@@ -8,8 +8,8 @@ class Action::Draw < Action::Base
       last_action = game.actions.last
 
       case last_action
-      when Action::Start
-        last_action.seat == user.seat
+      when nil
+        user.seat.east?
       when Action::Discard
         last_action.seat.next == user.seat
       else

@@ -1,5 +1,5 @@
 %ul.game-info
-  %ul wall: #{@room.game.wall.tiles.count}
+  %ul wall: #{@game.wall.tiles.count}
 .game-board
   - 3.times.inject([current_user.seat]) {|seats| seats << seats.last.next }.each.with_index do |seat, i|
     %div{class: "user-field user-field--#{i}"}
@@ -16,4 +16,7 @@
           - seat.hand.tiles.sort_by(&:kind).each do |tile|
             %li
               .tile{data: {tile: tile.kind}}
-                = button_to_action_if_able user: current_user, room: @room, type: :discard, params: {id: tile.id}
+                = button_to_action_if_able user: current_user, room: @game.room, type: :discard, params: {id: tile.id}
+
+= button_to_action_if_able user: current_user, room: @game.room, type: :draw
+= button_to_action_if_able user: current_user, room: @game.room, type: :self_pick

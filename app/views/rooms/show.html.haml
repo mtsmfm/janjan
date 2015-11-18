@@ -1,9 +1,6 @@
 %ul.room-info
   %li room: #{@room.id}
 
-- if @room.game
-  = render 'game_board'
-
-= button_to_action_if_able user: current_user, room: @room, type: :start
-= button_to_action_if_able user: current_user, room: @room, type: :draw
-= button_to_action_if_able user: current_user, room: @room, type: :self_pick
+- if @room.ready_to_start_game?
+  = form_for [@room, Game.new] do |f|
+    = f.submit 'Start'
