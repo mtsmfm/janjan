@@ -27,7 +27,7 @@ GIT
 
 GIT
   remote: git://github.com/rails/rails.git
-  revision: 32a8cd961eec840f31e6d60948756070d188c2b4
+  revision: 3d8a7c0e64fef726c22fd64911771cee8c467447
   specs:
     actionmailer (5.0.0.alpha)
       actionpack (= 5.0.0.alpha)
@@ -214,7 +214,7 @@ GEM
       websocket (~> 1.0)
     sexp_processor (4.6.0)
     slop (3.6.0)
-    spring (1.4.3)
+    spring (1.4.4)
     sprockets (3.4.0)
       rack (> 1, < 3)
     sprockets-rails (2.3.3)
