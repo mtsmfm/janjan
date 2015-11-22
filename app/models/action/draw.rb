@@ -1,30 +1,20 @@
 class Action::Draw < Action::Base
-  class << self
-    def able?(user:, room:)
-      game = room.game
+  def able?
+    last_action = game.actions.last
 
-      return false unless game
-
-      last_action = game.actions.last
-
-      case last_action
-      when nil
-        user.seat.east?
-      when Action::Discard
-        last_action.seat.next == user.seat
-      else
-        false
-      end
+    case last_action
+    when nil
+      seat.east?
+    when Action::Discard
+      last_action.seat.next == seat
+    else
+      false
     end
+  end
 
-    def act!(user:, room:, params:)
-      game = room.game
+  def act!(params:)
+    seat.hand.tiles << game.wall.tiles.first
 
-      game.transaction do
-        user.hand.tiles << game.wall.tiles.first
-
-        Action::Draw.create!(seat: user.seat, game: game)
-      end
-    end
+    save!
   end
 end

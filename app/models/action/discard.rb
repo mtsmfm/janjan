@@ -1,28 +1,18 @@
 class Action::Discard < Action::Base
-  class << self
-    def able?(user:, room:)
-      game = room.game
+  def able?
+    last_action = game.actions.last
 
-      return false unless game
-
-      last_action = game.actions.last
-
-      case last_action
-      when Action::Draw
-        last_action.seat == user.seat
-      else
-        false
-      end
+    case last_action
+    when Action::Draw
+      last_action.seat == seat
+    else
+      false
     end
+  end
 
-    def act!(user:, room:, params:)
-      game = room.game
+  def act!(params:)
+    seat.river.tiles << seat.hand.tiles.find(params[:id])
 
-      game.transaction do
-        user.river.tiles << user.hand.tiles.find(params[:id])
-
-        Action::Discard.create!(seat: user.seat, game: game)
-      end
-    end
+    save!
   end
 end

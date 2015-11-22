@@ -2,12 +2,14 @@ class ActionsController < ApplicationController
   after_action :notify_action_created
 
   def create
-    klass = "Action::#{params[:type].classify}".constantize
-    raise unless klass.able?(user: current_user, room: current_room)
+    action = "Action::#{params[:type].classify}".constantize.new(seat: current_seat, game: current_game)
+    raise unless action.able?
 
-    klass.act!(user: current_user, room: current_room, params: params)
+    current_game.transaction do
+      action.act!(params: params)
+    end
 
-    redirect_to current_room
+    redirect_to [current_game.room, current_game]
   end
 
   private
@@ -18,7 +20,11 @@ class ActionsController < ApplicationController
     end
   end
 
-  def current_room
-    @current_room ||= Room.find(current_user.room.id)
+  def current_seat
+    @current_seat ||= Seat.find(current_user.seat.id)
+  end
+
+  def current_game
+    @current_game ||= Game.find(current_user.room.game.id)
   end
 end
