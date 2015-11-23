@@ -6,7 +6,7 @@
       .center-area
         .player-info{data: {position: seat.position}}
           .player-info__point= seat.point
-          .player-info__name seat.user #{seat.user.id}
+          .player-info__name user #{seat.user.id.first(5)}
         %ul.river
           - seat.river.tiles.order(:updated_at).each do |tile|
             %li.tile{data: {tile: tile.kind}}
