@@ -1,2 +1,8 @@
 - %w(a b c d).each do |subdomain|
   %iframe{src: rooms_url(subdomain: subdomain), width: '400px', height: '400px'}
+
+%h1 load fixtures
+
+%ul
+  - Dir[Rails.root.join('test/fixtures/tiles/**.yml')].map {|path| Pathname.new(path).basename }.each do |fixture|
+    %li= button_to fixture, load_fixture_debug_path(fixture: fixture)
