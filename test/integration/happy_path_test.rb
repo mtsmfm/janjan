@@ -12,7 +12,7 @@ class HappyPathTest < ActionDispatch::IntegrationTest
   end
 
   test 'happy path' do
-    yaml = YAML.load_file(Rails.root.join('test/integration/game_set/tiles.yml'))
+    yaml = YAML.load_file(Rails.root.join('test/fixtures/tiles/double_reach.yml'))
     Tile.stubs(:build_tiles).returns(
       yaml.values.flatten.map do |kind|
         Tile.new(kind: kind)
