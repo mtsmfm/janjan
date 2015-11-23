@@ -9,7 +9,8 @@ Rails.application.routes.draw do
 
   match '/websocket', to: ActionCable.server, via: [:get, :post]
 
-  get :debug, to: 'debug#index' if Rails.env.development?
+  resource :debug, only: :show do
+  end if Rails.env.development?
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
