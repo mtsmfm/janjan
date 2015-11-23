@@ -52,6 +52,7 @@ class Init < ActiveRecord::Migration
       t.string :type, null: false
       t.references :tile, foreign_key: true
       t.references :seat, foreign_key: true
+      t.integer :base_point
 
       t.timestamps null: false
     end

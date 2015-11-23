@@ -51,6 +51,7 @@ CREATE TABLE actions (
     type character varying NOT NULL,
     tile_id integer,
     seat_id integer,
+    base_point integer,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
