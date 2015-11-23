@@ -1,7 +1,5 @@
 class Action::Draw < Action::Base
   def able?
-    last_action = game.actions.last
-
     case last_action
     when nil
       seat.east?
@@ -13,7 +11,7 @@ class Action::Draw < Action::Base
   end
 
   def act!(params:)
-    seat.hand.tiles << game.wall.tiles.first
+    hand.tiles << wall.tiles.first
 
     save!
   end
