@@ -1,6 +1,8 @@
 class Init < ActiveRecord::Migration
   def change
-    create_table :users do |t|
+    enable_extension 'uuid-ossp'
+
+    create_table :users, id: :uuid do |t|
       t.timestamps null: false
     end
 
@@ -9,7 +11,7 @@ class Init < ActiveRecord::Migration
     end
 
     create_table :joins do |t|
-      t.references :user, foreign_key: true, index: true, null: false
+      t.references :user, foreign_key: true, index: true, null: false, type: :uuid
       t.references :room, foreign_key: true, index: true, null: false
 
       t.timestamps null: false
@@ -24,7 +26,7 @@ class Init < ActiveRecord::Migration
     execute %(CREATE TYPE seat_position AS ENUM (%s);) % (0..3).map {|s| %('#{s}') }.join(?,)
 
     create_table :seats do |t|
-      t.references :user, foreign_key: true, index: true, null: false
+      t.references :user, foreign_key: true, index: true, null: false, type: :uuid
       t.references :game, foreign_key: true, index: true, null: false
       t.column :position, :seat_position, null: false
       t.integer :point, null: false

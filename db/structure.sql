@@ -23,6 +23,20 @@ CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
 
 
+--
+-- Name: uuid-ossp; Type: EXTENSION; Schema: -; Owner: -
+--
+
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp" WITH SCHEMA public;
+
+
+--
+-- Name: EXTENSION "uuid-ossp"; Type: COMMENT; Schema: -; Owner: -
+--
+
+COMMENT ON EXTENSION "uuid-ossp" IS 'generate universally unique identifiers (UUIDs)';
+
+
 SET search_path = public, pg_catalog;
 
 --
@@ -146,7 +160,7 @@ ALTER SEQUENCE games_id_seq OWNED BY games.id;
 
 CREATE TABLE joins (
     id integer NOT NULL,
-    user_id integer NOT NULL,
+    user_id uuid NOT NULL,
     room_id integer NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
@@ -217,7 +231,7 @@ CREATE TABLE schema_migrations (
 
 CREATE TABLE seats (
     id integer NOT NULL,
-    user_id integer NOT NULL,
+    user_id uuid NOT NULL,
     game_id integer NOT NULL,
     "position" seat_position NOT NULL,
     point integer NOT NULL,
@@ -282,29 +296,10 @@ ALTER SEQUENCE tiles_id_seq OWNED BY tiles.id;
 --
 
 CREATE TABLE users (
-    id integer NOT NULL,
+    id uuid DEFAULT uuid_generate_v4() NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
-
-
---
--- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE users_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE users_id_seq OWNED BY users.id;
 
 
 --
@@ -354,13 +349,6 @@ ALTER TABLE ONLY seats ALTER COLUMN id SET DEFAULT nextval('seats_id_seq'::regcl
 --
 
 ALTER TABLE ONLY tiles ALTER COLUMN id SET DEFAULT nextval('tiles_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regclass);
 
 
 --
