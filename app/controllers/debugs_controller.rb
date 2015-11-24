@@ -10,6 +10,7 @@ class DebugsController < ApplicationController
     game = Game.last
 
     game.transaction do
+      game.seats.each {|s| s.update!(point: 25000) }
       game.hands.each {|h| h.tiles.destroy_all }
       game.wall.tiles.destroy_all
       game.actions.destroy_all
