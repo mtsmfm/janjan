@@ -34,8 +34,7 @@ group :test do
 end
 
 group :development, :test do
-  gem 'byebug'
-  gem 'pry-byebug'
+  gem 'pry'
   gem 'pry-rails'
   gem 'pry-rescue'
   gem 'pry-stack_explorer'
