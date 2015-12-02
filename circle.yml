@@ -17,5 +17,5 @@ deployment:
         else
           gem update bundler --no-document
           gem install circleci-bundle-update-pr
-          circleci-bundle-update-pr CircleCI circleci@example.com
+          circleci-bundle-update-pr kashima-bot kashima-bot@users.noreply.github.com
         fi
