@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/rack/rack.git
-  revision: c393176b0edf3e5d06cabbb6eb9d9c7a07b2afa7
+  revision: 96ae9b9fed8d6809383b6f48a5884437e76f8ca4
   specs:
     rack (2.0.0.alpha)
       json
@@ -27,7 +27,7 @@ GIT
 
 GIT
   remote: git://github.com/rails/rails.git
-  revision: e7c48db509f1b712c2a72a3ff7f27e3e8b7b4868
+  revision: a61e4ae58d65d43a97e90bdb02b6c407791e3c53
   specs:
     actionmailer (5.0.0.alpha)
       actionpack (= 5.0.0.alpha)
@@ -86,7 +86,7 @@ GIT
 GEM
   remote: https://rubygems.org/
   specs:
-    addressable (2.3.8)
+    addressable (2.4.0)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
     builder (3.2.2)
