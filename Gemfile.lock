@@ -7,7 +7,7 @@ GIT
 
 GIT
   remote: git://github.com/rails/actioncable.git
-  revision: 928aed6e2abc6405c6276530df07b4ac3bc9664b
+  revision: c362beab2edd3dcae248dfaaaf3e0dee12baafa8
   specs:
     actioncable (0.0.3)
       actionpack (>= 4.2.0)
@@ -27,7 +27,7 @@ GIT
 
 GIT
   remote: git://github.com/rails/rails.git
-  revision: a61e4ae58d65d43a97e90bdb02b6c407791e3c53
+  revision: cd355a8eeb676d172a1b9fa9855cb2531bd1b4e5
   specs:
     actionmailer (5.0.0.alpha)
       actionpack (= 5.0.0.alpha)
@@ -196,7 +196,7 @@ GEM
     ruby_parser (3.7.2)
       sexp_processor (~> 4.1)
     rubyzip (1.1.7)
-    sass (3.4.19)
+    sass (3.4.20)
     sass-rails (5.0.4)
       railties (>= 4.0.0, < 5.0)
       sass (~> 3.1)
