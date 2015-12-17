@@ -21,13 +21,13 @@ GIT
 
 GIT
   remote: git://github.com/rails/arel.git
-  revision: 3c429c5d86e9e2201c2a35d934ca6a8911c18e69
+  revision: 899e8428c50c586e6c8d4884b542ac9fdf01e95f
   specs:
     arel (7.0.0.alpha)
 
 GIT
   remote: git://github.com/rails/rails.git
-  revision: 89f776402dbaca581ef4bb342bb89db922124c7a
+  revision: e9d15072a94e2ae4dec5b7a121c84a5db38547b8
   specs:
     actionmailer (5.0.0.alpha)
       actionpack (= 5.0.0.alpha)
@@ -267,4 +267,4 @@ DEPENDENCIES
   uglifier
 
 BUNDLED WITH
-   1.11.1
+   1.11.2
