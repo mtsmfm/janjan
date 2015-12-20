@@ -3,12 +3,10 @@ source 'https://rubygems.org'
 if ENV['CUSTOM_RUBY_VERSION']
   ruby ENV['CUSTOM_RUBY_VERSION']
 else
-  ruby '2.2.3'
+  ruby '2.3.0'
 end
 
 gem 'rails', github: 'rails/rails'
-
-gem 'actioncable', github: 'rails/actioncable'
 gem 'arel', github: 'rails/arel'
 gem 'coffee-rails'
 gem 'haml-rails'
