@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/rack/rack.git
-  revision: f4562619c3c669404e39d9b09924bed5a6b71c14
+  revision: 7cb3772a03f1b713622f68e178f90a71a66aff0d
   specs:
     rack (2.0.0.alpha)
       json
@@ -13,7 +13,7 @@ GIT
 
 GIT
   remote: git://github.com/rails/rails.git
-  revision: cf8621a3e9676f0c62d84dc42797e75bc6ab1a1d
+  revision: 0d2675f84f54504e5ba25b2f53b00bac239ef393
   specs:
     actioncable (5.0.0.beta1)
       actionpack (= 5.0.0.beta1)
@@ -84,9 +84,9 @@ GEM
     addressable (2.4.0)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
-    bourbon (4.2.3)
+    bourbon (4.2.6)
       sass (~> 3.4)
-      thor
+      thor (~> 0.19)
     builder (3.2.2)
     capybara (2.5.0)
       mime-types (>= 1.16)
@@ -157,8 +157,8 @@ GEM
       ruby_parser (~> 3.5)
     i18n (0.7.0)
     interception (0.5)
-    jbuilder (2.3.2)
-      activesupport (>= 3.0.0, < 5)
+    jbuilder (2.4.0)
+      activesupport (>= 3.0.0, < 5.1)
       multi_json (~> 1.2)
     jquery-rails (4.0.5)
       rails-dom-testing (~> 1.0)
