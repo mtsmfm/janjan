@@ -53,18 +53,19 @@ class HappyPathTest < ActionDispatch::IntegrationTest
       click_on 'Start'
 
       click_on 'Draw'
-      within first('.hand .tile[data-tile="pin_1"]') do
-        click_on 'Discard'
-      end
+
+      first('.hand .tile[data-tile="pin_1"]').click
+
+      click_on 'Discard'
     end
 
     (2..4).each do |i|
       using_session "user #{i}" do
         click_on 'Draw'
 
-        within first('.hand .tile') do
-          click_on 'Discard'
-        end
+        first('.hand .tile').click
+
+        click_on 'Discard'
       end
     end
 

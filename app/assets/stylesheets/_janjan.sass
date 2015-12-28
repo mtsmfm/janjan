@@ -9,8 +9,8 @@
 
 .river
   position: absolute
-  display: flex
-  flex-wrap: wrap
+  +display(flex)
+  +flex-wrap(wrap)
   width: 100%
   height: $river-height
   bottom: 0
@@ -28,17 +28,18 @@
   z-index: 1
 
 .hand
-  display: flex
-  flex-wrap: wrap
+  +display(flex)
+  +flex-wrap(wrap)
+  +justify-content(center)
   position: absolute
-  justify-content: center
   bottom: 0
   width: 100%
+  z-index: 1
 
 .player-info
-  display: flex
-  flex-direction: column
-  flex-wrap: wrap
+  +display(flex)
+  +flex-direction(column)
+  +flex-wrap(wrap)
   text-align: center
   height: 50%
   padding: 30% 20% 0
@@ -62,10 +63,10 @@
   &--0
 
   &--1
-    transform: rotate(-90deg)
+    +transform(rotate(-90deg))
 
   &--2
-    transform: rotate(180deg)
+    +transform(rotate(180deg))
 
   &--3
-    transform: rotate(90deg)
+    +transform(rotate(90deg))

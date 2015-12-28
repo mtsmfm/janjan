@@ -12,11 +12,15 @@
             %li.tile{data: {tile: tile.kind}}
 
       - if seat == current_user.seat
-        %ul.hand
-          - seat.hand.tiles.sort_by(&:kind).each do |tile|
-            %li
-              .tile{data: {tile: tile.kind}}
-                = button_to_action_if_able user: current_user, room: @game.room, type: :discard, params: {id: tile.id}
+        = form_tag room_actions_path(type: :discard), id: :discard_form do
+          %ul.hand
+            - seat.hand.tiles.sort_by(&:kind).each do |tile|
+              %li
+                %label.tile{data: {tile: tile.kind}}
+                  - if Action::Discard.new(seat: current_user.seat, game: @game).able?
+                    %input{type: :radio, name: :id, value: tile.id}
 
+- if Action::Discard.new(seat: current_user.seat, game: @game).able?
+  %button{form: :discard_form} Discard
 = button_to_action_if_able user: current_user, room: @game.room, type: :draw
 = button_to_action_if_able user: current_user, room: @game.room, type: :self_pick

@@ -1,4 +1,4 @@
-#= require cable
+#= require action_cable
 
 @App = {}
-App.cable = Cable.createConsumer "ws://#{window.location.host}/websocket"
+App.cable = ActionCable.createConsumer "ws://#{window.location.host}/websocket"

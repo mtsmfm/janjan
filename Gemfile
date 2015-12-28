@@ -8,6 +8,7 @@ end
 
 gem 'rails', github: 'rails/rails'
 gem 'arel', github: 'rails/arel'
+gem 'bourbon'
 gem 'coffee-rails'
 gem 'haml-rails'
 gem 'jbuilder'
@@ -18,16 +19,13 @@ gem 'rack', github: 'rack/rack'
 gem 'sass-rails'
 gem 'uglifier'
 
-group :development do
-  gem 'spring'
-end
-
 group :test do
   gem 'capybara'
   gem 'capybara-puma'
   gem 'connection_pool'
   gem 'launchy'
   gem 'mocha'
+  gem 'poltergeist'
   gem 'selenium-webdriver'
 end
 

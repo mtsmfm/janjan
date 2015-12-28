@@ -3,6 +3,7 @@ require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 require 'capybara/rails'
 require 'mocha/mini_test'
+require 'capybara/poltergeist'
 require 'pry-rescue/minitest' unless ENV['CI']
 
 Dir[Rails.root.join('test/support/**')].each {|f| require f }
@@ -17,8 +18,4 @@ Capybara.register_driver :selenium_chrome do |app|
   Capybara::Selenium::Driver.new(app, browser: :chrome)
 end
 
-Capybara.register_driver :phantomjs do |app|
-  Capybara::Selenium::Driver.new(app, browser: :phantomjs)
-end
-
-Capybara.javascript_driver = :phantomjs
+Capybara.javascript_driver = :poltergeist

@@ -84,6 +84,9 @@ GEM
     addressable (2.4.0)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
+    bourbon (4.2.3)
+      sass (~> 3.4)
+      thor
     builder (3.2.2)
     capybara (2.5.0)
       mime-types (>= 1.16)
@@ -113,6 +116,7 @@ GEM
       timers (>= 4.1.1)
     childprocess (0.5.8)
       ffi (~> 1.0, >= 1.0.11)
+    cliver (0.3.2)
     coderay (1.1.0)
     coffee-rails (4.1.1)
       coffee-script (>= 2.2.0)
@@ -178,6 +182,11 @@ GEM
     nokogiri (1.6.7.1)
       mini_portile2 (~> 2.0.0.rc2)
     pg (0.18.4)
+    poltergeist (1.8.1)
+      capybara (~> 2.1)
+      cliver (~> 0.3.1)
+      multi_json (~> 1.0)
+      websocket-driver (>= 0.2.0)
     pry (0.10.3)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -220,7 +229,6 @@ GEM
       websocket (~> 1.0)
     sexp_processor (4.6.0)
     slop (3.6.0)
-    spring (1.6.0)
     sprockets (3.5.2)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
@@ -252,6 +260,7 @@ PLATFORMS
 
 DEPENDENCIES
   arel!
+  bourbon
   capybara
   capybara-puma
   coffee-rails
@@ -262,6 +271,7 @@ DEPENDENCIES
   launchy
   mocha
   pg
+  poltergeist
   pry
   pry-rails
   pry-rescue
@@ -271,7 +281,6 @@ DEPENDENCIES
   rails!
   sass-rails
   selenium-webdriver
-  spring
   tapp
   uglifier
 

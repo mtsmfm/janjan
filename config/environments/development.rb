@@ -52,11 +52,5 @@ Rails.application.configure do
   # config.action_view.raise_on_missing_translations = true
   config.action_dispatch.default_headers['X-Frame-Options'] = 'ALLOWALL'
 
-  config.action_cable.allowed_request_origins = %w(
-    http://localhost:3000
-    http://a.localhost:3000
-    http://b.localhost:3000
-    http://c.localhost:3000
-    http://d.localhost:3000
-  )
+  config.action_cable.disable_request_forgery_protection = true
 end
