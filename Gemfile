@@ -1,10 +1,6 @@
 source 'https://rubygems.org'
 
-if ENV['CUSTOM_RUBY_VERSION']
-  ruby ENV['CUSTOM_RUBY_VERSION']
-else
-  ruby '2.3.0'
-end
+ruby '2.3.0'
 
 gem 'rails', github: 'rails/rails'
 gem 'arel', github: 'rails/arel'
