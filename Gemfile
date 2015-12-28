@@ -15,6 +15,10 @@ gem 'rack', github: 'rack/rack'
 gem 'sass-rails'
 gem 'uglifier'
 
+group :development do
+  gem 'rails-erd'
+end
+
 group :test do
   gem 'capybara'
   gem 'capybara-puma'
