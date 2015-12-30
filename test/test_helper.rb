@@ -19,3 +19,4 @@ Capybara.register_driver :selenium_chrome do |app|
 end
 
 Capybara.javascript_driver = :poltergeist
+Capybara.default_max_wait_time = 10
