@@ -2,10 +2,10 @@ class ActionsController < ApplicationController
   after_action :notify_action_created
 
   def create
-    action = "Action::#{params[:type].classify}".constantize.new(seat: current_seat, game: current_game)
+    action = "Action::#{params[:type].classify}".constantize.new(seat: current_seat, round: current_round)
     raise unless action.able?
 
-    current_game.transaction do
+    current_round.transaction do
       action.act!(params: params)
     end
 
@@ -26,5 +26,9 @@ class ActionsController < ApplicationController
 
   def current_game
     @current_game ||= Game.find(current_user.room.game.id)
+  end
+
+  def current_round
+    @current_round ||= current_game.rounds.last
   end
 end

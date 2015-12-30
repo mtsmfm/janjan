@@ -23,11 +23,17 @@ class Init < ActiveRecord::Migration
       t.timestamps null: false
     end
 
+    create_table :rounds do |t|
+      t.references :game, foreign_key: true, index: true, null: false
+
+      t.timestamps null: false
+    end
+
     execute %(CREATE TYPE seat_position AS ENUM (%s);) % (0..3).map {|s| %('#{s}') }.join(?,)
 
     create_table :seats do |t|
       t.references :user, foreign_key: true, index: true, null: false, type: :uuid
-      t.references :game, foreign_key: true, index: true, null: false
+      t.references :round, foreign_key: true, index: true, null: false
       t.column :position, :seat_position, null: false
       t.integer :point, null: false
 
@@ -35,7 +41,7 @@ class Init < ActiveRecord::Migration
     end
 
     create_table :fields do |t|
-      t.references :game, foreign_key: true, index: true, null: false
+      t.references :round, foreign_key: true, index: true, null: false
       t.references :seat, foreign_key: true, index: true
       t.string :type, null: false
 
@@ -50,7 +56,7 @@ class Init < ActiveRecord::Migration
     end
 
     create_table :actions do |t|
-      t.references :game, foreign_key: true, index: true, null: false
+      t.references :round, foreign_key: true, index: true, null: false
       t.string :type, null: false
       t.references :tile, foreign_key: true
       t.references :seat, foreign_key: true

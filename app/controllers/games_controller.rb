@@ -1,6 +1,7 @@
 class GamesController < ApplicationController
   def show
     @game = Game.find_by!(id: params[:id], room_id: params[:room_id])
+    @round = @game.rounds.last
   end
 
   def create
@@ -12,18 +13,20 @@ class GamesController < ApplicationController
 
     room.transaction do
       game.save!
+      round = game.rounds.create!
+
       room.users.zip(Seat.positions.keys) do |u, p|
-        game.seats.create!(user: u, position: p, point: 25000)
+        round.seats.create!(user: u, position: p, point: 25000)
       end
 
       tiles = Tile.build_tiles
 
-      game.seats.each do |seat|
-        game.hands.create!(seat: seat, tiles: tiles.shift(13))
-        game.rivers.create!(seat: seat)
+      round.seats.each do |seat|
+        round.hands.create!(seat: seat, tiles: tiles.shift(13))
+        round.rivers.create!(seat: seat)
       end
 
-      game.create_wall!(tiles: tiles)
+      round.create_wall!(tiles: tiles)
     end
 
     redirect_to [room, game]
