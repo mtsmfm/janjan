@@ -44,10 +44,10 @@ SET search_path = public, pg_catalog;
 --
 
 CREATE TYPE seat_position AS ENUM (
-    '0',
-    '1',
-    '2',
-    '3'
+    'east',
+    'south',
+    'west',
+    'north'
 );
 
 

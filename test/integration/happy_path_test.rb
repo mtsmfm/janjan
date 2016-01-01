@@ -3,12 +3,10 @@ require 'test_helper'
 class HappyPathTest < ActionDispatch::IntegrationTest
   setup do
     Capybara.current_driver = Capybara.javascript_driver
-
-    ActiveRecord::Base.connection.begin_transaction(joinable: false)
   end
 
   teardown do
-    ActiveRecord::Base.connection.rollback_transaction
+    DatabaseRewinder.clean
   end
 
   test 'happy path' do

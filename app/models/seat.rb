@@ -1,5 +1,6 @@
 class Seat < ActiveRecord::Base
-  enum position: %i(east south west north)
+  pos = %i(east south west north)
+  enum position: pos.zip(pos.map(&:to_s)).to_h
 
   has_one :river, class_name: 'Field::River'
   has_one :hand, class_name: 'Field::Hand'

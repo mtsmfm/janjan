@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/rack/rack.git
-  revision: 7cb3772a03f1b713622f68e178f90a71a66aff0d
+  revision: a7b3c3c4f67ae71326169806d56bc5fd1b8dd3db
   specs:
     rack (2.0.0.alpha)
       json
@@ -127,7 +127,7 @@ GEM
       execjs
     coffee-script-source (1.10.0)
     concurrent-ruby (1.0.0)
-    connection_pool (2.2.0)
+    database_rewinder (0.5.3)
     debug_inspector (0.0.2)
     em-hiredis (0.3.0)
       eventmachine (~> 1.0)
@@ -271,7 +271,7 @@ DEPENDENCIES
   capybara
   capybara-puma
   coffee-rails
-  connection_pool
+  database_rewinder
   haml-rails
   jbuilder
   jquery-rails

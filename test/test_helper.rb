@@ -1,3 +1,11 @@
+module Celluloid
+  class << self
+    def register_shutdown
+      # nop
+    end
+  end
+end
+
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
@@ -20,3 +28,5 @@ end
 
 Capybara.javascript_driver = :poltergeist
 Capybara.default_max_wait_time = 10
+
+DatabaseRewinder.clean_all

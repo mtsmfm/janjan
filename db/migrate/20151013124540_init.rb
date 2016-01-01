@@ -29,7 +29,7 @@ class Init < ActiveRecord::Migration
       t.timestamps null: false
     end
 
-    execute %(CREATE TYPE seat_position AS ENUM (%s);) % (0..3).map {|s| %('#{s}') }.join(?,)
+    execute %(CREATE TYPE seat_position AS ENUM (%s);) % %i(east south west north).map {|s| %('#{s}') }.join(?,)
 
     create_table :seats do |t|
       t.references :user, foreign_key: true, index: true, null: false, type: :uuid

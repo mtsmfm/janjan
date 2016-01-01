@@ -22,7 +22,7 @@ end
 group :test do
   gem 'capybara'
   gem 'capybara-puma'
-  gem 'connection_pool'
+  gem 'database_rewinder'
   gem 'launchy'
   gem 'mocha'
   gem 'poltergeist'
