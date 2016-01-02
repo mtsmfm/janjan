@@ -56,7 +56,7 @@ class Tile < ActiveRecord::Base
     pin_9
   )
 
-  belongs_to :game
+  belongs_to :round
 
   class << self
     def build_tiles
