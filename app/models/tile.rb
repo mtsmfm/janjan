@@ -1,3 +1,22 @@
+# == Schema Information
+#
+# Table name: tiles
+#
+#  id         :integer          not null, primary key
+#  field_id   :integer          not null
+#  kind       :string           not null
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+# Indexes
+#
+#  index_tiles_on_field_id  (field_id)
+#
+# Foreign Keys
+#
+#  fk_rails_096a2efd02  (field_id => fields.id)
+#
+
 class Tile < ActiveRecord::Base
   # https://en.wikipedia.org/wiki/Japanese_Mahjong#General_mahjong_rules
   KINDS = %i(

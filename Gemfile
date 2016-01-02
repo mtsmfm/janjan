@@ -16,6 +16,7 @@ gem 'sass-rails'
 gem 'uglifier'
 
 group :development do
+  gem 'annotate'
   gem 'rails-erd'
 end
 
