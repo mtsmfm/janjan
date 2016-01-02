@@ -22,7 +22,6 @@ class Round < ActiveRecord::Base
   has_one :wall, class_name: 'Field::Wall', dependent: :destroy
   has_many :actions, class_name: 'Action::Base', dependent: :destroy
   has_many :users, through: :seats
-  has_many :seats
 
   belongs_to :game
 

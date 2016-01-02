@@ -13,15 +13,15 @@ class GamesController < ApplicationController
 
     room.transaction do
       game.save!
-      round = game.rounds.create!
-
       room.users.zip(Seat.positions.keys) do |u, p|
-        round.seats.create!(user: u, position: p, point: 25000)
+        game.seats.create!(user: u, position: p, point: 25000)
       end
+
+      round = game.rounds.create!
 
       tiles = Tile.build_tiles
 
-      round.seats.each do |seat|
+      game.seats.each do |seat|
         round.hands.create!(seat: seat, tiles: tiles.shift(13))
         round.rivers.create!(seat: seat)
       end

@@ -36,7 +36,7 @@ class Action::SelfPick < Action::Base
     # TODO calc
     self.base_point = 2000
 
-    win_point = round.seats.reject {|s| s == seat }.sum do |s|
+    win_point = round.game.seats.reject {|s| s == seat }.sum do |s|
       if seat.east?
         collect_point!(seat: s, point: ceil(base_point * 2))
       else

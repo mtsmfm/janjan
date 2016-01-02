@@ -263,7 +263,7 @@ CREATE TABLE schema_migrations (
 CREATE TABLE seats (
     id integer NOT NULL,
     user_id uuid NOT NULL,
-    round_id integer NOT NULL,
+    game_id integer NOT NULL,
     "position" seat_position NOT NULL,
     point integer NOT NULL,
     created_at timestamp without time zone NOT NULL,
@@ -511,10 +511,10 @@ CREATE INDEX index_rounds_on_game_id ON rounds USING btree (game_id);
 
 
 --
--- Name: index_seats_on_round_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_seats_on_game_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX index_seats_on_round_id ON seats USING btree (round_id);
+CREATE INDEX index_seats_on_game_id ON seats USING btree (game_id);
 
 
 --
@@ -603,14 +603,6 @@ ALTER TABLE ONLY joins
 
 
 --
--- Name: fk_rails_ad8006b7cb; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY seats
-    ADD CONSTRAINT fk_rails_ad8006b7cb FOREIGN KEY (round_id) REFERENCES rounds(id);
-
-
---
 -- Name: fk_rails_b22253b79a; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -624,6 +616,14 @@ ALTER TABLE ONLY games
 
 ALTER TABLE ONLY fields
     ADD CONSTRAINT fk_rails_e3a41da4fd FOREIGN KEY (round_id) REFERENCES rounds(id);
+
+
+--
+-- Name: fk_rails_fa444e0ac6; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY seats
+    ADD CONSTRAINT fk_rails_fa444e0ac6 FOREIGN KEY (game_id) REFERENCES games(id);
 
 
 --

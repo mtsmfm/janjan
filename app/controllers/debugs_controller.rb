@@ -7,16 +7,17 @@ class DebugsController < ApplicationController
     path = Rails.root.join("test/fixtures/tiles/#{params[:fixture]}")
     yaml = YAML.load_file(path)
 
-    round = Game.last.rounds.last
+    game = Game.last
+    round = game.rounds.last
 
-    round.transaction do
-      round.seats.each {|s| s.update!(point: 25000) }
+    game.transaction do
       round.hands.each {|h| h.tiles.destroy_all }
       round.wall.tiles.destroy_all
       round.actions.destroy_all
       round.rivers.each {|r| r.tiles.destroy_all }
 
-      round.seats.each do |seat|
+      game.seats.each do |seat|
+        seat.update!(point: 25000)
         seat.hand.tiles = yaml[seat.position].map {|kind| Tile.new(kind: kind) }
       end
 

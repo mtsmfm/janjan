@@ -4,7 +4,7 @@
 #
 #  id         :integer          not null, primary key
 #  user_id    :uuid             not null
-#  round_id   :integer          not null
+#  game_id    :integer          not null
 #  position   :enum             not null
 #  point      :integer          not null
 #  created_at :datetime         not null
@@ -12,12 +12,12 @@
 #
 # Indexes
 #
-#  index_seats_on_round_id  (round_id)
-#  index_seats_on_user_id   (user_id)
+#  index_seats_on_game_id  (game_id)
+#  index_seats_on_user_id  (user_id)
 #
 # Foreign Keys
 #
-#  fk_rails_ad8006b7cb  (round_id => rounds.id)
+#  fk_rails_fa444e0ac6  (game_id => games.id)
 #  fk_rails_ff1a0875e3  (user_id => users.id)
 #
 
@@ -28,11 +28,11 @@ class Seat < ActiveRecord::Base
   has_one :river, class_name: 'Field::River'
   has_one :hand, class_name: 'Field::Hand'
 
-  belongs_to :round
+  belongs_to :game
   belongs_to :user
 
   def next
-    round.seats.find_by!(position: next_position)
+    game.seats.find_by!(position: next_position)
   end
 
   def next_position

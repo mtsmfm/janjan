@@ -33,7 +33,7 @@ class Init < ActiveRecord::Migration
 
     create_table :seats do |t|
       t.references :user, foreign_key: true, index: true, null: false, type: :uuid
-      t.references :round, foreign_key: true, index: true, null: false
+      t.references :game, foreign_key: true, index: true, null: false
       t.column :position, :seat_position, null: false
       t.integer :point, null: false
 
