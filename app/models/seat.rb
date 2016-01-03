@@ -22,8 +22,7 @@
 #
 
 class Seat < ActiveRecord::Base
-  pos = %i(east south west north)
-  enum position: pos.zip(pos.map(&:to_s)).to_h
+  enum position: Wind::WINDS_ENUM_HASH
 
   has_one :river, class_name: 'Field::River'
   has_one :hand, class_name: 'Field::Hand'
@@ -36,7 +35,6 @@ class Seat < ActiveRecord::Base
   end
 
   def next_position
-    positions = self.class.positions.keys
-    positions.zip(positions.rotate).to_h.with_indifferent_access[position]
+    Wind.new(position).next
   end
 end

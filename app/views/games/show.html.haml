@@ -1,5 +1,7 @@
 %ul.game-info
-  %ul wall: #{@round.wall.tiles.count}
+  %li wall: #{@round.wall.tiles.count}
+  %li wind: #{@round.wind}
+  %li counter: #{@round.counter}
 .game-board
   - 3.times.inject([current_user.seat]) {|seats| seats << seats.last.next }.each.with_index do |seat, i|
     %div{class: "user-field user-field--#{i}"}

@@ -4,6 +4,8 @@
 #
 #  id         :integer          not null, primary key
 #  game_id    :integer          not null
+#  wind       :enum             not null
+#  counter    :integer          default(0), not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
@@ -17,6 +19,8 @@
 #
 
 class Round < ActiveRecord::Base
+  enum wind: Wind::WINDS_ENUM_HASH
+
   has_many :hands, class_name: 'Field::Hand', dependent: :destroy
   has_many :rivers, class_name: 'Field::River', dependent: :destroy
   has_one :wall, class_name: 'Field::Wall', dependent: :destroy
@@ -24,4 +28,8 @@ class Round < ActiveRecord::Base
   has_many :users, through: :seats
 
   belongs_to :game
+
+  def wind
+    Wind.new(self[:wind])
+  end
 end

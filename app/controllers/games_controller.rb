@@ -17,7 +17,7 @@ class GamesController < ApplicationController
         game.seats.create!(user: u, position: p, point: 25000)
       end
 
-      round = game.rounds.create!
+      round = game.rounds.create!(wind: :east)
 
       tiles = Tile.build_tiles
 

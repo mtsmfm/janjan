@@ -23,18 +23,20 @@ class Init < ActiveRecord::Migration
       t.timestamps null: false
     end
 
+    execute %(CREATE TYPE winds AS ENUM (%s);) % %i(east south west north).map {|s| %('#{s}') }.join(?,)
+
     create_table :rounds do |t|
       t.references :game, foreign_key: true, index: true, null: false
+      t.column :wind, :winds, null: false
+      t.integer :counter, default: 0, null: false
 
       t.timestamps null: false
     end
 
-    execute %(CREATE TYPE seat_position AS ENUM (%s);) % %i(east south west north).map {|s| %('#{s}') }.join(?,)
-
     create_table :seats do |t|
       t.references :user, foreign_key: true, index: true, null: false, type: :uuid
       t.references :game, foreign_key: true, index: true, null: false
-      t.column :position, :seat_position, null: false
+      t.column :position, :winds, null: false
       t.integer :point, null: false
 
       t.timestamps null: false

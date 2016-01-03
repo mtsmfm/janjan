@@ -40,10 +40,10 @@ COMMENT ON EXTENSION "uuid-ossp" IS 'generate universally unique identifiers (UU
 SET search_path = public, pg_catalog;
 
 --
--- Name: seat_position; Type: TYPE; Schema: public; Owner: -
+-- Name: winds; Type: TYPE; Schema: public; Owner: -
 --
 
-CREATE TYPE seat_position AS ENUM (
+CREATE TYPE winds AS ENUM (
     'east',
     'south',
     'west',
@@ -223,6 +223,8 @@ ALTER SEQUENCE rooms_id_seq OWNED BY rooms.id;
 CREATE TABLE rounds (
     id integer NOT NULL,
     game_id integer NOT NULL,
+    wind winds NOT NULL,
+    counter integer DEFAULT 0 NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -264,7 +266,7 @@ CREATE TABLE seats (
     id integer NOT NULL,
     user_id uuid NOT NULL,
     game_id integer NOT NULL,
-    "position" seat_position NOT NULL,
+    "position" winds NOT NULL,
     point integer NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
