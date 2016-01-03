@@ -24,8 +24,4 @@ class Round < ActiveRecord::Base
   has_many :users, through: :seats
 
   belongs_to :game
-
-  def end?
-    actions.last.instance_of?(Action::SelfPick)
-  end
 end
