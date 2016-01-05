@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/rack/rack.git
-  revision: a7b3c3c4f67ae71326169806d56bc5fd1b8dd3db
+  revision: 7ddf5bc101aff121ed459c55ad394c4eb30beb38
   specs:
     rack (2.0.0.alpha)
       json
@@ -13,7 +13,7 @@ GIT
 
 GIT
   remote: git://github.com/rails/rails.git
-  revision: 3d590add45b7ff1de972d99b076cb504d5208935
+  revision: 35dd9e9f2a10d9d2f46d1c1cdd1df73f7d343d6e
   specs:
     actioncable (5.0.0.beta1)
       actionpack (= 5.0.0.beta1)
