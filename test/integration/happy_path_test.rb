@@ -20,29 +20,29 @@ class HappyPathTest < ActionDispatch::IntegrationTest
     using_session 'user 1' do
       visit '/'
 
-      click_on 'Create Room'
+      click_on 'Create room'
 
       visit '/'
 
-      click_on 'Create Join'
+      click_on 'Create join'
     end
 
     using_session 'user 2' do
       visit '/'
 
-      click_on 'Create Join'
+      click_on 'Create join'
     end
 
     using_session 'user 3' do
       visit '/'
 
-      click_on 'Create Join'
+      click_on 'Create join'
     end
 
     using_session 'user 4' do
       visit '/'
 
-      click_on 'Create Join'
+      click_on 'Create join'
     end
 
     using_session 'user 1' do
