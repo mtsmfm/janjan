@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/rack/rack.git
-  revision: a7b3c3c4f67ae71326169806d56bc5fd1b8dd3db
+  revision: 7ddf5bc101aff121ed459c55ad394c4eb30beb38
   specs:
     rack (2.0.0.alpha)
       json
@@ -13,7 +13,7 @@ GIT
 
 GIT
   remote: git://github.com/rails/rails.git
-  revision: 3d590add45b7ff1de972d99b076cb504d5208935
+  revision: b7b508aa7908efb1c6ef6667e3087f4f6a4b508f
   specs:
     actioncable (5.0.0.beta1)
       actionpack (= 5.0.0.beta1)
@@ -250,7 +250,7 @@ GEM
       thor
     thor (0.19.1)
     thread_safe (0.3.5)
-    tilt (2.0.1)
+    tilt (2.0.2)
     timers (4.1.1)
       hitimes
     tzinfo (1.2.2)
