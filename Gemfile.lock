@@ -7,13 +7,13 @@ GIT
 
 GIT
   remote: git://github.com/rails/arel.git
-  revision: 347c7786f8e7ea0e9643ff707ce1ace8b3969d6c
+  revision: 63ea665c8083f8069a0d05d4f15cf19e08e470a6
   specs:
     arel (7.0.0)
 
 GIT
   remote: git://github.com/rails/rails.git
-  revision: b7b508aa7908efb1c6ef6667e3087f4f6a4b508f
+  revision: 7595c59523a07ce6febd40efc5ab6064a63cc1ae
   specs:
     actioncable (5.0.0.beta1)
       actionpack (= 5.0.0.beta1)
@@ -47,7 +47,6 @@ GIT
       globalid (>= 0.3.6)
     activemodel (5.0.0.beta1)
       activesupport (= 5.0.0.beta1)
-      builder (~> 3.1)
     activerecord (5.0.0.beta1)
       activemodel (= 5.0.0.beta1)
       activesupport (= 5.0.0.beta1)
@@ -117,7 +116,7 @@ GEM
       timers (>= 4.1.1)
     celluloid-supervision (0.20.5)
       timers (>= 4.1.1)
-    childprocess (0.5.8)
+    childprocess (0.5.9)
       ffi (~> 1.0, >= 1.0.11)
     choice (0.2.0)
     cliver (0.3.2)
