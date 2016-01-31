@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     resources :games
   end
 
-  match '/websocket', to: ActionCable.server, via: [:get, :post]
+  mount ActionCable.server => '/cable'
 
   resource :debug, only: :show do
     post :load_fixture
