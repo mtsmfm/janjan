@@ -91,6 +91,18 @@ ALTER SEQUENCE actions_id_seq OWNED BY actions.id;
 
 
 --
+-- Name: active_record_internal_metadatas; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE active_record_internal_metadatas (
+    key character varying(191) NOT NULL,
+    value character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
 -- Name: fields; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -534,6 +546,13 @@ CREATE INDEX index_tiles_on_field_id ON tiles USING btree (field_id);
 
 
 --
+-- Name: unique_active_record_internal_metadatas; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE UNIQUE INDEX unique_active_record_internal_metadatas ON active_record_internal_metadatas USING btree (key);
+
+
+--
 -- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -643,4 +662,5 @@ ALTER TABLE ONLY seats
 SET search_path TO "$user",public;
 
 INSERT INTO schema_migrations (version) VALUES ('20151013124540');
+
 
