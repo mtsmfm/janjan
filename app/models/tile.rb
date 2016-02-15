@@ -57,6 +57,8 @@ class Tile < ActiveRecord::Base
   )
 
   belongs_to :round
+  belongs_to :field, class_name: 'Field::Base'
+  has_many :actions, dependent: :destroy, class_name: 'Action::Base'
 
   class << self
     def build_tiles

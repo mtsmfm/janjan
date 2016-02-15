@@ -41,3 +41,7 @@ class Action::Base < ActiveRecord::Base
     @last_action ||= round.actions.last
   end
 end
+
+%w(
+discard draw self_pick
+).each {|a| require_dependency "action/#{a}" }

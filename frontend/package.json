@@ -1,0 +1,34 @@
+{
+  "name": "janjan",
+  "version": "1.0.0",
+  "description": "janjan",
+  "dependencies": {},
+  "devDependencies": {
+    "webpack": "latest",
+    "ts-loader": "latest",
+    "typescript": "latest",
+    "typings": "latest",
+    "angular2": "latest",
+    "es6-promise": "latest",
+    "es6-shim": "latest",
+    "reflect-metadata": "latest",
+    "rxjs": "5.0.0-beta.0",
+    "zone.js": "latest"
+  },
+  "scripts": {
+    "release": "webpack --config config/production/webpack.config.js",
+    "build": "webpack --config config/development/webpack.config.js",
+    "watch": "webpack --watch --config config/development/webpack.config.js",
+    "postinstall": "typings install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mtsmfm/janjan.git"
+  },
+  "author": "Fumiaki MATSUSHIMA",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mtsmfm/janjan/issues"
+  },
+  "homepage": "https://github.com/mtsmfm/janjan#readme"
+}

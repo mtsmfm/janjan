@@ -23,6 +23,8 @@
 #
 
 class Action::Draw < Action::Base
+  belongs_to :tile
+
   def able?
     case last_action
     when nil
@@ -35,7 +37,9 @@ class Action::Draw < Action::Base
   end
 
   def act!(params:)
-    hand.tiles << wall.tiles.first
+    new_tile = wall.tiles.first
+    hand.tiles << new_tile
+    self.tile = new_tile
 
     save!
   end

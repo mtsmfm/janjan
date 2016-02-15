@@ -35,6 +35,8 @@
   bottom: 0
   width: 100%
   z-index: 1
+  &[data-discardable=true]
+    border: solid 1px red
 
 .player-info
   +display(flex)
@@ -60,13 +62,13 @@
   height: 100%
   position: absolute
 
-  &--0
+  &[data-relative-position="self"]
 
-  &--1
+  &[data-relative-position="previous"]
     +transform(rotate(-90deg))
 
-  &--2
+  &[data-relative-position="opposite"]
     +transform(rotate(180deg))
 
-  &--3
+  &[data-relative-position="next"]
     +transform(rotate(90deg))
