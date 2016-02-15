@@ -52,18 +52,20 @@ class HappyPathTest < ActionDispatch::IntegrationTest
 
       click_on 'Draw'
 
-      first('.hand .tile[data-tile="pin_1"]').click
-
-      click_on 'Discard'
+      within '.user-field[data-relative-position=self] .hand' do
+        find('.tile[data-tile="pin_1"]', match: :first).click
+      end
     end
 
     (2..4).each do |i|
       using_session "user #{i}" do
+        visit '/'
+
         click_on 'Draw'
 
-        first('.hand .tile').click
-
-        click_on 'Discard'
+        within '.user-field[data-relative-position=self] .hand' do
+          find('.tile', match: :first).click
+        end
       end
     end
 

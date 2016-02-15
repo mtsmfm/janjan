@@ -7,6 +7,13 @@ Rails.application.routes.draw do
     resources :games
   end
 
+  namespace :api do
+    resource :game do
+      resources :actions, only: :create
+    end
+    resource :user, only: :show
+  end
+
   mount ActionCable.server => '/cable'
 
   resource :debug, only: :show do

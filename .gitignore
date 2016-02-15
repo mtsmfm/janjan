@@ -13,3 +13,7 @@
 /tmp
 /vendor/assets/components
 /erd.pdf
+node_modules
+npm-debug.log
+/app/assets/javascripts/frontend
+typings

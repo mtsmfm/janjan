@@ -1,4 +1,4 @@
-class ActionsController < ApplicationController
+class Api::ActionsController < Api::ApplicationController
   after_action :notify_action_created
 
   def create
@@ -9,7 +9,7 @@ class ActionsController < ApplicationController
       action.act!(params: params)
     end
 
-    redirect_to [current_game.room, current_game]
+    render json: Game.find(current_game.id), include: {seats: {user: true, river: :tiles, hand: :tiles}}
   end
 
   private

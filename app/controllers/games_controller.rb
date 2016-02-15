@@ -1,7 +1,5 @@
 class GamesController < ApplicationController
   def show
-    @game = Game.find_by!(id: params[:id], room_id: params[:room_id])
-    @round = @game.rounds.last
   end
 
   def create
