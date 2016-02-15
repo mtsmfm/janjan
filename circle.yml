@@ -8,14 +8,15 @@ dependencies:
     - vendor/bundle
     - frontend/node_modules
     - frontend/typings
-    - google-chrome.deb
+    - /opt/google/chrome/google-chrome
   override:
     - |
-        if [ ! -f google-chrome.deb ]; then
+        if [[ ! "$(google-chrome --version)" == "Google Chrome 48"* ]]; then
           curl -L -o google-chrome.deb https://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-stable/google-chrome-stable_48.0.2564.109-1_amd64.deb
+          sudo dpkg -i google-chrome.deb
+          sudo sed -i 's|HERE/chrome\"|HERE/chrome\" --disable-setuid-sandbox|g' /opt/google/chrome/google-chrome
+          rm google-chrome.deb
         fi
-    - sudo dpkg -i google-chrome.deb
-    - sudo sed -i 's|HERE/chrome\"|HERE/chrome\" --disable-setuid-sandbox|g' /opt/google/chrome/google-chrome
     - bundle install -j4 --path=vendor/bundle
     - npm i -g bower
     - bower install
