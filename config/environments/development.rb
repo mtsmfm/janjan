@@ -57,3 +57,11 @@ Rails.application.configure do
 
   config.action_dispatch.default_headers['X-Frame-Options'] = 'ALLOWALL'
 end
+
+module BindAnyHost
+  def default_options
+    super.merge(Host: '0.0.0.0')
+  end
+end
+
+Rails::Server.prepend(BindAnyHost) if defined?(Rails::Server)

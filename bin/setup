@@ -17,7 +17,8 @@ chdir APP_ROOT do
   puts '== Installing dependencies =='
   system! 'gem install bundler --conservative'
   system('bundle check') or system!('bundle install')
-  system!('bower install')
+  system!('npm install')
+  system!('cd frontend && npm install')
 
   # puts "\n== Copying sample files =="
   # unless File.exist?('config/database.yml')
