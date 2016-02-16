@@ -91,11 +91,11 @@ ALTER SEQUENCE actions_id_seq OWNED BY actions.id;
 
 
 --
--- Name: active_record_internal_metadatas; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: ar_internal_metadata; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE TABLE active_record_internal_metadatas (
-    key character varying(191) NOT NULL,
+CREATE TABLE ar_internal_metadata (
+    key character varying NOT NULL,
     value character varying,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
@@ -412,6 +412,14 @@ ALTER TABLE ONLY actions
 
 
 --
+-- Name: ar_internal_metadata_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY ar_internal_metadata
+    ADD CONSTRAINT ar_internal_metadata_pkey PRIMARY KEY (key);
+
+
+--
 -- Name: fields_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -449,6 +457,14 @@ ALTER TABLE ONLY rooms
 
 ALTER TABLE ONLY rounds
     ADD CONSTRAINT rounds_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: schema_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY schema_migrations
+    ADD CONSTRAINT schema_migrations_pkey PRIMARY KEY (version);
 
 
 --
@@ -543,20 +559,6 @@ CREATE INDEX index_seats_on_user_id ON seats USING btree (user_id);
 --
 
 CREATE INDEX index_tiles_on_field_id ON tiles USING btree (field_id);
-
-
---
--- Name: unique_active_record_internal_metadatas; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE UNIQUE INDEX unique_active_record_internal_metadatas ON active_record_internal_metadatas USING btree (key);
-
-
---
--- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (version);
 
 
 --
