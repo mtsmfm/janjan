@@ -19,6 +19,6 @@ Capybara.register_driver :selenium_chrome do |app|
 end
 
 Capybara.javascript_driver = :selenium_chrome
-Capybara.default_max_wait_time = 10
+Capybara.default_max_wait_time = 15
 
 DatabaseRewinder.clean_all
