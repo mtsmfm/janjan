@@ -18,8 +18,7 @@ dependencies:
           rm google-chrome.deb
         fi
     - bundle install -j4 --path=vendor/bundle
-    - npm i -g bower
-    - bower install
+    - npm i
     - cd frontend && npm install && npm run-script build
 test:
   override:
