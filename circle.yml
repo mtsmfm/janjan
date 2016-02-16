@@ -22,7 +22,7 @@ dependencies:
     - cd frontend && npm install && npm run-script build
 test:
   override:
-    bin/rails t
+    - bin/rails t
 deployment:
   production:
     branch: master
