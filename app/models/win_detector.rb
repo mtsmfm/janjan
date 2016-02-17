@@ -75,7 +75,7 @@ class WinDetector
     end
 
     def inspect
-      "#{self.class.name[0]}:#{number}"
+      "#{self.class.name.demodulize[0]}:#{number}"
     end
   end
 
