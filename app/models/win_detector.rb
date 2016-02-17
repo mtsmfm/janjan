@@ -133,7 +133,27 @@ class WinDetector
         head: head.dup, tiles: tiles.dup, sequences: sequences.dup, triplets: triplets.dup
       )
     end
+  end
 
+  class << self
+    def build_from_string(abbr_tiles)
+      wind_converter = -> (tile) { {'E' => 'east', 'S' => 'south', 'W' => 'west', 'N' => 'north'}[tile] }
+      dragon_converter = -> (tile) { {'W' => 'haku', 'G' => 'hatsu', 'R' => 'chun'}[tile] }
+
+      args = abbr_tiles.scan(/\d+[mps]|[ESWN]+w|[WGR]+d/).map {|abbr_tile|
+        [abbr_tile.chop.chars, abbr_tile.last]
+      }.map {|tiles, type|
+        case type
+        when 'm'; ['man_'].product(tiles).map(&:join)
+        when 'p'; ['pin_'].product(tiles).map(&:join)
+        when 's'; ['sou_'].product(tiles).map(&:join)
+        when 'w'; tiles.map {|tile| wind_converter.call(tile) }
+        when 'd'; tiles.map {|tile| dragon_converter.call(tile) }
+        end
+      }.flatten
+
+      new(args)
+    end
   end
 
   def initialize(tiles)
