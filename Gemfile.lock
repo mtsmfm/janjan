@@ -150,6 +150,9 @@ GEM
     mime-types (2.99)
     mini_portile2 (2.0.0)
     minitest (5.8.4)
+    minitest-power_assert (0.2.0)
+      minitest
+      power_assert
     mocha (1.1.0)
       metaclass (~> 0.0.1)
     multi_json (1.11.2)
@@ -162,6 +165,7 @@ GEM
       cliver (~> 0.3.1)
       multi_json (~> 1.0)
       websocket-driver (>= 0.2.0)
+    power_assert (0.2.7)
     pry (0.10.3)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -249,6 +253,7 @@ DEPENDENCIES
   em-hiredis
   haml-rails
   launchy
+  minitest-power_assert
   mocha
   pg
   poltergeist

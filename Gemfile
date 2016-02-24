@@ -29,6 +29,7 @@ group :test do
   gem 'mocha'
   gem 'poltergeist'
   gem 'selenium-webdriver'
+  gem 'minitest-power_assert'
 end
 
 group :development, :test do
