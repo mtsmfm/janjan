@@ -56,6 +56,26 @@ Rails.application.configure do
   config.action_cable.disable_request_forgery_protection = true
 
   config.action_dispatch.default_headers['X-Frame-Options'] = 'ALLOWALL'
+
+  class RackWithQuietAssets
+    def initialize(app)
+      @app = app
+      paths = [ %r[\A/{0,2}#{Rails.application.config.assets.prefix}] ]
+      @assets_regex = /\A(#{paths.join('|')})/
+    end
+
+    def call(env)
+      if env['PATH_INFO'] =~ @assets_regex
+        Rails.logger.silence do
+          @app.call(env)
+        end
+      else
+        @app.call(env)
+      end
+    end
+  end
+
+  config.middleware.use RackWithQuietAssets
 end
 
 module BindAnyHost
