@@ -26,7 +26,7 @@ group :test do
   gem 'capybara-puma'
   gem 'database_rewinder'
   gem 'launchy'
-  gem 'mocha'
+  gem 'rspec-mocks'
   gem 'poltergeist'
   gem 'selenium-webdriver'
 end

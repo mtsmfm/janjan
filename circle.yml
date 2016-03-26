@@ -3,26 +3,32 @@ machine:
     version: 2.3.0
   node:
     version: 5.6.0
+  environment:
+    BS_AUTOMATE_PROJECT: "Run on circleCI"
+    BS_AUTOMATE_BUILD: "build No. $CIRCLE_BUILD_NUM for circleCI"
 dependencies:
   cache_directories:
     - vendor/bundle
     - frontend/node_modules
     - frontend/typings
-    - /opt/google/chrome/google-chrome
-  override:
+    - browserstack
+  pre:
     - |
-        if [[ ! "$(google-chrome --version)" == "Google Chrome 48"* ]]; then
-          curl -L -o google-chrome.deb https://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-stable/google-chrome-stable_48.0.2564.109-1_amd64.deb
-          sudo dpkg -i google-chrome.deb
-          sudo sed -i 's|HERE/chrome\"|HERE/chrome\" --disable-setuid-sandbox|g' /opt/google/chrome/google-chrome
-          rm google-chrome.deb
+        if [[ ! -d browserstack ]]; then
+          mkdir -p browserstack
+          curl https://www.browserstack.com/browserstack-local/BrowserStackLocal-linux-x64.zip > browserstack/BrowserStackLocal-linux-x64.zip
+          cd browserstack && unzip BrowserStackLocal-linux-x64.zip && chmod a+x BrowserStackLocal
         fi
-    - bundle install -j4 --path=vendor/bundle
-    - npm i
+  post:
     - cd frontend && npm install && npm run-script build
 test:
+  pre:
+    - browserstack/BrowserStackLocal -skipCheck $BS_AUTHKEY 127.0.0.1,3001:
+        background: true
   override:
     - bin/rails t
+  post:
+    - killall BrowserStackLocal
 deployment:
   production:
     branch: master

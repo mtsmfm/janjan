@@ -113,6 +113,7 @@ GEM
     concurrent-ruby (1.0.1)
     database_rewinder (0.5.3)
     debug_inspector (0.0.2)
+    diff-lcs (1.2.5)
     em-hiredis (0.3.1)
       eventmachine (~> 1.0)
       hiredis (~> 0.6.0)
@@ -145,13 +146,10 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
-    metaclass (0.0.4)
     method_source (0.8.2)
     mime-types (2.99.1)
     mini_portile2 (2.0.0)
     minitest (5.8.4)
-    mocha (1.1.0)
-      metaclass (~> 0.0.1)
     multi_json (1.11.2)
     nio4r (1.2.1)
     nokogiri (1.6.7.2)
@@ -192,6 +190,10 @@ GEM
       loofah (~> 2.0)
     rake (10.5.0)
     redis (3.2.2)
+    rspec-mocks (3.4.1)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.4.0)
+    rspec-support (3.4.1)
     ruby-graphviz (1.2.2)
     ruby_parser (3.8.1)
       sexp_processor (~> 4.1)
@@ -249,7 +251,6 @@ DEPENDENCIES
   em-hiredis
   haml-rails
   launchy
-  mocha
   pg
   poltergeist
   pry
@@ -261,6 +262,7 @@ DEPENDENCIES
   rails!
   rails-erd
   redis
+  rspec-mocks
   sass-rails
   selenium-webdriver
   tapp
