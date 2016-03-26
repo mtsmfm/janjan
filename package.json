@@ -4,7 +4,8 @@
   "description": "janjan",
   "dependencies": {},
   "devDependencies": {
-    "bower": "latest"
+    "bower": "latest",
+    "sauce-connect": "^0.1.1"
   },
   "scripts": {
     "postinstall": "bower install"

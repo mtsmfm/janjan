@@ -4,16 +4,12 @@
     "module": "commonjs",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "sourceMap": true
+    "inlineSourceMap": true
   },
   "exclude": [
     "node_modules",
     "typings/main.d.ts",
     "typings/main"
-  ],
-  "filesGlob": [
-    "app/interfaces/*.ts",
-    "typings/browser.d.ts"
   ],
   "compileOnSave": false,
   "buildOnSave": false,

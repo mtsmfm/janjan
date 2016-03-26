@@ -1,44 +1,55 @@
-import {Observable} from 'rxjs/Observable';
-import {Injectable, NgZone} from 'angular2/core';
+import {BehaviorSubject} from 'rxjs/subject/BehaviorSubject';
+import {Injectable} from 'angular2/core';
 import {Http, Headers} from 'angular2/http';
 import {Game, Tile} from '../interfaces/game';
+import {CableService} from './cable.service';
 
-declare var App;
+const endpoint = '/api/game';
 
 @Injectable()
 export class GameService {
-  public game$: Observable<Game>;
-  private _gameObserver: any;
-  private _dataStore: {
+  public game$: BehaviorSubject<Game>;
+  private dataStore: {
     game: Game
   };
-  constructor (private http: Http, private _ngZone: NgZone) {
-    this.game$ = new Observable(observer => this._gameObserver = observer).share();
-    this._dataStore = { game: null }
+  constructor (private http: Http, private cableService: CableService) {
+    this.dataStore = {game: null}
+    this.game$ = new BehaviorSubject(this.dataStore.game);
+  }
+  get game() {
+    return this.dataStore.game;
   }
   loadGame() {
-    this.request(this.http.get('/api/game'));
+    return this.http.get(endpoint).
+      map(res => <Game> res.json().game).
+      do(data => this.dataStore.game = data).
+      do(() => this.game$.next(this.dataStore.game)).publish().refCount();
   }
-  subscribeChannel() {
-    App.cable.subscriptions.create('WebNotificationsChannel', {
-      received: ()=> {
-        this._ngZone.run(() => this.loadGame());
+  connectChannel() {
+    this.cableService.connect();
+    return this.cableService.channel$.do(
+      data => {
+        switch(data.event) {
+          case 'game:update':
+            this.dataStore.game = data.game;
+            break;
+        }
       }
-    });
+    ).
+      do(() => this.game$.next(this.dataStore.game)).publish().refCount();
   }
   discardTile(tile: Tile) {
-    this.request(this.http.post('/api/game/actions', JSON.stringify({type: 'discard', id: tile.id})))
+    return this.http.post(this.game.links.discard.url, JSON.stringify({id: tile.id}));
   }
   drawTile() {
-    this.request(this.http.post('/api/game/actions', JSON.stringify({type: 'draw'})))
+    return this.http.post(this.game.links.draw.url, null);
   }
   selfPick() {
-    this.request(this.http.post('/api/game/actions', JSON.stringify({type: 'self_pick'})))
+    return this.http.post(this.game.links.self_pick.url, null);
   }
-  request(observable) {
-    observable.map(res => <Game> res.json()).subscribe(data => {
-      this._dataStore.game = data;
-      this._gameObserver.next(this._dataStore.game);
-    })
+  confirm() {
+    let key = Object.keys(this.game.links).find(e => this.game.links[e].meta);
+    
+    return this.http.post(this.game.links[key].url, null);
   }
 }
