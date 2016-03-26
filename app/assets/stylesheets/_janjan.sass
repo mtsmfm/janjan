@@ -18,19 +18,41 @@
 .center-area
   width:  $center-area-size
   height: $center-area-size
-  top: ($game-board-size - $center-area-size) / 2 + $center-area-size / 2
-  left: ($game-board-size - $center-area-size) / 2
+  top:    ($game-board-size - $center-area-size) / 2 + $center-area-size / 2
+  left:   ($game-board-size - $center-area-size) / 2
   position: absolute
 
 .game-info
+  width:  $game-info-area-size
+  height: $game-info-area-size
+  top:    ($game-board-size - $game-info-area-size) / 2
+  left:   ($game-board-size - $game-info-area-size) / 2
   position: absolute
-  left: 0
-  z-index: 1
+  font-size: $tile-size * 0.5
+  text-align: center
+  +display(flex)
+  +flex-direction(column)
+  +justify-content(space-around)
 
-.hand
+.game-dialog
+  position: absolute
+  width: 100%
+  height: 40%
+  background: black
+  padding: 0 10%
+  top: $game-board-size * 0.3
+  font-size: $tile-size
+  +display(flex)
+  +flex-direction(column)
+  +justify-content(space-around)
+  +align-items(center)
+
+.tiles
   +display(flex)
   +flex-wrap(wrap)
   +justify-content(center)
+
+.hand
   position: absolute
   bottom: 0
   width: 100%
@@ -52,11 +74,6 @@
       content: '#{nth($wind, 2)}'
       font-size: $tile-size
 
-.room-info
-  position: absolute
-  right: 0
-  z-index: 1
-
 .user-field
   width: 100%
   height: 100%
@@ -65,10 +82,17 @@
   &[data-relative-position="self"]
 
   &[data-relative-position="previous"]
-    +transform(rotate(-90deg))
+    +transform(rotate(90deg))
 
   &[data-relative-position="opposite"]
     +transform(rotate(180deg))
 
   &[data-relative-position="next"]
-    +transform(rotate(90deg))
+    +transform(rotate(-90deg))
+
+.room
+  +display(flex)
+  &__id
+    +flex(1)
+  &__users-count
+    +flex(2)
