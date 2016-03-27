@@ -1,5 +1,7 @@
 # Janjan
 
+[![Join the chat at https://gitter.im/mtsmfm/janjan](https://badges.gitter.im/mtsmfm/janjan.svg)](https://gitter.im/mtsmfm/janjan?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/mtsmfm/janjan)
 
 ## Requirements
