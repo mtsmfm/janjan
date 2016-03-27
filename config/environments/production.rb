@@ -79,4 +79,7 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  config.x.domain = ENV['JANJAN_DOMAIN'] || "#{ENV['HEROKU_APP_NAME']}.herokuapp.com"
+  Rails.application.config.action_cable.allowed_request_origins = ["https://#{config.x.domain}"]
 end
