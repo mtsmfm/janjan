@@ -12,7 +12,8 @@ export class CableService {
   }
   connect() {
     if (!this.cable) {
-      this.cable = ActionCable.createConsumer(`ws://${window.location.host}/cable`);
+      let protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+      this.cable = ActionCable.createConsumer(`${protocol}//${window.location.host}/cable`);
 
       this.cable.subscriptions.create('WebNotificationsChannel', {
         received: (data) => {
