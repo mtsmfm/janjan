@@ -16,6 +16,6 @@ else
   :chrome
 end
 
-Capybara.default_max_timeout = 30 if ENV['CI']
+Capybara.default_max_wait_time = 30 if ENV['CI']
 
 DatabaseRewinder.clean_all
