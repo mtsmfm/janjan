@@ -13,6 +13,14 @@
     "newrelic:wayne",
     "airbrake:free_heroku"
   ],
+  "buildpacks": [
+    {
+      "url": "https://github.com/heroku/heroku-buildpack-nodejs"
+    },
+    {
+      "url": "https://github.com/heroku/heroku-buildpack-ruby"
+    }
+  ],
   "scripts": {
     "postdeploy": "bin/rake db:schema:load"
   }
