@@ -16,6 +16,10 @@ gem 'redis'
 gem 'sass-rails'
 gem 'uglifier'
 
+group :production do
+  gem 'rails_12factor'
+end
+
 group :development do
   gem 'annotate'
   gem 'rails-erd'

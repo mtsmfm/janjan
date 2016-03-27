@@ -188,6 +188,11 @@ GEM
       ruby-graphviz (~> 1.2)
     rails-html-sanitizer (1.0.3)
       loofah (~> 2.0)
+    rails_12factor (0.0.3)
+      rails_serve_static_assets
+      rails_stdout_logging
+    rails_serve_static_assets (0.0.5)
+    rails_stdout_logging (0.0.4)
     rake (10.5.0)
     redis (3.2.2)
     rspec-mocks (3.4.1)
@@ -261,6 +266,7 @@ DEPENDENCIES
   rack!
   rails!
   rails-erd
+  rails_12factor
   redis
   rspec-mocks
   sass-rails
