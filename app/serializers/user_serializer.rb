@@ -1,7 +1,6 @@
-class UserSerializer < ActiveModel::Serializer
+class UserSerializer < ApplicationSerializer
   attributes :id, :name
 
-  def name
-    "user-#{object.id.first(5)}"
-  end
+  has_one :room
+  has_one :game
 end

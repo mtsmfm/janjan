@@ -1,17 +1,22 @@
 Rails.application.routes.draw do
-  root to: redirect('/rooms')
-
-  resources :rooms do
-    resources :joins
-    resources :actions, only: :create
-    resources :games
+  with_options to: 'welcome#index' do
+    root
+    get :login
+    get :rooms
+    get :room
+    get :game
   end
 
   namespace :api do
-    resource :game do
+    resource :user, only: %i(show create)
+    resource :game, only: %i(show create) do
       resources :actions, only: :create
     end
-    resource :user, only: :show
+    resource :room, only: :show
+
+    resources :rooms, only: %i(index create) do
+      resources :joins, only: :create
+    end
   end
 
   mount ActionCable.server => '/cable'

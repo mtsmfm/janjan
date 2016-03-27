@@ -16,6 +16,10 @@ gem 'redis'
 gem 'sass-rails'
 gem 'uglifier'
 
+group :production do
+  gem 'rails_12factor'
+end
+
 group :development do
   gem 'annotate'
   gem 'rails-erd'
@@ -26,7 +30,7 @@ group :test do
   gem 'capybara-puma'
   gem 'database_rewinder'
   gem 'launchy'
-  gem 'mocha'
+  gem 'rspec-mocks'
   gem 'poltergeist'
   gem 'selenium-webdriver'
 end

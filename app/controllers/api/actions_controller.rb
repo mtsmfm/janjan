@@ -1,34 +1,37 @@
 class Api::ActionsController < Api::ApplicationController
+  before_action :authenticate_user!
   after_action :notify_action_created
 
   def create
-    action = "Action::#{params[:type].classify}".constantize.new(seat: current_seat, round: current_round)
-    raise unless action.able?
+    action = current_seat.available_actions.find {|a| a.type == params[:type] }
+    return head :unprocessable_entity unless action
 
-    current_round.transaction do
-      action.act!(params: params)
+    current_game.transaction do
+      action.act!(params: params.permit(*action.permitted_keys))
+
+      current_game.scenes.create!(mahjong: current_mahjong)
     end
 
-    render json: Game.find(current_game.id), include: {seats: {user: true, river: :tiles, hand: :tiles}}
+    head :ok
   end
 
   private
 
   def notify_action_created
-    (current_user.room.users - [current_user]).each do |user|
-      ActionCable.server.broadcast "web_notifications_#{user.id}", {}
+    current_game.room.users.each do |user|
+      notify(user: user, event: 'game:update', resource: current_game, include: {seats: {user: true, river: :tiles, hand: :tiles}})
     end
   end
 
-  def current_seat
-    @current_seat ||= Seat.find(current_user.seat.id)
-  end
-
   def current_game
-    @current_game ||= Game.find(current_user.room.game.id)
+    @current_game ||= Game.find(current_user&.room&.game&.id)
   end
 
-  def current_round
-    @current_round ||= current_game.rounds.last
+  def current_mahjong
+    @current_mahjong ||= current_game.scenes.last.mahjong
+  end
+
+  def current_seat
+    @current_seat ||= current_mahjong.seats.find {|s| s.user == current_user }
   end
 end

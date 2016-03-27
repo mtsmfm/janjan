@@ -2,6 +2,8 @@ class WinDetector
   class Tile
     class << self
       def for(str)
+        str = str.to_s
+
         case str
         when /man_(\d)/
           Man.new(number: $1.to_i)

@@ -9,7 +9,7 @@
   &[data-discardable=true]:hover
     color: red
 
-  <% Tile::KINDS.each.with_index do |kind, i| %>
+  <% Mahjong::TILE_KINDS.each.with_index do |kind, i| %>
   &[data-tile="<%= kind %>"]
     +tj-icon($tj-var-<%= kind %>)
   <% end %>

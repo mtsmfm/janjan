@@ -56,41 +56,6 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- Name: actions; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE actions (
-    id integer NOT NULL,
-    round_id integer NOT NULL,
-    type character varying NOT NULL,
-    tile_id integer,
-    seat_id integer,
-    base_point integer,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: actions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE actions_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: actions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE actions_id_seq OWNED BY actions.id;
-
-
---
 -- Name: ar_internal_metadata; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -100,39 +65,6 @@ CREATE TABLE ar_internal_metadata (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
-
-
---
--- Name: fields; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE fields (
-    id integer NOT NULL,
-    round_id integer NOT NULL,
-    seat_id integer,
-    type character varying NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: fields_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE fields_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: fields_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE fields_id_seq OWNED BY fields.id;
 
 
 --
@@ -204,6 +136,7 @@ ALTER SEQUENCE joins_id_seq OWNED BY joins.id;
 
 CREATE TABLE rooms (
     id integer NOT NULL,
+    joins_count integer DEFAULT 0 NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -229,24 +162,23 @@ ALTER SEQUENCE rooms_id_seq OWNED BY rooms.id;
 
 
 --
--- Name: rounds; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: scenes; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE TABLE rounds (
+CREATE TABLE scenes (
     id integer NOT NULL,
     game_id integer NOT NULL,
-    wind winds NOT NULL,
-    counter integer DEFAULT 0 NOT NULL,
+    data bytea,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
 
 
 --
--- Name: rounds_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: scenes_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE rounds_id_seq
+CREATE SEQUENCE scenes_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -255,10 +187,10 @@ CREATE SEQUENCE rounds_id_seq
 
 
 --
--- Name: rounds_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: scenes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE rounds_id_seq OWNED BY rounds.id;
+ALTER SEQUENCE scenes_id_seq OWNED BY scenes.id;
 
 
 --
@@ -271,94 +203,15 @@ CREATE TABLE schema_migrations (
 
 
 --
--- Name: seats; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE seats (
-    id integer NOT NULL,
-    user_id uuid NOT NULL,
-    game_id integer NOT NULL,
-    "position" winds NOT NULL,
-    point integer NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: seats_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE seats_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: seats_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE seats_id_seq OWNED BY seats.id;
-
-
---
--- Name: tiles; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE tiles (
-    id integer NOT NULL,
-    field_id integer NOT NULL,
-    kind character varying NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: tiles_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE tiles_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: tiles_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE tiles_id_seq OWNED BY tiles.id;
-
-
---
 -- Name: users; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE users (
     id uuid DEFAULT uuid_generate_v4() NOT NULL,
+    name character varying,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY actions ALTER COLUMN id SET DEFAULT nextval('actions_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY fields ALTER COLUMN id SET DEFAULT nextval('fields_id_seq'::regclass);
 
 
 --
@@ -386,29 +239,7 @@ ALTER TABLE ONLY rooms ALTER COLUMN id SET DEFAULT nextval('rooms_id_seq'::regcl
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY rounds ALTER COLUMN id SET DEFAULT nextval('rounds_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY seats ALTER COLUMN id SET DEFAULT nextval('seats_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY tiles ALTER COLUMN id SET DEFAULT nextval('tiles_id_seq'::regclass);
-
-
---
--- Name: actions_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
---
-
-ALTER TABLE ONLY actions
-    ADD CONSTRAINT actions_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY scenes ALTER COLUMN id SET DEFAULT nextval('scenes_id_seq'::regclass);
 
 
 --
@@ -417,14 +248,6 @@ ALTER TABLE ONLY actions
 
 ALTER TABLE ONLY ar_internal_metadata
     ADD CONSTRAINT ar_internal_metadata_pkey PRIMARY KEY (key);
-
-
---
--- Name: fields_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
---
-
-ALTER TABLE ONLY fields
-    ADD CONSTRAINT fields_pkey PRIMARY KEY (id);
 
 
 --
@@ -452,11 +275,11 @@ ALTER TABLE ONLY rooms
 
 
 --
--- Name: rounds_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: scenes_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
-ALTER TABLE ONLY rounds
-    ADD CONSTRAINT rounds_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY scenes
+    ADD CONSTRAINT scenes_pkey PRIMARY KEY (id);
 
 
 --
@@ -468,48 +291,11 @@ ALTER TABLE ONLY schema_migrations
 
 
 --
--- Name: seats_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
---
-
-ALTER TABLE ONLY seats
-    ADD CONSTRAINT seats_pkey PRIMARY KEY (id);
-
-
---
--- Name: tiles_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
---
-
-ALTER TABLE ONLY tiles
-    ADD CONSTRAINT tiles_pkey PRIMARY KEY (id);
-
-
---
 -- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY users
     ADD CONSTRAINT users_pkey PRIMARY KEY (id);
-
-
---
--- Name: index_actions_on_round_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX index_actions_on_round_id ON actions USING btree (round_id);
-
-
---
--- Name: index_fields_on_round_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX index_fields_on_round_id ON fields USING btree (round_id);
-
-
---
--- Name: index_fields_on_seat_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX index_fields_on_seat_id ON fields USING btree (seat_id);
 
 
 --
@@ -534,79 +320,18 @@ CREATE INDEX index_joins_on_user_id ON joins USING btree (user_id);
 
 
 --
--- Name: index_rounds_on_game_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_scenes_on_game_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX index_rounds_on_game_id ON rounds USING btree (game_id);
-
-
---
--- Name: index_seats_on_game_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX index_seats_on_game_id ON seats USING btree (game_id);
+CREATE INDEX index_scenes_on_game_id ON scenes USING btree (game_id);
 
 
 --
--- Name: index_seats_on_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: fk_rails_6d63773b7b; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-CREATE INDEX index_seats_on_user_id ON seats USING btree (user_id);
-
-
---
--- Name: index_tiles_on_field_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX index_tiles_on_field_id ON tiles USING btree (field_id);
-
-
---
--- Name: fk_rails_096a2efd02; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY tiles
-    ADD CONSTRAINT fk_rails_096a2efd02 FOREIGN KEY (field_id) REFERENCES fields(id);
-
-
---
--- Name: fk_rails_129ebf637f; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY actions
-    ADD CONSTRAINT fk_rails_129ebf637f FOREIGN KEY (tile_id) REFERENCES tiles(id);
-
-
---
--- Name: fk_rails_1bfa43d13c; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY actions
-    ADD CONSTRAINT fk_rails_1bfa43d13c FOREIGN KEY (seat_id) REFERENCES seats(id);
-
-
---
--- Name: fk_rails_5a07ad9e8e; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY fields
-    ADD CONSTRAINT fk_rails_5a07ad9e8e FOREIGN KEY (seat_id) REFERENCES seats(id);
-
-
---
--- Name: fk_rails_7427b8435c; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY actions
-    ADD CONSTRAINT fk_rails_7427b8435c FOREIGN KEY (round_id) REFERENCES rounds(id);
-
-
---
--- Name: fk_rails_7812c1b477; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY rounds
-    ADD CONSTRAINT fk_rails_7812c1b477 FOREIGN KEY (game_id) REFERENCES games(id);
+ALTER TABLE ONLY scenes
+    ADD CONSTRAINT fk_rails_6d63773b7b FOREIGN KEY (game_id) REFERENCES games(id);
 
 
 --
@@ -631,30 +356,6 @@ ALTER TABLE ONLY joins
 
 ALTER TABLE ONLY games
     ADD CONSTRAINT fk_rails_b22253b79a FOREIGN KEY (room_id) REFERENCES rooms(id);
-
-
---
--- Name: fk_rails_e3a41da4fd; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY fields
-    ADD CONSTRAINT fk_rails_e3a41da4fd FOREIGN KEY (round_id) REFERENCES rounds(id);
-
-
---
--- Name: fk_rails_fa444e0ac6; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY seats
-    ADD CONSTRAINT fk_rails_fa444e0ac6 FOREIGN KEY (game_id) REFERENCES games(id);
-
-
---
--- Name: fk_rails_ff1a0875e3; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY seats
-    ADD CONSTRAINT fk_rails_ff1a0875e3 FOREIGN KEY (user_id) REFERENCES users(id);
 
 
 --

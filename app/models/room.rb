@@ -2,17 +2,28 @@
 #
 # Table name: rooms
 #
-#  id         :integer          not null, primary key
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id          :integer          not null, primary key
+#  joins_count :integer          default(0), not null
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
 #
 
 class Room < ActiveRecord::Base
   has_many :joins
   has_many :users, through: :joins
-  has_one :game
+  has_one :game, dependent: :destroy
 
-  def ready_to_start_game?
+  scope :joinable, -> { Room.where(joins_count: 0..3).joins('LEFT OUTER JOIN games ON games.room_id = rooms.id').where(games: {room_id: nil}) }
+
+  def joinable?(user)
+    !(full? || users.exists?(id: user.id))
+  end
+
+  def game_startable?(user)
+    !game && full? && users.exists?(id: user.id)
+  end
+
+  def full?
     users.count == 4
   end
 end

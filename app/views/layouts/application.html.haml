@@ -3,8 +3,9 @@
   %head
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}
     %title Janjan
-    = stylesheet_link_tag    'application', media: 'all'
+    = stylesheet_link_tag 'application', media: 'all'
     = csrf_meta_tags
   %body
-    = yield
+    %base{href: '/'}
+    %my-app Loading...
     = javascript_include_tag 'application'

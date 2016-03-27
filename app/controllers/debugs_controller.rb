@@ -8,20 +8,21 @@ class DebugsController < ApplicationController
     yaml = YAML.load_file(path)
 
     game = Game.last
-    round = game.rounds.last
 
     game.transaction do
-      round.hands.each {|h| h.tiles.destroy_all }
-      round.wall.tiles.destroy_all
-      round.actions.destroy_all
-      round.rivers.each {|r| r.tiles.destroy_all }
+      mahjong = game.scenes.last.mahjong
 
-      game.seats.each do |seat|
-        seat.update!(point: 25000)
-        seat.hand.tiles = yaml[seat.position].map {|kind| Tile.new(kind: kind) }
+      id = 0
+      mahjong.seats.each do |seat|
+        seat.hand.tiles = yaml[seat.position].map {|kind| Mahjong::Tile.new(id: id += 1, kind: kind) }
+        seat.river.tiles = []
+        seat.available_actions = []
+        seat.available_actions << Mahjong::Action::Draw.new(seat: seat, board: mahjong) if seat.east?
       end
 
-      round.wall.tiles = yaml['wall'].map {|kind| Tile.new(kind: kind) }
+      mahjong.wall.tiles = yaml[:wall].map {|kind| Mahjong::Tile.new(id: id += 1, kind: kind) }
+
+      game.scenes.create!(mahjong: mahjong)
     end
 
     redirect_to debug_path
