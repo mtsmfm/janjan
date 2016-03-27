@@ -82,4 +82,6 @@ Rails.application.configure do
 
   config.x.domain = ENV['JANJAN_DOMAIN'] || "#{ENV['HEROKU_APP_NAME']}.herokuapp.com"
   Rails.application.config.action_cable.allowed_request_origins = ["https://#{config.x.domain}"]
+
+  config.x.gtm_id = ENV['JANJAN_GTM_ID']
 end
