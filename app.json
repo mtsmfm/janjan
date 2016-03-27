@@ -5,6 +5,12 @@
   "env":{
     "HEROKU_APP_NAME": {
       "required": false
+    },
+    "JANJAN_DOMAIN": {
+      "required": false
+    },
+    "JANJAN_GTM_ID": {
+      "required": false
     }
   },
   "addons": [
