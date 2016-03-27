@@ -22,6 +22,6 @@
     }
   ],
   "scripts": {
-    "postdeploy": "bin/rake db:schema:load"
+    "postdeploy": "bin/rails db:structure:load"
   }
 }
