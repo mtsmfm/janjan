@@ -1,0 +1,19 @@
+{
+  "name": "janjan",
+  "website": "https://janjan.herokuapp.com",
+  "repository": "https://github.com/mtsmfm/janjan",
+  "env":{
+    "HEROKU_APP_NAME": {
+      "required": false
+    }
+  },
+  "addons": [
+    "heroku-postgresql:hobby-dev",
+    "papertrail:choklad",
+    "newrelic:wayne",
+    "airbrake:free_heroku"
+  ],
+  "scripts": {
+    "postdeploy": "bin/rake db:schema:load"
+  }
+}
