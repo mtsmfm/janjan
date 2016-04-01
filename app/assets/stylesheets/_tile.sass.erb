@@ -2,14 +2,16 @@
   display: block
   width: $tile-size
   height: $tile-size
-  background-color: white
   color: black
   border-radius: $tile-size * 0.15
 
-  &[data-discardable=true]:hover
-    color: red
+  background-image: image-url("tiles/back.svg")
+  background-size: $tile-size $tile-size
 
   <% Mahjong::TILE_KINDS.each.with_index do |kind, i| %>
   &[data-tile="<%= kind %>"]
-    +tj-icon($tj-var-<%= kind %>)
+    background-image: image-url("tiles/<%= kind %>.svg")
   <% end %>
+
+  &[data-discardable=true]:hover
+    border: solid 1px red

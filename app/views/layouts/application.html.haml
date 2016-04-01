@@ -5,7 +5,7 @@
     %title Janjan
     = stylesheet_link_tag 'application', media: 'all'
     = csrf_meta_tags
-    - if Rails.configuration.x.gtm_id
+    - if Rails.configuration.x.gtm_id.present?
       = render partial: 'gtm', object: Rails.configuration.x.gtm_id
   %body
     %base{href: '/'}
