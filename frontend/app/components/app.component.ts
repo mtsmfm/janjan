@@ -18,10 +18,10 @@ import {CableService} from '../services/cable.service';
   directives: [ROUTER_DIRECTIVES, UserInfoComponent]
 })
 @RouteConfig([
-  {path:'/rooms', name: 'Rooms', component: RoomListComponent},
-  {path:'/room',  name: 'Room',  component: RoomComponent},
-  {path:'/game',  name: 'Game',  component: GameComponent},
-  {path:'/login', name: 'Login', component: LoginFormComponent, useAsDefault: true}
+  {path: '/rooms', name: 'Rooms', component: RoomListComponent},
+  {path: '/room',  name: 'Room',  component: RoomComponent},
+  {path: '/game',  name: 'Game',  component: GameComponent},
+  {path: '/login', name: 'Login', component: LoginFormComponent, useAsDefault: true}
 ])
 export class AppComponent {
   constructor(private userService: UserService, private router: Router) { }
