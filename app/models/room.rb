@@ -16,7 +16,7 @@ class Room < ActiveRecord::Base
   scope :joinable, -> { Room.where(joins_count: 0..3).joins('LEFT OUTER JOIN games ON games.room_id = rooms.id').where(games: {room_id: nil}) }
 
   def joinable?(user)
-    !(full? || users.exists?(id: user.id))
+    !(full? || users.exists?(id: user.id) || user.room)
   end
 
   def game_startable?(user)
