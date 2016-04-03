@@ -6,9 +6,11 @@ class Api::JoinsController < Api::ApplicationController
 
     return head :unprocessable_entity unless room.joinable?(current_user)
 
-    current_user.room = room
+    room.with_lock do
+      current_user.room = room
 
-    notify_joined(room)
+      notify_joined(room)
+    end
 
     head :ok
   end
