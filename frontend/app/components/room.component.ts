@@ -32,7 +32,7 @@ export class RoomComponent implements OnInit {
     );
   }
   start() {
-    this.roomService.start(this.room.links.start).subscribe(
+    this.roomService.start().subscribe(
       () => this.router.navigate(['/Game'])
     );
   }

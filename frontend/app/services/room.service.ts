@@ -12,8 +12,8 @@ export class RoomService {
     this.dataStore = {room: null}
     this.room$ = new Subject(this.dataStore.room);
   }
-  start(url) {
-    return this.http.post(url, null).publish().refCount();
+  start() {
+    return this.http.post(this.dataStore.room.links.start.url, null).publish().refCount();
   }
   loadRoom() {
     return this.http.get('/api/room').

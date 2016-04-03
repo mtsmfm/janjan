@@ -24,7 +24,7 @@ export class RoomsService {
       do(() => this.rooms$.next(this.dataStore.rooms)).publish().refCount();
   }
   join(room: Room) {
-    return this.http.post(room.links.join, null).publish().refCount();
+    return this.http.post(room.links.join.url, null).publish().refCount();
   }
   connectChannel() {
     this.cableService.connect();
