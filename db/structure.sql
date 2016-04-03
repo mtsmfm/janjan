@@ -2,12 +2,16 @@
 -- PostgreSQL database dump
 --
 
+-- Dumped from database version 9.5.2
+-- Dumped by pg_dump version 9.5.2
+
 SET statement_timeout = 0;
 SET lock_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
 SET check_function_bodies = false;
 SET client_min_messages = warning;
+SET row_security = off;
 
 --
 -- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: -
@@ -56,7 +60,7 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- Name: ar_internal_metadata; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: ar_internal_metadata; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE ar_internal_metadata (
@@ -68,7 +72,7 @@ CREATE TABLE ar_internal_metadata (
 
 
 --
--- Name: games; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: games; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE games (
@@ -99,7 +103,7 @@ ALTER SEQUENCE games_id_seq OWNED BY games.id;
 
 
 --
--- Name: joins; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: joins; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE joins (
@@ -131,7 +135,7 @@ ALTER SEQUENCE joins_id_seq OWNED BY joins.id;
 
 
 --
--- Name: rooms; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: rooms; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE rooms (
@@ -162,7 +166,7 @@ ALTER SEQUENCE rooms_id_seq OWNED BY rooms.id;
 
 
 --
--- Name: scenes; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: scenes; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE scenes (
@@ -194,7 +198,7 @@ ALTER SEQUENCE scenes_id_seq OWNED BY scenes.id;
 
 
 --
--- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE schema_migrations (
@@ -203,7 +207,7 @@ CREATE TABLE schema_migrations (
 
 
 --
--- Name: users; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: users; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE users (
@@ -243,7 +247,7 @@ ALTER TABLE ONLY scenes ALTER COLUMN id SET DEFAULT nextval('scenes_id_seq'::reg
 
 
 --
--- Name: ar_internal_metadata_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: ar_internal_metadata_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY ar_internal_metadata
@@ -251,7 +255,7 @@ ALTER TABLE ONLY ar_internal_metadata
 
 
 --
--- Name: games_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: games_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY games
@@ -259,7 +263,7 @@ ALTER TABLE ONLY games
 
 
 --
--- Name: joins_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: joins_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY joins
@@ -267,7 +271,7 @@ ALTER TABLE ONLY joins
 
 
 --
--- Name: rooms_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: rooms_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY rooms
@@ -275,7 +279,7 @@ ALTER TABLE ONLY rooms
 
 
 --
--- Name: scenes_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: scenes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY scenes
@@ -283,7 +287,7 @@ ALTER TABLE ONLY scenes
 
 
 --
--- Name: schema_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: schema_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY schema_migrations
@@ -291,7 +295,7 @@ ALTER TABLE ONLY schema_migrations
 
 
 --
--- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY users
@@ -299,28 +303,28 @@ ALTER TABLE ONLY users
 
 
 --
--- Name: index_games_on_room_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_games_on_room_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_games_on_room_id ON games USING btree (room_id);
 
 
 --
--- Name: index_joins_on_room_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_joins_on_room_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_joins_on_room_id ON joins USING btree (room_id);
 
 
 --
--- Name: index_joins_on_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_joins_on_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_joins_on_user_id ON joins USING btree (user_id);
 
 
 --
--- Name: index_scenes_on_game_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_scenes_on_game_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_scenes_on_game_id ON scenes USING btree (game_id);
@@ -362,7 +366,7 @@ ALTER TABLE ONLY games
 -- PostgreSQL database dump complete
 --
 
-SET search_path TO "$user",public;
+SET search_path TO "$user", public;
 
 INSERT INTO schema_migrations (version) VALUES ('20151013124540');
 
