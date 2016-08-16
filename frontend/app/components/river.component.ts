@@ -1,4 +1,4 @@
-import {Component} from 'angular2/core';
+import {Component} from '@angular/core';
 import {River} from '../interfaces/game';
 
 @Component({
@@ -6,7 +6,7 @@ import {River} from '../interfaces/game';
   inputs: ['river'],
   template: `
     <ul class="river">
-      <li *ngFor="#tile of river.tiles" class="tile" attr.data-tile="{{tile.kind}}">
+      <li *ngFor="let tile of river.tiles" class="tile" attr.data-tile="{{tile.kind}}">
       </li>
     </ul>
   `

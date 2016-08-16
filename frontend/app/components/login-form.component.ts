@@ -1,5 +1,5 @@
-import {Injector, Component, OnInit} from 'angular2/core';
-import {CanActivate, Router} from 'angular2/router';
+import {Injector, Component, OnInit} from '@angular/core';
+import {CanActivate, Router} from '@angular/router-deprecated';
 import {UserService} from '../services/user.service';
 import {checkCondition} from '../check-condition';
 
@@ -7,7 +7,7 @@ import {checkCondition} from '../check-condition';
   selector: 'login-form',
   template: `
     Input your name:
-    <form (submit)="login(name.value)">
+    <form (ngSubmit)="login(name.value)">
       <input #name>
       <button type="submit">Login</button>
     </form>

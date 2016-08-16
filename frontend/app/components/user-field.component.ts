@@ -1,4 +1,4 @@
-import {Component} from 'angular2/core';
+import {Component} from '@angular/core';
 import {HandComponent} from './hand.component';
 import {RiverComponent} from './river.component';
 import {Direction, Seat} from '../interfaces/game';

@@ -1,6 +1,6 @@
-import {BehaviorSubject} from 'rxjs/subject/BehaviorSubject';
-import {Injectable} from 'angular2/core';
-import {Http} from 'angular2/http';
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+import {Injectable} from '@angular/core';
+import {Http} from '@angular/http';
 import {Room} from '../interfaces/game';
 import {CableService} from '../services/cable.service';
 
@@ -15,16 +15,16 @@ export class RoomsService {
     this.rooms$ = new BehaviorSubject(this.dataStore.rooms);
   }
   createRoom() {
-    return this.http.post(endpoint, null).publish().refCount();
+    return this.http.post(endpoint, {body: ''}).publish().refCount();
   }
   loadRooms() {
-    return this.http.get(endpoint).
+    return this.http.get(endpoint, {body: ''}).
       map(res => <Room[]> res.json().rooms).
       do(data => this.dataStore.rooms = data).
       do(() => this.rooms$.next(this.dataStore.rooms)).publish().refCount();
   }
   join(room: Room) {
-    return this.http.post(room.links.join.url, null).publish().refCount();
+    return this.http.post(room.links.join.url, {body: ''}).publish().refCount();
   }
   connectChannel() {
     this.cableService.connect();

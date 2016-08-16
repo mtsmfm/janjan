@@ -4,12 +4,15 @@
     "module": "commonjs",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "inlineSourceMap": true
+    "inlineSourceMap": true,
+    "types": [
+      "core-js",
+      "node",
+      "webpack"
+    ]
   },
   "exclude": [
-    "node_modules",
-    "typings/main.d.ts",
-    "typings/main"
+    "node_modules"
   ],
   "compileOnSave": false,
   "buildOnSave": false,
