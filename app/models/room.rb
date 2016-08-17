@@ -8,7 +8,7 @@
 #  updated_at  :datetime         not null
 #
 
-class Room < ActiveRecord::Base
+class Room < ApplicationRecord
   has_many :joins
   has_many :users, through: :joins
   has_one :game, dependent: :destroy

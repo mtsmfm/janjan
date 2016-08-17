@@ -17,7 +17,7 @@
 #  fk_rails_6d63773b7b  (game_id => games.id)
 #
 
-class Scene < ActiveRecord::Base
+class Scene < ApplicationRecord
   attr_writer :mahjong
 
   before_save -> { self.data = Marshal.dump(mahjong) }

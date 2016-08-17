@@ -16,7 +16,7 @@
 #  fk_rails_b22253b79a  (room_id => rooms.id)
 #
 
-class Game < ActiveRecord::Base
+class Game < ApplicationRecord
   belongs_to :room
 
   has_many :scenes, dependent: :destroy

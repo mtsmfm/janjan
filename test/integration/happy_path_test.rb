@@ -95,7 +95,7 @@ class HappyPathTest < ActionDispatch::IntegrationTest
 
       click_on 'OK'
 
-      assert page.has_css?(:button, 'Create Room')
+      assert page.has_css?(:button, text: 'Create Room')
     end
 
     # using_sessions *1..4 do

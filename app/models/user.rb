@@ -8,7 +8,7 @@
 #  updated_at :datetime         not null
 #
 
-class User < ActiveRecord::Base
+class User < ApplicationRecord
   has_one :join
   has_one :hand, class_name: 'Field::Hand', through: :seat
   has_one :river, class_name: 'Field::River', through: :seat

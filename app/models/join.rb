@@ -19,7 +19,7 @@
 #  fk_rails_8e87537561  (room_id => rooms.id)
 #
 
-class Join < ActiveRecord::Base
+class Join < ApplicationRecord
   belongs_to :user
   belongs_to :room, counter_cache: true
 end

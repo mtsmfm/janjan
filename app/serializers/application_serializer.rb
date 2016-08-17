@@ -1,7 +1,7 @@
 class ApplicationSerializer < ActiveModel::Serializer
   class << self
     def for(resource, current_user:, url_options:, include: nil)
-      serializable_resource = ActiveModel::SerializableResource.new(
+      serializable_resource = ActiveModelSerializers::SerializableResource.new(
         resource, scope: current_user, scope_name: :current_user, url_options: url_options, include: include
       )
       serializable_resource.adapter
