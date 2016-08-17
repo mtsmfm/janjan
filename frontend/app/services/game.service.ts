@@ -1,6 +1,6 @@
-import {BehaviorSubject} from 'rxjs/subject/BehaviorSubject';
-import {Injectable} from 'angular2/core';
-import {Http, Headers} from 'angular2/http';
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+import {Injectable} from '@angular/core';
+import {Http, Headers} from '@angular/http';
 import {Game, Tile} from '../interfaces/game';
 import {CableService} from './cable.service';
 
@@ -20,7 +20,7 @@ export class GameService {
     return this.dataStore.game;
   }
   loadGame() {
-    return this.http.get(endpoint).
+    return this.http.get(endpoint, {body: ''}).
       map(res => <Game> res.json().game).
       do(data => this.dataStore.game = data).
       do(() => this.game$.next(this.dataStore.game)).publish().refCount();
@@ -42,14 +42,14 @@ export class GameService {
     return this.http.post(this.game.links.discard.url, JSON.stringify({id: tile.id}));
   }
   drawTile() {
-    return this.http.post(this.game.links.draw.url, null);
+    return this.http.post(this.game.links.draw.url, {body: ''});
   }
   selfPick() {
-    return this.http.post(this.game.links.self_pick.url, null);
+    return this.http.post(this.game.links.self_pick.url, {body: ''});
   }
   confirm() {
     let key = Object.keys(this.game.links).find(e => this.game.links[e].meta);
-    
-    return this.http.post(this.game.links[key].url, null);
+
+    return this.http.post(this.game.links[key].url, {body: ''});
   }
 }

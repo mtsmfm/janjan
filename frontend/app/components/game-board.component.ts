@@ -1,4 +1,4 @@
-import {Component} from 'angular2/core';
+import {Component} from '@angular/core';
 import {UserFieldComponent} from './user-field.component';
 import {GameInfoComponent} from './game-info.component';
 import {GameDialogComponent} from './game-dialog.component';
@@ -10,7 +10,7 @@ import {User, Game} from '../interfaces/game';
   inputs: ['game', 'currentUser'],
   template: `
     <div class="game-board" *ngIf="game && currentUser">
-      <user-field *ngFor="#seat of game.seats" [seat]="seat" [position]="getCurrentPosition()" [links]="game.links"></user-field>
+      <user-field *ngFor="let seat of game.seats" [seat]="seat" [position]="getCurrentPosition()" [links]="game.links"></user-field>
       <game-info [game]="game"></game-info>
       <game-dialog [link]="link"></game-dialog>
     </div>

@@ -1,5 +1,5 @@
-import {Injector, Component, OnInit} from 'angular2/core';
-import {CanActivate, Router} from 'angular2/router';
+import {Injector, Component, OnInit} from '@angular/core';
+import {CanActivate, Router} from '@angular/router-deprecated';
 import {RoomsService} from '../services/rooms.service';
 import {UserService} from '../services/user.service';
 import {Room} from '../interfaces/game';
@@ -13,7 +13,7 @@ import {checkCondition} from '../check-condition';
     <h1>Rooms</h1>
     <button (click)="createRoom()">Create Room</button>
     <ul>
-      <li *ngFor="#room of rooms" class="room">
+      <li *ngFor="let room of rooms" class="room">
         <div class="room__id">
           {{room.id}}
         </div>

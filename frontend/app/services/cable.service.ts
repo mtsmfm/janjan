@@ -1,5 +1,5 @@
 import {Subject} from 'rxjs/Subject';
-import {Injectable, NgZone} from 'angular2/core';
+import {Injectable, NgZone} from '@angular/core';
 
 declare var ActionCable;
 

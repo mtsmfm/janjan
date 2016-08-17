@@ -1,5 +1,5 @@
-import {Component, OnInit} from 'angular2/core';
-import {CanActivate} from 'angular2/router';
+import {Component, OnInit} from '@angular/core';
+import {CanActivate} from '@angular/router-deprecated';
 import {GameService} from '../services/game.service';
 import {UserService} from '../services/user.service';
 import {GameBoardComponent} from './game-board.component';

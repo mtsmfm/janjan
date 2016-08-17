@@ -1,5 +1,5 @@
-import {Component, OnInit} from 'angular2/core';
-import {CanActivate, Router} from 'angular2/router';
+import {Component, OnInit} from '@angular/core';
+import {CanActivate, Router} from '@angular/router-deprecated';
 import {RoomService} from '../services/room.service';
 import {Room, Game} from '../interfaces/game';
 import {UserService} from '../services/user.service';
@@ -12,7 +12,7 @@ import {checkCondition} from '../check-condition';
     <div *ngIf="room">
       <h1>Room {{room.id}}</h1>
       <ul>
-        <li *ngFor="#user of room.users">
+        <li *ngFor="let user of room.users">
           {{user.name}}
         <li>
       </ul>

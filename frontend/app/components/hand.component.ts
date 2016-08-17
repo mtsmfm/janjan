@@ -1,4 +1,4 @@
-import {Component} from 'angular2/core';
+import {Component} from '@angular/core';
 import {GameService} from '../services/game.service';
 import {Tile, Hand, Action} from '../interfaces/game';
 
@@ -7,7 +7,7 @@ import {Tile, Hand, Action} from '../interfaces/game';
   inputs: ['hand', 'links', 'relativePosition'],
   template: `
     <ul *ngIf="relativePosition === 'self'" class="hand tiles" [attr.data-discardable]="able(_Action.Discard)">
-      <li *ngFor="#tile of sortedTiles" class="tile" [attr.data-tile]="tile.kind" [attr.data-discardable]="able(_Action.Discard)" (click)="discard(tile)">
+      <li *ngFor="let tile of sortedTiles" class="tile" [attr.data-tile]="tile.kind" [attr.data-discardable]="able(_Action.Discard)" (click)="discard(tile)">
       </li>
       <li *ngIf="able(_Action.Draw)">
         <button (click)="draw()">Draw</button>
@@ -17,7 +17,7 @@ import {Tile, Hand, Action} from '../interfaces/game';
       </li>
     </ul>
     <ul *ngIf="relativePosition !== 'self'" class="hand tiles">
-      <li *ngFor="#tile of hand.tiles" class="tile" [attr.data-tile]="tile.kind">
+      <li *ngFor="let tile of hand.tiles" class="tile" [attr.data-tile]="tile.kind">
       </li>
     </ul>
   `
