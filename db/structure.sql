@@ -24,7 +24,13 @@ CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 -- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: -
 --
 
+DO $$
+BEGIN
+IF NOT EXISTS (SELECT name FROM pg_available_extensions WHERE name='plpgsql' AND installed_version IS NOT NULL) THEN
 COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+END IF;
+END $$;
+
 
 
 --
@@ -38,7 +44,13 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp" WITH SCHEMA public;
 -- Name: EXTENSION "uuid-ossp"; Type: COMMENT; Schema: -; Owner: -
 --
 
+DO $$
+BEGIN
+IF NOT EXISTS (SELECT name FROM pg_available_extensions WHERE name='uuid-ossp' AND installed_version IS NOT NULL) THEN
 COMMENT ON EXTENSION "uuid-ossp" IS 'generate universally unique identifiers (UUIDs)';
+END IF;
+END $$;
+
 
 
 SET search_path = public, pg_catalog;
