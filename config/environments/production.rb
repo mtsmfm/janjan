@@ -85,7 +85,7 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   config.x.domain = ENV['HEROKU_APP_NAME'] ? "#{ENV['HEROKU_APP_NAME']}.herokuapp.com" : ENV['JANJAN_DOMAIN']
-  Rails.application.config.action_cable.allowed_request_origins = ["https://#{config.x.domain}"]
+  config.action_cable.allowed_request_origins = ["https://#{config.x.domain}"]
 
   config.x.gtm_id = ENV['JANJAN_GTM_ID']
 end
