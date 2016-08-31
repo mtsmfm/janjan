@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 ruby '2.3.1'
 
-gem 'rails', github: 'rails/rails'
+gem 'rails', github: 'mtsmfm/rails', branch: 'use-log-method'
 gem 'active_model_serializers'
 gem 'bourbon'
 gem 'coffee-rails'

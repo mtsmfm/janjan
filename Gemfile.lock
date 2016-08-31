@@ -1,6 +1,7 @@
 GIT
-  remote: git://github.com/rails/rails.git
-  revision: 0ca595ea6e3a9523b7902b05305437054de67e43
+  remote: git://github.com/mtsmfm/rails.git
+  revision: 1d4383d7247cb2d0db092f876c3ec916d4ed6a17
+  branch: use-log-method
   specs:
     actioncable (5.1.0.alpha)
       actionpack (= 5.1.0.alpha)
