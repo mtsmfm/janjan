@@ -4,6 +4,14 @@ ActionDispatch::IntegrationTest.include(Capybara::DSL)
 
 Capybara.server = :puma
 
+Capybara.default_driver = Capybara.javascript_driver = if ENV['CI']
+  :browserstack
+else
+  :chrome
+end
+
+Capybara.default_max_wait_time = 30 if ENV['CI']
+
 # XXX hack to boot browsers concurrently
 Capybara.instance_variable_set(:@session_pool, Concurrent::Hash.new)
 Capybara::Server.new(Capybara.app).boot
