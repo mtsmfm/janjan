@@ -26,7 +26,6 @@ end
 
 group :test do
   gem 'capybara'
-  gem 'capybara-puma'
   gem 'database_rewinder'
   gem 'launchy'
   gem 'rspec-mocks'

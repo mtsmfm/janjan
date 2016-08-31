@@ -2,6 +2,8 @@ require 'capybara/rails'
 
 ActionDispatch::IntegrationTest.include(Capybara::DSL)
 
+Capybara.server = :puma
+
 # XXX hack to boot browsers concurrently
 Capybara.instance_variable_set(:@session_pool, Concurrent::Hash.new)
 Capybara::Server.new(Capybara.app).boot
