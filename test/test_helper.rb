@@ -10,12 +10,4 @@ class ActiveSupport::TestCase
   self.use_transactional_tests = false
 end
 
-Capybara.default_driver = Capybara.javascript_driver = if ENV['CI']
-  :browserstack
-else
-  :chrome
-end
-
-Capybara.default_max_wait_time = 30 if ENV['CI']
-
 DatabaseRewinder.clean_all

@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.5.2
--- Dumped by pg_dump version 9.5.2
+-- Dumped from database version 9.5.3
+-- Dumped by pg_dump version 9.5.4
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -24,7 +24,13 @@ CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 -- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: -
 --
 
+DO $$
+BEGIN
+IF NOT EXISTS (SELECT name FROM pg_available_extensions WHERE name='plpgsql' AND installed_version IS NOT NULL) THEN
 COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+END IF;
+END $$;
+
 
 
 --
@@ -38,7 +44,13 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp" WITH SCHEMA public;
 -- Name: EXTENSION "uuid-ossp"; Type: COMMENT; Schema: -; Owner: -
 --
 
+DO $$
+BEGIN
+IF NOT EXISTS (SELECT name FROM pg_available_extensions WHERE name='uuid-ossp' AND installed_version IS NOT NULL) THEN
 COMMENT ON EXTENSION "uuid-ossp" IS 'generate universally unique identifiers (UUIDs)';
+END IF;
+END $$;
+
 
 
 SET search_path = public, pg_catalog;
@@ -368,6 +380,7 @@ ALTER TABLE ONLY games
 
 SET search_path TO "$user", public;
 
-INSERT INTO schema_migrations (version) VALUES ('20151013124540');
+INSERT INTO schema_migrations (version) VALUES
+('20151013124540');
 
 

@@ -19,8 +19,6 @@ Rails.application.routes.draw do
     end
   end
 
-  mount ActionCable.server => '/cable'
-
   resource :debug, only: :show do
     post :load_fixture
   end if Rails.env.development?
