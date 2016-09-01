@@ -11,22 +11,22 @@ class WinDetectorTest < ActiveSupport::TestCase
   def assert_detection(tiles, expected)
     tiles = tiles.dup
 
-    m = tiles.slice!(/\d+m/).to_s[0..-2].chars.map {|c| "man_#{c}" }
-    p = tiles.slice!(/\d+p/).to_s[0..-2].chars.map {|c| "pin_#{c}" }
-    s = tiles.slice!(/\d+s/).to_s[0..-2].chars.map {|c| "sou_#{c}" }
+    m = tiles.slice!(/\d+m/).to_s[0..-2].chars.map {|c| :"man_#{c}" }
+    p = tiles.slice!(/\d+p/).to_s[0..-2].chars.map {|c| :"pin_#{c}" }
+    s = tiles.slice!(/\d+s/).to_s[0..-2].chars.map {|c| :"sou_#{c}" }
     w = tiles.slice!(/\w+w/).to_s[0..-2].chars.map {|c|
       {
-        'E' => 'east',
-        'S' => 'south',
-        'W' => 'west',
-        'N' => 'north',
+        'E' => :east,
+        'S' => :south,
+        'W' => :west,
+        'N' => :north,
       }[c]
     }
     d = tiles.slice!(/\w+d/).to_s[0..-2].chars.map {|c|
       {
-        'W' => 'haku',
-        'G' => 'hatsu',
-        'R' => 'chun',
+        'W' => :haku,
+        'G' => :hatsu,
+        'R' => :chun,
       }[c]
     }
 
