@@ -12,6 +12,7 @@ gem 'pg'
 gem 'puma'
 gem 'redis'
 gem 'sass-rails', github: 'rails/sass-rails'
+gem 'tenpai_wakaru_man'
 gem 'uglifier'
 
 group :production do
