@@ -20,11 +20,11 @@ class HappyPathTest < ActionDispatch::IntegrationTest
       end
     end
 
-    using_sessions *1..4, concurrently: true do
+    using_sessions(*1..4, concurrently: true) do
       visit '/'
     end
 
-    using_sessions *1..4 do |i|
+    using_sessions(*1..4) do |i|
       find('input').set("user #{i}")
 
       click_on 'Login'
@@ -46,7 +46,7 @@ class HappyPathTest < ActionDispatch::IntegrationTest
       end
     end
 
-    using_sessions *2..4 do
+    using_sessions(*2..4) do
       click_on 'Draw'
 
       within '.user-field .hand[data-discardable=true]' do
@@ -54,13 +54,13 @@ class HappyPathTest < ActionDispatch::IntegrationTest
       end
     end
 
-    using_session 1 do
+    using_session(1) do
       click_on 'Draw'
 
       click_on 'SelfPick'
     end
 
-    using_sessions *1..4 do
+    using_sessions(*1..4) do
       assert_equal 'user 1 self picked!', find('.game-dialog__message').text
 
       click_on 'OK'
@@ -83,14 +83,14 @@ class HappyPathTest < ActionDispatch::IntegrationTest
         click_on 'SelfPick'
       end
 
-      using_sessions *1..4 do
+      using_sessions(*1..4) do
         assert_equal "user #{winner} self picked!", find('.game-dialog__message').text
 
         click_on 'OK'
       end
     end
 
-    using_sessions *1..4 do
+    using_sessions(*1..4) do
       assert_equal "user 1 win!", find('.game-dialog__message').text
 
       click_on 'OK'
