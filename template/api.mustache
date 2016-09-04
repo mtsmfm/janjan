@@ -24,9 +24,12 @@ export class {{classname}} {
     protected basePath = '{{basePath}}';
     public defaultHeaders: Headers = new Headers();
 
-    constructor(protected http: Http, @Optional()@Inject(BASE_PATH) basePath: string) {
+    constructor(protected http: Http, @Optional()@Inject(BASE_PATH) basePath: string, @Optional() defaultHeaders: Headers) {
         if (basePath) {
             this.basePath = basePath;
+        }
+        if (defaultHeaders) {
+          this.defaultHeaders = defaultHeaders;
         }
     }
 
@@ -40,7 +43,7 @@ export class {{classname}} {
         const path = this.basePath + `{{path}}`;
 
         let queryParameters = new URLSearchParams();
-        let headers = new Headers(this.defaultHeaders.values()); // https://github.com/angular/angular/issues/6845
+        let headers = new Headers(this.defaultHeaders); // https://github.com/angular/angular/issues/6845
 {{#hasFormParams}}
         let formParams = new URLSearchParams();
 

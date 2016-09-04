@@ -41,9 +41,13 @@ export class DefaultApi {
     protected basePath = 'https://janjan.online/api';
     public defaultHeaders: Headers = new Headers();
 
-    constructor(protected http: Http, @Optional()@Inject(BASE_PATH) basePath: string) {
+    constructor(protected http: Http, @Optional()@Inject(BASE_PATH) basePath: string, @Optional() defaultHeaders: Headers) {
+      debugger;
         if (basePath) {
             this.basePath = basePath;
+        }
+        if (defaultHeaders) {
+          this.defaultHeaders = defaultHeaders;
         }
     }
 

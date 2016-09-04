@@ -1,9 +1,9 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {FormsModule}   from '@angular/forms';
-import {ExRequestOptions} from './ex-request-options'
+import {ExHeaders} from './ex-headers';
 import {ROUTER_PROVIDERS} from '@angular/router-deprecated';
 import {AppComponent}  from './components/app.component';
-import {HTTP_PROVIDERS, RequestOptions} from '@angular/http';
+import {HTTP_PROVIDERS, RequestOptions, Headers} from '@angular/http';
 import {UserService} from './services/user.service';
 import {appInjector} from './app-injector';
 import {NgModule, ComponentRef, APP_BOOTSTRAP_LISTENER} from '@angular/core';
@@ -20,7 +20,7 @@ import 'rxjs/Rx';
     ROUTER_PROVIDERS,
     HTTP_PROVIDERS,
     {provide: BASE_PATH, useValue: 'http://lvh.me:3000/api'},
-    {provide: RequestOptions, useClass: ExRequestOptions},
+    {provide: Headers, useClass: ExHeaders},
     DefaultApi,
     {
       provide: APP_BOOTSTRAP_LISTENER,
