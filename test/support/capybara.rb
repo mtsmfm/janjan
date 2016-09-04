@@ -33,3 +33,17 @@ module CapybaraConcurrentSupport
 end
 
 ActionDispatch::IntegrationTest.include(CapybaraConcurrentSupport)
+
+module CapybaraWithDelay
+  Capybara::Session::DSL_METHODS.each do |method|
+    eval <<~RUBY
+      def #{method}(*)
+        super.tap do
+          sleep ENV['CAPYBARA_DELAY'].to_f
+        end
+      end
+    RUBY
+  end
+end
+
+ActionDispatch::IntegrationTest.prepend(CapybaraWithDelay) if ENV['CAPYBARA_DELAY']
