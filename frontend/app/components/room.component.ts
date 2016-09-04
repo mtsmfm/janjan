@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {CanActivate, Router} from '@angular/router-deprecated';
 import {RoomService} from '../services/room.service';
-import {Room, Game} from '../interfaces/game';
+import {Room, Game} from '../client';
 import {UserService} from '../services/user.service';
 import {checkCondition} from '../check-condition';
 

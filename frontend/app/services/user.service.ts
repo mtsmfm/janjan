@@ -1,22 +1,20 @@
 import {Observable} from 'rxjs/Observable';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {Injectable} from '@angular/core';
-import {Http} from '@angular/http';
-import {User} from '../interfaces/game';
+import {DefaultApi, User} from '../client';
 
 @Injectable()
 export class UserService {
   public user$: BehaviorSubject<User>;
-  constructor (private http: Http) {
+  constructor (private api: DefaultApi) {
     this.user$ = new BehaviorSubject(null);
   }
   createUser(name: string) {
-    return this.http.post('/api/user', JSON.stringify({name: name})).
-      map(res => <User> res.json().user).
+    return this.api.userPost(name).
       do(data => this.user$.next(data)).publish().refCount();
   }
   loadUser() {
-    return this.http.get('/api/user', {body: ''}).
+    return this.api.userGet().
       catch(res => {
         if (res.status === 404) {
           return Observable.of({json: () => { return({user: null}) }})

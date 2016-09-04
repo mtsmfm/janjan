@@ -1,10 +1,7 @@
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {Injectable} from '@angular/core';
-import {Http, Headers} from '@angular/http';
-import {Game, Tile} from '../interfaces/game';
 import {CableService} from './cable.service';
-
-const endpoint = '/api/game';
+import {DefaultApi, Game, Tile} from '../client';
 
 @Injectable()
 export class GameService {
@@ -12,7 +9,7 @@ export class GameService {
   private dataStore: {
     game: Game
   };
-  constructor (private http: Http, private cableService: CableService) {
+  constructor (private cableService: CableService, private api: DefaultApi) {
     this.dataStore = {game: null}
     this.game$ = new BehaviorSubject(this.dataStore.game);
   }
@@ -20,8 +17,7 @@ export class GameService {
     return this.dataStore.game;
   }
   loadGame() {
-    return this.http.get(endpoint, {body: ''}).
-      map(res => <Game> res.json().game).
+    return this.api.gameGet().
       do(data => this.dataStore.game = data).
       do(() => this.game$.next(this.dataStore.game)).publish().refCount();
   }
@@ -39,17 +35,21 @@ export class GameService {
       do(() => this.game$.next(this.dataStore.game)).publish().refCount();
   }
   discardTile(tile: Tile) {
-    return this.http.post(this.game.links.discard.url, JSON.stringify({id: tile.id}));
+    return this.api.gameActionsDiscardPost(tile.id);
   }
   drawTile() {
-    return this.http.post(this.game.links.draw.url, {body: ''});
+    return this.api.gameActionsDrawPost();
   }
   selfPick() {
-    return this.http.post(this.game.links.self_pick.url, {body: ''});
+    return this.api.gameActionsSelfPickPost()
   }
   confirm() {
     let key = Object.keys(this.game.links).find(e => this.game.links[e].meta);
 
-    return this.http.post(this.game.links[key].url, {body: ''});
+    if (this.game.links.confirm_round_end) {
+      return this.api.gameActionsConfirmRoundEndPost();
+    } else {
+      return this.api.gameActionsConfirmGameEndPost();
+    }
   }
 }

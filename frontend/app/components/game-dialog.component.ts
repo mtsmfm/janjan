@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {GameService} from '../services/game.service';
-import {Game} from '../interfaces/game';
+import {Game} from '../client';
 import {Router} from '@angular/router-deprecated';
 
 @Component({

@@ -1,30 +1,26 @@
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {Injectable} from '@angular/core';
-import {Http} from '@angular/http';
-import {Room} from '../interfaces/game';
 import {CableService} from '../services/cable.service';
-
-const endpoint = '/api/rooms';
+import {DefaultApi, Room} from '../client';
 
 @Injectable()
 export class RoomsService {
   public rooms$: BehaviorSubject<Room[]>;
   private dataStore;
-  constructor (private http: Http, private cableService: CableService) {
+  constructor (private cableService: CableService, private api: DefaultApi) {
     this.dataStore = {rooms: []}
     this.rooms$ = new BehaviorSubject(this.dataStore.rooms);
   }
   createRoom() {
-    return this.http.post(endpoint, {body: ''}).publish().refCount();
+    return this.api.roomsPost().publish().refCount();
   }
   loadRooms() {
-    return this.http.get(endpoint, {body: ''}).
-      map(res => <Room[]> res.json().rooms).
+    return this.api.roomsGet().
       do(data => this.dataStore.rooms = data).
       do(() => this.rooms$.next(this.dataStore.rooms)).publish().refCount();
   }
   join(room: Room) {
-    return this.http.post(room.links.join.url, {body: ''}).publish().refCount();
+    return this.api.roomsIdJoinsPost(room.id).publish().refCount();
   }
   connectChannel() {
     this.cableService.connect();
