@@ -4,7 +4,7 @@ class WinDetector
   end
 
   def win?
-    TenpaiWakaruMan::Detector.winning?(str)
+    TenpaiWakaruMan.win?(str)
   end
 
   private
