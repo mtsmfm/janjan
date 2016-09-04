@@ -17,12 +17,11 @@ export class UserService {
     return this.api.userGet().
       catch(res => {
         if (res.status === 404) {
-          return Observable.of({json: () => { return({user: null}) }})
+          return Observable.of(null)
         } else {
           throw(res)
         }
       }).
-      map(res => <User> res.json().user).
       do(data => this.user$.next(data)).publish().refCount();
   }
 }

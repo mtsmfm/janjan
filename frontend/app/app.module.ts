@@ -7,6 +7,7 @@ import {HTTP_PROVIDERS, RequestOptions} from '@angular/http';
 import {UserService} from './services/user.service';
 import {appInjector} from './app-injector';
 import {NgModule, ComponentRef, APP_BOOTSTRAP_LISTENER} from '@angular/core';
+import {DefaultApi, BASE_PATH} from './client';
 
 import 'rxjs/Rx';
 
@@ -18,7 +19,9 @@ import 'rxjs/Rx';
     UserService,
     ROUTER_PROVIDERS,
     HTTP_PROVIDERS,
+    {provide: BASE_PATH, useValue: 'http://lvh.me:3000/api'},
     {provide: RequestOptions, useClass: ExRequestOptions},
+    DefaultApi,
     {
       provide: APP_BOOTSTRAP_LISTENER,
       multi: true,
