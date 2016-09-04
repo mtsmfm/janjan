@@ -1,7 +1,7 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {FormsModule}   from '@angular/forms';
 import {ExRequestOptions} from './ex-request-options'
-import {ROUTER_PROVIDERS} from '@angular/router-deprecated';
+import {ROUTER_PROVIDERS} from '@angular/router';
 import {AppComponent}  from './components/app.component';
 import {HTTP_PROVIDERS, RequestOptions} from '@angular/http';
 import {UserService} from './services/user.service';
