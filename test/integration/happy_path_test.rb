@@ -60,6 +60,9 @@ class HappyPathTest < ActionDispatch::IntegrationTest
       click_on 'SelfPick'
     end
 
+    # Prepare next round
+    stub_tiles('chiho')
+
     using_sessions(*1..4) do
       assert_equal 'user 1 self picked!', find('.game-dialog__message').text
 
@@ -67,8 +70,6 @@ class HappyPathTest < ActionDispatch::IntegrationTest
     end
 
     (1..4).zip((1..4).to_a.rotate) do |dealer, winner|
-      stub_tiles('chiho')
-
       using_session dealer do
         click_on 'Draw'
 
