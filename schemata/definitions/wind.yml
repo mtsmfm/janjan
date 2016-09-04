@@ -1,0 +1,8 @@
+---
+Wind:
+  type: string
+  enum:
+  - east
+  - south
+  - west
+  - north

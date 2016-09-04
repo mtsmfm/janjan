@@ -1,0 +1,42 @@
+---
+Room:
+  type: object
+  properties:
+    id:
+      description: unique identifier of room
+      type: integer
+    game:
+      "$ref": "#/definitions/Game"
+    users:
+      type: array
+      items:
+        "$ref": "#/definitions/User"
+    links:
+      type: object
+      properties:
+        join:
+          "$ref": "#/definitions/Join"
+        start:
+          "$ref": "#/definitions/Start"
+
+Join:
+  type: object
+  properties:
+    url:
+      description: url of start
+      type: string
+      format: uri
+    meta:
+      description: meta info
+      type: 'null'
+
+Start:
+  type: object
+  properties:
+    url:
+      description: url of start
+      type: string
+      format: uri
+    meta:
+      description: meta info
+      type: 'null'

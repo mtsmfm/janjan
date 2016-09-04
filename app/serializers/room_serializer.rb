@@ -1,7 +1,7 @@
 class RoomSerializer < ApplicationSerializer
   attributes :id, :links
 
-  has_one :game
+  has_one :game, if: 'object.game'
   has_many :users
 
   def links

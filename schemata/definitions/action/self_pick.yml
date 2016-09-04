@@ -1,0 +1,11 @@
+---
+SelfPick:
+  type: object
+  properties:
+    url:
+      description: url of self pick
+      type: string
+      format: uri
+    meta:
+      description: meta info
+      type: 'null'

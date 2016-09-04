@@ -6,6 +6,7 @@ gem 'rails', github: 'mtsmfm/rails', branch: 'use-log-method'
 gem 'active_model_serializers'
 gem 'bourbon'
 gem 'coffee-rails'
+gem 'committee'
 gem 'em-hiredis'
 gem 'haml-rails'
 gem 'pg'
@@ -19,6 +20,7 @@ group :development do
   gem 'annotate'
   gem 'listen'
   gem 'rails-erd'
+  gem 'swagger2hyperschema'
 end
 
 group :test do

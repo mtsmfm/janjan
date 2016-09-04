@@ -1,0 +1,17 @@
+---
+User:
+  type: object
+  properties:
+    id:
+      description: unique identifier of user
+      type: string
+    name:
+      description: name of user
+      type: string
+    game:
+      "$ref": "#/definitions/Game"
+    room:
+      "$ref": "#/definitions/Room"
+  required:
+    - id
+    - name

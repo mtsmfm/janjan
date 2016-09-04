@@ -1,0 +1,373 @@
+---
+swagger: '2.0'
+info:
+  title: Janjan API
+  description: Janjan API
+  version: 0.1.0
+host: janjan.online
+schemes:
+- https
+basePath: "/api"
+produces:
+- application/json
+paths:
+  "/room":
+    get:
+      description: Info for existing room.
+      responses:
+        200:
+          description: room
+          schema:
+            "$ref": "#/definitions/Room"
+  "/rooms":
+    get:
+      description: Info for existing rooms.
+      responses:
+        200:
+          description: room
+          schema:
+            type: array
+            items:
+              "$ref": "#/definitions/Room"
+    post:
+      description: Create a new room.
+      responses:
+        200:
+          description: room
+          schema:
+            "$ref": "#/definitions/Room"
+  "/rooms/{id}/joins":
+    post:
+      description: Join the room.
+      parameters:
+      - name: id
+        in: path
+        type: integer
+        required: true
+      responses:
+        200:
+          description: ok
+  "/game":
+    post:
+      description: Create a new game.
+      responses:
+        200:
+          description: ok
+    get:
+      description: Info for existing game.
+      responses:
+        200:
+          description: game
+          schema:
+            "$ref": "#/definitions/Game"
+  "/game/actions/discard":
+    post:
+      description: Discard tile
+      parameters:
+      - name: id
+        in: query
+        type: integer
+        required: true
+      responses:
+        200:
+          description: ok
+  "/game/actions/confirm_round_end":
+    post:
+      description: Confirm round end
+      responses:
+        200:
+          description: ok
+  "/game/actions/confirm_game_end":
+    post:
+      description: Confirm game end
+      responses:
+        200:
+          description: ok
+  "/game/actions/draw":
+    post:
+      description: Draw tile
+      responses:
+        200:
+          description: ok
+  "/game/actions/self_pick":
+    post:
+      description: Self pick
+      responses:
+        200:
+          description: ok
+  "/user":
+    get:
+      description: Get current user.
+      responses:
+        200:
+          description: user
+          schema:
+            "$ref": "#/definitions/User"
+    post:
+      description: Create a new user.
+      parameters:
+      - name: name
+        in: formData
+        type: string
+        required: true
+      responses:
+        200:
+          description: user
+          schema:
+            "$ref": "#/definitions/User"
+definitions:
+  Hand:
+    type: object
+    properties:
+      tiles:
+        description: tiles of hand
+        type: array
+        items:
+          "$ref": "#/definitions/Tile"
+  Game:
+    type: object
+    properties:
+      id:
+        description: unique identifier of game
+        type: integer
+      round_number:
+        description: round number of game
+        type: integer
+        minimum: 1
+        maximum: 4
+      bonus_count:
+        description: bonus count of game
+        type: integer
+        minimum: 0
+      seats:
+        description: seats of game
+        type: array
+        items:
+          "$ref": "#/definitions/Seat"
+      links:
+        type: object
+        properties:
+          confirm_game_end:
+            "$ref": "#/definitions/ConfirmGameEnd"
+          confirm_round_end:
+            "$ref": "#/definitions/ConfirmRoundEnd"
+          discard:
+            "$ref": "#/definitions/Discard"
+          draw:
+            "$ref": "#/definitions/Draw"
+          self_pick:
+            "$ref": "#/definitions/SelfPick"
+  Discard:
+    type: object
+    properties:
+      url:
+        description: url of discard
+        type: string
+        format: uri
+      meta:
+        description: meta info
+        type: 'null'
+  ConfirmRoundEnd:
+    type: object
+    properties:
+      url:
+        description: url of action
+        type: string
+        format: uri
+      meta:
+        description: meta info
+        properties:
+          message:
+            description: message
+            type: string
+          position:
+            "$ref": "#/definitions/Wind"
+          tiles:
+            type: array
+            items:
+              "$ref": "#/definitions/Tile"
+          base_point:
+            description: base point
+            type: integer
+            minimum: 0
+        type: object
+  ConfirmGameEnd:
+    type: object
+    properties:
+      url:
+        description: url of action
+        type: string
+        format: uri
+      meta:
+        description: meta info
+        properties:
+          message:
+            description: message
+            type: string
+          winner:
+            "$ref": "#/definitions/User"
+          results:
+            description: results
+            type: array
+            items:
+              "$ref": "#/definitions/Result"
+        type: object
+  Draw:
+    type: object
+    properties:
+      url:
+        description: url of draw
+        type: string
+        format: uri
+      meta:
+        description: meta info
+        type: 'null'
+  SelfPick:
+    type: object
+    properties:
+      url:
+        description: url of self pick
+        type: string
+        format: uri
+      meta:
+        description: meta info
+        type: 'null'
+  Room:
+    type: object
+    properties:
+      id:
+        description: unique identifier of room
+        type: integer
+      game:
+        "$ref": "#/definitions/Game"
+      users:
+        type: array
+        items:
+          "$ref": "#/definitions/User"
+      links:
+        type: object
+        properties:
+          join:
+            "$ref": "#/definitions/Join"
+          start:
+            "$ref": "#/definitions/Start"
+  Join:
+    type: object
+    properties:
+      url:
+        description: url of start
+        type: string
+        format: uri
+      meta:
+        description: meta info
+        type: 'null'
+  Start:
+    type: object
+    properties:
+      url:
+        description: url of start
+        type: string
+        format: uri
+      meta:
+        description: meta info
+        type: 'null'
+  Wind:
+    type: string
+    enum:
+    - east
+    - south
+    - west
+    - north
+  Tile:
+    type: object
+    properties:
+      id:
+        description: unique identifier of tile
+        type: integer
+      kind:
+        description: kind of tile
+        type: string
+        enum:
+        - east
+        - south
+        - west
+        - north
+        - chun
+        - hatsu
+        - haku
+        - man_1
+        - man_2
+        - man_3
+        - man_4
+        - man_5
+        - man_6
+        - man_7
+        - man_8
+        - man_9
+        - sou_1
+        - sou_2
+        - sou_3
+        - sou_4
+        - sou_5
+        - sou_6
+        - sou_7
+        - sou_8
+        - sou_9
+        - pin_1
+        - pin_2
+        - pin_3
+        - pin_4
+        - pin_5
+        - pin_6
+        - pin_7
+        - pin_8
+        - pin_9
+      order:
+        description: order of tile
+        type: integer
+        minimum: 0
+  River:
+    type: object
+    properties:
+      tiles:
+        description: tiles of river
+        type: array
+        items:
+          "$ref": "#/definitions/Tile"
+  User:
+    type: object
+    properties:
+      id:
+        description: unique identifier of user
+        type: string
+      name:
+        description: name of user
+        type: string
+      game:
+        "$ref": "#/definitions/Game"
+      room:
+        "$ref": "#/definitions/Room"
+    required:
+    - id
+    - name
+  Result:
+    type: object
+    properties:
+      point:
+        description: point
+        type: integer
+        minimum: 0
+  Seat:
+    type: object
+    properties:
+      point:
+        description: point of seat
+        type: integer
+      hand:
+        "$ref": "#/definitions/Hand"
+      river:
+        "$ref": "#/definitions/River"
+      user:
+        "$ref": "#/definitions/User"
+      position:
+        "$ref": "#/definitions/Wind"

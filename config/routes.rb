@@ -10,7 +10,11 @@ Rails.application.routes.draw do
   namespace :api do
     resource :user, only: %i(show create)
     resource :game, only: %i(show create) do
-      resources :actions, only: :create
+      resources :actions, only: [], param: :type do
+        member do
+          post :create
+        end
+      end
     end
     resource :room, only: :show
 

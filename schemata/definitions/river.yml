@@ -1,0 +1,9 @@
+---
+River:
+  type: object
+  properties:
+    tiles:
+      description: tiles of river
+      type: array
+      items:
+        "$ref": "#/definitions/Tile"

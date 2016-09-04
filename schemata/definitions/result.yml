@@ -1,0 +1,8 @@
+---
+Result:
+  type: object
+  properties:
+    point:
+      description: point
+      type: integer
+      minimum: 0
