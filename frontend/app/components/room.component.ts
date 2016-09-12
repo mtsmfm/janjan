@@ -1,9 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {CanActivate, Router} from '@angular/router-deprecated';
+import {Router} from '@angular/router';
 import {RoomService} from '../services/room.service';
 import {Room, Game} from '../interfaces/game';
 import {UserService} from '../services/user.service';
-import {checkCondition} from '../check-condition';
 
 @Component({
   selector: 'room',
@@ -20,20 +19,19 @@ import {checkCondition} from '../check-condition';
     </div>
     `
 })
-@CanActivate(checkCondition)
 export class RoomComponent implements OnInit {
   private room: Room;
   constructor(private roomService: RoomService, private router: Router) {
     this.roomService.room$.subscribe(
       room => {
-        if (room.game) { this.router.navigate(['/Game']) }
+        if (room.game) { this.router.navigateByUrl('/game') }
         this.room = room;
       }
     );
   }
   start() {
     this.roomService.start().subscribe(
-      () => this.router.navigate(['/Game'])
+      () => this.router.navigateByUrl('/game')
     );
   }
   ngOnInit() {

@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {GameService} from '../services/game.service';
 import {Game} from '../interfaces/game';
-import {Router} from '@angular/router-deprecated';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'game-dialog',
@@ -29,7 +29,7 @@ export class GameDialogComponent {
 
   ok() {
     this.gameService.confirm().subscribe(() => {
-      if (this.link.meta.winner) { this.router.navigate(['/Rooms']) }
+      if (this.link.meta.winner) { this.router.navigateByUrl('rooms') }
     });
   }
 }
