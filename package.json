@@ -2,7 +2,6 @@
   "name": "janjan",
   "version": "1.0.0",
   "description": "janjan",
-  "dependencies": {},
   "dependencies": {
     "bower": "latest"
   },
