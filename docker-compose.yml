@@ -16,6 +16,7 @@ services:
       - 3000:3000
     depends_on:
       - db
+      - webpack
 
   spring:
     <<: *web
@@ -31,6 +32,14 @@ services:
       - CI=$CI
     ports:
       - 3001:3001
+
+  webpack:
+    <<: *web
+    command: npm run server
+    ports:
+      - 3808:3808
+    environment: []
+    depends_on: []
 
   browserstacklocal:
     image: mtsmfm/browserstacklocal
