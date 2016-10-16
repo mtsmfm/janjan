@@ -1,0 +1,22 @@
+---
+ConfirmGameEnd:
+  type: object
+  properties:
+    url:
+      description: url of action
+      type: string
+      format: uri
+    meta:
+      description: meta info
+      properties:
+        message:
+          description: message
+          type: string
+        winner:
+          "$ref": "#/definitions/User"
+        results:
+          description: results
+          type: array
+          items:
+            "$ref": "#/definitions/Result"
+      type: object

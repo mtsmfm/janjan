@@ -10,7 +10,7 @@ class GameSerializer < ApplicationSerializer
       [
         action.type,
         {
-          url:  url_helpers.api_game_actions_path(type: action.type),
+          url:  url_helpers.api_game_action_path(type: action.type),
           meta: action.meta
         }
       ]

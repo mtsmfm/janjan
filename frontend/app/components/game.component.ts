@@ -3,7 +3,7 @@ import {CanActivate} from '@angular/router-deprecated';
 import {GameService} from '../services/game.service';
 import {UserService} from '../services/user.service';
 import {GameBoardComponent} from './game-board.component';
-import {User, Game} from '../interfaces/game';
+import {User, Game} from '../client';
 import {checkCondition} from '../check-condition';
 
 @Component({

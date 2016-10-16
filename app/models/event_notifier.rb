@@ -5,7 +5,7 @@ module EventNotifier
 
       channel = WebNotificationsChannel.channel_name_for(user)
 
-      ActionCable.server.broadcast channel, serializer.as_json.merge(event: event)
+      ActionCable.server.broadcast channel, {event: event, payload: serializer.as_json}
     end
   end
 end

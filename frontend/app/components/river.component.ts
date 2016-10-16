@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {River} from '../interfaces/game';
+import {River} from '../client';
 
 @Component({
   selector: 'river',

@@ -1,14 +1,14 @@
 import {Injectable} from '@angular/core';
-import {BaseRequestOptions} from '@angular/http'
+import {Headers} from '@angular/http'
 
 @Injectable()
-export class ExRequestOptions extends BaseRequestOptions  {
+export class ExHeaders extends Headers {
   constructor() {
     super();
-    this.headers.append('Content-Type', 'application/json');
+    //this.append('Content-Type', 'application/json');
     var token = this.getCsrfToken();
     if (token) {
-      this.headers.append('X-CSRF-Token', token);
+      this.append('X-CSRF-Token', token);
     }
   }
   getCsrfToken() {

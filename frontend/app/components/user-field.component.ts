@@ -1,7 +1,14 @@
 import {Component} from '@angular/core';
 import {HandComponent} from './hand.component';
 import {RiverComponent} from './river.component';
-import {Direction, Seat} from '../interfaces/game';
+import {Seat} from '../client';
+
+enum Direction {
+  East  = <any>"east",
+  West  = <any>"west",
+  South = <any>"south",
+  North = <any>"north"
+}
 
 @Component({
   selector: 'user-field',

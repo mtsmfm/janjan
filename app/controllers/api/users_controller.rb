@@ -1,12 +1,9 @@
 class Api::UsersController < Api::ApplicationController
   def show
-    user = User.find_by(id: current_user&.id)
+    return head :not_found unless current_user
 
-    if user
-      render_json user
-    else
-      render json: {user: nil}
-    end
+    user = User.find_by!(id: current_user.id)
+    render_json user
   end
 
   def create
@@ -19,6 +16,6 @@ class Api::UsersController < Api::ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name)
+    params.permit(:name)
   end
 end

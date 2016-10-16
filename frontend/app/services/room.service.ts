@@ -1,23 +1,21 @@
 import {Subject} from 'rxjs/Subject';
 import {Injectable} from '@angular/core';
-import {Http} from '@angular/http';
-import {Room} from '../interfaces/game';
 import {CableService} from '../services/cable.service';
+import {DefaultApi, Room} from '../client';
 
 @Injectable()
 export class RoomService {
   public room$: Subject<Room>;
   private dataStore: any;
-  constructor (private http: Http, private cableService: CableService) {
+  constructor (private cableService: CableService, private api: DefaultApi) {
     this.dataStore = {room: null};
     this.room$ = <Subject<Room>> new Subject();
   }
   start() {
-    return this.http.post(this.dataStore.room.links.start.url, {body: ''}).publish().refCount();
+    return this.api.gamePost().publish().refCount();
   }
   loadRoom() {
-    return this.http.get('/api/room', {body: ''}).
-      map(res => <Room> res.json().room).
+    return this.api.roomGet().
       do(data => this.dataStore.room = data).
       do(() => this.room$.next(this.dataStore.room)).publish().refCount();
   }

@@ -1,0 +1,15 @@
+---
+Seat:
+  type: object
+  properties:
+    point:
+      description: point of seat
+      type: integer
+    hand:
+      "$ref": "#/definitions/Hand"
+    river:
+      "$ref": "#/definitions/River"
+    user:
+      "$ref": "#/definitions/User"
+    position:
+      "$ref": "#/definitions/Wind"

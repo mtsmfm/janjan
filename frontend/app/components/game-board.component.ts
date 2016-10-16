@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {UserFieldComponent} from './user-field.component';
 import {GameInfoComponent} from './game-info.component';
 import {GameDialogComponent} from './game-dialog.component';
-import {User, Game} from '../interfaces/game';
+import {User, Game} from '../client';
 
 @Component({
   selector: 'game-board',

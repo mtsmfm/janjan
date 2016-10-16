@@ -1,0 +1,117 @@
+---
+swagger: '2.0'
+info:
+  title: Janjan API
+  description: Janjan API
+  version: 0.1.0
+host: janjan.online
+schemes:
+- https
+basePath: "/api"
+produces:
+- application/json
+paths:
+  /room:
+    get:
+      description: Info for existing room.
+      responses:
+        200:
+          description: room
+          schema:
+            "$ref": "#/definitions/Room"
+  /rooms:
+    get:
+      description: Info for existing rooms.
+      responses:
+        200:
+          description: room
+          schema:
+            type: array
+            items:
+              "$ref": "#/definitions/Room"
+    post:
+      description: Create a new room.
+      responses:
+        200:
+          description: room
+          schema:
+            "$ref": "#/definitions/Room"
+  /rooms/{id}/joins:
+    post:
+      description: Join the room.
+      parameters:
+      - name: id
+        in: path
+        type: integer
+        required: true
+      responses:
+        200:
+          description: ok
+  /game:
+    post:
+      description: Create a new game.
+      responses:
+        200:
+          description: ok
+    get:
+      description: Info for existing game.
+      responses:
+        200:
+          description: game
+          schema:
+            "$ref": "#/definitions/Game"
+  /game/actions/discard:
+    post:
+      description: Discard tile
+      parameters:
+      - name: id
+        in: query
+        type: integer
+        required: true
+      responses:
+        200:
+          description: ok
+  /game/actions/confirm_round_end:
+    post:
+      description: Confirm round end
+      responses:
+        200:
+          description: ok
+  /game/actions/confirm_game_end:
+    post:
+      description: Confirm game end
+      responses:
+        200:
+          description: ok
+  /game/actions/draw:
+    post:
+      description: Draw tile
+      responses:
+        200:
+          description: ok
+  /game/actions/self_pick:
+    post:
+      description: Self pick
+      responses:
+        200:
+          description: ok
+  /user:
+    get:
+      description: Get current user.
+      responses:
+        200:
+          description: user
+          schema:
+            "$ref": "#/definitions/User"
+    post:
+      description: Create a new user.
+      parameters:
+      - name: name
+        in: formData
+        type: string
+        required: true
+      responses:
+        200:
+          description: user
+          schema:
+            "$ref": "#/definitions/User"

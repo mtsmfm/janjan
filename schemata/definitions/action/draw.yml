@@ -1,0 +1,11 @@
+---
+Draw:
+  type: object
+  properties:
+    url:
+      description: url of draw
+      type: string
+      format: uri
+    meta:
+      description: meta info
+      type: 'null'

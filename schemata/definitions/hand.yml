@@ -1,0 +1,9 @@
+---
+Hand:
+  type: object
+  properties:
+    tiles:
+      description: tiles of hand
+      type: array
+      items:
+        "$ref": "#/definitions/Tile"

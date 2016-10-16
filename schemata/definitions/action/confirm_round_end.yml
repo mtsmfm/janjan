@@ -1,0 +1,25 @@
+---
+ConfirmRoundEnd:
+  type: object
+  properties:
+    url:
+      description: url of action
+      type: string
+      format: uri
+    meta:
+      description: meta info
+      properties:
+        message:
+          description: message
+          type: string
+        position:
+          "$ref": "#/definitions/Wind"
+        tiles:
+          type: array
+          items:
+            "$ref": "#/definitions/Tile"
+        base_point:
+          description: base point
+          type: integer
+          minimum: 0
+      type: object

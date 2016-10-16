@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {UserService} from '../services/user.service';
-import {User} from '../interfaces/game';
+import {User} from '../client';
 
 @Component({
   selector: 'user-info',

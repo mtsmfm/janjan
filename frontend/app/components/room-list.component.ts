@@ -2,7 +2,7 @@ import {Injector, Component, OnInit} from '@angular/core';
 import {CanActivate, Router} from '@angular/router-deprecated';
 import {RoomsService} from '../services/rooms.service';
 import {UserService} from '../services/user.service';
-import {Room} from '../interfaces/game';
+import {Room} from '../client';
 import {checkCondition} from '../check-condition';
 
 @CanActivate(checkCondition)

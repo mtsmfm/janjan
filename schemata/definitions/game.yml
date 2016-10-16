@@ -1,0 +1,34 @@
+---
+Game:
+  type: object
+  properties:
+    id:
+      description: unique identifier of game
+      type: integer
+    round_number:
+      description: round number of game
+      type: integer
+      minimum: 1
+      maximum: 4
+    bonus_count:
+      description: bonus count of game
+      type: integer
+      minimum: 0
+    seats:
+      description: seats of game
+      type: array
+      items:
+        "$ref": "#/definitions/Seat"
+    links:
+      type: object
+      properties:
+        confirm_game_end:
+          "$ref": "#/definitions/ConfirmGameEnd"
+        confirm_round_end:
+          "$ref": "#/definitions/ConfirmRoundEnd"
+        discard:
+          "$ref": "#/definitions/Discard"
+        draw:
+          "$ref": "#/definitions/Draw"
+        self_pick:
+          "$ref": "#/definitions/SelfPick"
