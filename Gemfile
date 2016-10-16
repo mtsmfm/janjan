@@ -48,5 +48,3 @@ group :development, :test do
   gem 'pry-stack_explorer'
   gem 'tapp'
 end
-
-gem 'foreman'

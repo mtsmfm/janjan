@@ -14,7 +14,7 @@ var production = process.env.NODE_ENV === 'production';
 var config = {
   entry: {
     // Sources are expected to live in $app_root/webpack
-    'application': './webpack/application.js'
+    'application': './webpack/application.ts'
   },
 
   output: {
@@ -29,7 +29,8 @@ var config = {
   },
 
   resolve: {
-    root: path.join(__dirname, '..', 'webpack')
+    root: path.join(__dirname, '..', 'webpack'),
+    extensions: ['', '.webpack.js', '.web.js', '.ts', '.js']
   },
 
   plugins: [
@@ -41,7 +42,13 @@ var config = {
       chunks: false,
       modules: false,
       assets: true
-    })]
+    })],
+
+  module: {
+    loaders: [
+      { test: /\.tsx?$/, loader: 'ts-loader' }
+    ]
+  }
 };
 
 if (production) {
@@ -60,6 +67,7 @@ if (production) {
 } else {
   config.devServer = {
     port: devServerPort,
+    host: '0.0.0.0',
     headers: { 'Access-Control-Allow-Origin': '*' }
   };
   config.output.publicPath = '//localhost:' + devServerPort + '/webpack/';
