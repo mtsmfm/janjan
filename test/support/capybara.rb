@@ -4,10 +4,21 @@ ActionDispatch::IntegrationTest.include(Capybara::DSL)
 
 Capybara.server = :puma
 
+Capybara.register_driver :host_chrome do |app|
+  Capybara::Selenium::Driver.new(app,
+    browser: :remote,
+    desired_capabilities: :chrome,
+    url: ENV['CHROME_URL']
+  )
+end
+Capybara.server_host = '0.0.0.0'
+Capybara.server_port = ENV['CAPYBARA_SERVER_PORT']
+Capybara.app_host = ENV['CAPYBARA_APP_HOST']
+
 Capybara.default_driver = Capybara.javascript_driver = if ENV['CI']
   :browserstack
 else
-  :chrome
+  :host_chrome
 end
 
 Capybara.default_max_wait_time = 30 if ENV['CI']

@@ -1,6 +1,6 @@
 GIT
-  remote: git://github.com/mtsmfm/rails.git
-  revision: 1d4383d7247cb2d0db092f876c3ec916d4ed6a17
+  remote: https://github.com/mtsmfm/rails
+  revision: 37843d04c910cde3799216e68bb6cfcd8aa7db44
   branch: use-log-method
   specs:
     actioncable (5.1.0.alpha)
@@ -60,7 +60,7 @@ GIT
       thor (>= 0.18.1, < 2.0)
 
 GIT
-  remote: git://github.com/rails/sass-rails.git
+  remote: https://github.com/rails/sass-rails
   revision: dfbcc6a53653d8908007e26324a0f299f026ec4f
   specs:
     sass-rails (6.0.0.beta1)
@@ -81,7 +81,7 @@ GEM
     annotate (2.7.1)
       activerecord (>= 3.2, < 6.0)
       rake (>= 10.4, < 12.0)
-    arel (7.1.1)
+    arel (7.1.4)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
     bourbon (4.2.7)
@@ -154,7 +154,7 @@ GEM
       mime-types-data (~> 3.2015)
     mime-types-data (3.2016.0521)
     mini_portile2 (2.1.0)
-    minitest (5.9.0)
+    minitest (5.9.1)
     nio4r (1.2.1)
     nokogiri (1.6.8)
       mini_portile2 (~> 2.1.0)
@@ -271,4 +271,4 @@ RUBY VERSION
    ruby 2.3.1p112
 
 BUNDLED WITH
-   1.12.5
+   1.13.2
