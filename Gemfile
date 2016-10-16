@@ -2,6 +2,16 @@ source 'https://rubygems.org'
 
 ruby '2.3.1'
 
+Bundler::Source::Git::GitProxy.prepend(Module.new do
+  def git_retry(command)
+    if command.start_with?('clone')
+      command += " --depth 1 --branch #{ref}"
+    end
+
+    super(command)
+  end
+end)
+
 gem 'rails', git: 'https://github.com/mtsmfm/rails', branch: 'use-log-method'
 gem 'active_model_serializers'
 gem 'bourbon'
