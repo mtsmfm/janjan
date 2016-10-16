@@ -5,9 +5,6 @@
   "dependencies": {
     "bower": "latest"
   },
-  "scripts": {
-    "postinstall": "bower install"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mtsmfm/janjan.git"
