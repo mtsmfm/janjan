@@ -1,9 +1,6 @@
 desc "Build frontend"
 task :build do
-  Dir.chdir('frontend') do
-    sh "npm install"
-    sh "npm run build"
-  end
+  sh "bin/rails webpack:compile"
 end
 
 task "assets:precompile" => ["build"]
