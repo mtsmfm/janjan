@@ -24,6 +24,7 @@ gem 'redis'
 gem 'sass-rails', git: 'https://github.com/rails/sass-rails'
 gem 'tenpai_wakaru_man'
 gem 'uglifier'
+gem 'webpack-rails'
 
 group :development do
   gem 'annotate'
@@ -47,3 +48,5 @@ group :development, :test do
   gem 'pry-stack_explorer'
   gem 'tapp'
 end
+
+gem 'foreman'

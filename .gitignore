@@ -17,3 +17,6 @@ node_modules
 npm-debug.log
 /app/assets/javascripts/frontend
 /vendor/bundle/
+# Added by webpack-rails
+/node_modules
+/public/webpack

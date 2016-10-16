@@ -1,18 +1,10 @@
 {
-  "name": "janjan",
-  "version": "1.0.0",
-  "description": "janjan",
-  "dependencies": {
-    "bower": "latest"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/mtsmfm/janjan.git"
-  },
-  "author": "Fumiaki MATSUSHIMA",
+  "name": "webpack-rails-example",
+  "version": "0.0.1",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/mtsmfm/janjan/issues"
-  },
-  "homepage": "https://github.com/mtsmfm/janjan#readme"
+  "dependencies": {
+    "stats-webpack-plugin": "^0.2.1",
+    "webpack": "^1.9.11",
+    "webpack-dev-server": "^1.9.0"
+  }
 }
