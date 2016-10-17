@@ -58,3 +58,13 @@ module CapybaraWithDelay
 end
 
 ActionDispatch::IntegrationTest.prepend(CapybaraWithDelay) if ENV['CAPYBARA_DELAY']
+
+Capybara::Selenium::Driver.prepend(Module.new do
+  def quit
+    puts find_css('user-info')[0]&.all_text
+    puts ?- * 10
+    puts browser.manage.logs.get(:browser).select {|l| l.level == 'SEVERE' }.map {|l| l.message.gsub('\n', "\n").gsub('\u003C', "\u003C") }
+    puts ?- * 10
+    super
+  end
+end)
