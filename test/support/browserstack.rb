@@ -5,7 +5,7 @@ Capybara.register_driver :browserstack do |app|
   capabilities['project'] = ENV['BS_AUTOMATE_PROJECT'] if ENV['BS_AUTOMATE_PROJECT']
   capabilities['build'] = ENV['BS_AUTOMATE_BUILD'] if ENV['BS_AUTOMATE_BUILD']
   capabilities['browser'] = 'chrome'
-  capabilities['browser_version'] = '49'
+  capabilities['browser_version'] = '54 Beta'
   capabilities['browserstack.debug'] = true
   capabilities['browserstack.local'] = true
 
