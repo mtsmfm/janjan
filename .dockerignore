@@ -8,3 +8,4 @@ docker-compose.yml
 shippable.yml
 node_modules
 frontend/node_modules
+.semaphore-cache
