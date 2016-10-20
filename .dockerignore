@@ -9,3 +9,5 @@ shippable.yml
 node_modules
 frontend/node_modules
 .semaphore-cache
+public/assets
+public/webpack
