@@ -1,21 +1,8 @@
 FROM ruby:2.3.1
-RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ jessie-pgdg main" >> /etc/apt/sources.list.d/pgdg.list
-RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
-RUN apt-get update -qq && \
-  apt-get install -y less postgresql-client-9.5
-
-# https://github.com/docker-library/postgres/blob/b2317dd369030a5f3f030b1daa1fc80da3cab9e0/9.6/Dockerfile#L8
-ENV GOSU_VERSION 1.7
-RUN set -x \
-	&& apt-get update && apt-get install -y --no-install-recommends ca-certificates wget && rm -rf /var/lib/apt/lists/* \
-	&& wget -O /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$(dpkg --print-architecture)" \
-	&& wget -O /usr/local/bin/gosu.asc "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$(dpkg --print-architecture).asc" \
-	&& export GNUPGHOME="$(mktemp -d)" \
-	&& gpg --keyserver ha.pool.sks-keyservers.net --recv-keys B42F6819007F00F88E364FD4036A9C25BF357DD4 \
-	&& gpg --batch --verify /usr/local/bin/gosu.asc /usr/local/bin/gosu \
-	&& rm -r "$GNUPGHOME" /usr/local/bin/gosu.asc \
-	&& chmod +x /usr/local/bin/gosu \
-	&& gosu nobody true
+RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ jessie-pgdg main" >> /etc/apt/sources.list.d/pgdg.list \
+  && wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - \
+  && apt-get update -qq \
+  && apt-get install -y less postgresql-client-9.5
 
 # https://github.com/nodejs/docker-node/blob/4029a8f71920e1e23efa79602167014f9c325ba0/6.7/Dockerfile
 RUN set -ex \
@@ -46,35 +33,34 @@ ARG RAILS_ENV=production
 ARG APP_DIR=/app
 ARG APP_USER=app
 ARG APP_UID=1000
+ARG LOCAL_BUILD=
 RUN useradd --create-home --user-group --uid $APP_UID $APP_USER
 
-ENV RAILS_ENV=$RAILS_ENV
-ENV RACK_ENV=$RAILS_ENV
-ENV RAILS_SERVE_STATIC_FILES=enabled
-ENV BUNDLE_PATH=$APP_DIR/vendor/bundle
-ENV BUNDLE_JOBS=4
-ENV RAILS_LOG_TO_STDOUT=enabled
-ENV RAILS_SERVE_STATIC_FILES=enabled
-ENV LANG=C.UTF-8
-ENV LC_ALL=C.UTF-8
-ENV APP_DIR=$APP_DIR
-ENV APP_USER=$APP_USER
-
-EXPOSE 3000
+ENV BUNDLE_PATH=$APP_DIR/vendor/bundle \
+  BUNDLE_JOBS=4 \
+  RAILS_LOG_TO_STDOUT=enabled \
+  RAILS_SERVE_STATIC_FILES=enabled \
+  LANG=C.UTF-8 \
+  LC_ALL=C.UTF-8 \
+  APP_DIR=$APP_DIR \
+  APP_USER=$APP_USER \
+  LOCAL_BUILD=$LOCAL_BUILD
 
 WORKDIR $APP_DIR
 
 COPY Gemfile* ./
-
-RUN if [ "$RAILS_ENV" = "production" ]; then \
-  bundle install --without development:test \
+RUN chown -R $APP_USER $APP_DIR
+USER $APP_USER
+RUN if [ -z "$LOCAL_BUILD" ]; then \
+  bundle install \
 ;fi
 
 COPY . .
-
-RUN if [ "$RAILS_ENV" = "production" ]; then \
-  bin/rails assets:precompile \
+USER root
+RUN chown -R $APP_USER $APP_DIR
+USER $APP_USER
+RUN if [ -z "$LOCAL_BUILD" ]; then \
+  RAILS_ENV=production bin/rails assets:precompile \
 ;fi
 
-ENTRYPOINT ["./docker-entrypoint.sh"]
-CMD ["bin/rails", "server", "-b", "0.0.0.0", "-p", "3000"]
+CMD ["bin/rails", "server", "-b", "0.0.0.0"]
