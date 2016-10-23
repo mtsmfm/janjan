@@ -68,4 +68,4 @@ RUN if [ -z "$LOCAL_BUILD" ]; then \
   && RAILS_ENV=production bin/rails assets:precompile \
 ;fi
 
-CMD ["bin/rails", "server", "-b", "0.0.0.0"]
+CMD ["bin/rails", "server"]
