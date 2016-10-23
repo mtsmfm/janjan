@@ -29,6 +29,10 @@ RUN curl -SLO "https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-
   && rm "node-v$NODE_VERSION-linux-x64.tar.xz" SHASUMS256.txt.asc SHASUMS256.txt \
   && ln -s /usr/local/bin/node /usr/local/bin/nodejs
 
+ENV YARN_VERSION 0.16.1
+
+RUN npm install -g yarn@$YARN_VERSION
+
 ARG RAILS_ENV=production
 ARG APP_DIR=/app
 ARG APP_USER=app
@@ -60,7 +64,8 @@ USER root
 RUN chown -R $APP_USER $APP_DIR
 USER $APP_USER
 RUN if [ -z "$LOCAL_BUILD" ]; then \
-  RAILS_ENV=production bin/rails assets:precompile \
+  yarn install \
+  && RAILS_ENV=production bin/rails assets:precompile \
 ;fi
 
 CMD ["bin/rails", "server", "-b", "0.0.0.0"]
