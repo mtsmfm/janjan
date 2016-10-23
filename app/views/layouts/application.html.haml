@@ -3,11 +3,13 @@
   %head
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}
     %title Janjan
+    = javascript_include_tag 'application'
     = stylesheet_link_tag 'application', media: 'all'
     = csrf_meta_tags
     - if Rails.configuration.x.gtm_id.present?
       = render partial: 'gtm', object: Rails.configuration.x.gtm_id
+
   %body
     %base{href: '/'}
     %my-app Loading...
-    = javascript_include_tag 'application'
+    = javascript_include_tag *webpack_asset_paths("application")

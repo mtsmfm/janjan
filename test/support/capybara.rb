@@ -15,13 +15,13 @@ Capybara.server_host = '0.0.0.0'
 Capybara.server_port = ENV['CAPYBARA_SERVER_PORT']
 Capybara.app_host = ENV['CAPYBARA_APP_HOST']
 
-Capybara.default_driver = Capybara.javascript_driver = if ENV['CI']
+Capybara.default_driver = Capybara.javascript_driver = if ENV['CI'].present?
   :browserstack
 else
   :host_chrome
 end
 
-Capybara.default_max_wait_time = 30 if ENV['CI']
+Capybara.default_max_wait_time = 30 if ENV['CI'].present?
 
 # XXX hack to boot browsers concurrently
 Capybara.instance_variable_set(:@session_pool, Concurrent::Hash.new)
@@ -58,3 +58,13 @@ module CapybaraWithDelay
 end
 
 ActionDispatch::IntegrationTest.prepend(CapybaraWithDelay) if ENV['CAPYBARA_DELAY']
+
+Capybara::Selenium::Driver.prepend(Module.new do
+  def quit
+    puts find_css('user-info')[0]&.all_text
+    puts ?- * 10
+    puts browser.manage.logs.get(:browser).select {|l| l.level == 'SEVERE' }.map {|l| l.message.gsub('\n', "\n").gsub('\u003C', "\u003C") }
+    puts ?- * 10
+    super
+  end
+end)
