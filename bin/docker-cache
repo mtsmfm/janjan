@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 
 image_archive="image-archive.tar"
-image_metadata="docker-image-metadata.tar.gz"
-
 function cache_images() {
   images_to_cache=$(docker images | awk '{print $1, "|", $3, "|", $7$8}' | grep -v '<none>' | tail -n +2)
   image_ids=$(echo $images_to_cache | cut -d \| -f 2 | xargs | while read -a image_id; do docker history -q $image_id | grep -v '<missing>'; done | uniq)
@@ -19,10 +17,6 @@ function cache_images() {
     sudo mv /tmp/$image_archive $destination
     echo "Images saved to $cached_image_archive_path"
 
-    echo "Saving image metadata ..."
-    sudo tar czf /tmp/$image_metadata -C /var/lib/docker/image .
-    sudo mv /tmp/$image_metadata $destination
-
     echo "Done."
   else
     echo "No images found."
@@ -30,10 +24,9 @@ function cache_images() {
 }
 
 function restore_images() {
-  if [ -e $cached_image_archive_path ] && [ -e $cached_image_metadata_path ]; then
+  if [ -e $cached_image_archive_path ]; then
     echo "Restoring images ..."
     docker load < $cached_image_archive_path
-    sudo tar xf $cached_image_metadata_path -C /var/lib/docker/image
     echo "Images restored."
     docker images
     ignore_semaphore_cache
@@ -55,7 +48,6 @@ function ignore_semaphore_cache() {
 function docker-cache() {
   destination=$SEMAPHORE_CACHE_DIR
   cached_image_archive_path="$destination/$image_archive"
-  cached_image_metadata_path="$destination/$image_metadata"
 
   case "$1" in
     "snapshot" )
