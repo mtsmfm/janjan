@@ -10,6 +10,7 @@ services:
     environment:
       - DATABASE_URL=postgres://postgres:@db
       - PORT=3000
+      - HOST=0.0.0.0
     tty: true
     stdin_open: true
     ports:
@@ -17,6 +18,8 @@ services:
     depends_on:
       - db
       - webpack
+    networks:
+      - my-net
 
   spring:
     <<: *web
@@ -32,6 +35,10 @@ services:
       - CI=$CI
     ports:
       - 3001:3001
+    depends_on:
+      - db
+      - webpack
+      - chrome
 
   webpack:
     <<: *web
@@ -41,6 +48,15 @@ services:
     environment: []
     depends_on: []
 
+  chrome:
+    image: selenium/standalone-chrome-debug
+    volumes:
+      - /dev/shm:/dev/shm
+    ports:
+      - 5900:5900
+    networks:
+      - my-net
+
   browserstacklocal:
     image: mtsmfm/browserstacklocal
     command: $BS_AUTHKEY
@@ -49,3 +65,8 @@ services:
 
   db:
     image: postgres:9.5.4
+    networks:
+      - my-net
+
+networks:
+  my-net:

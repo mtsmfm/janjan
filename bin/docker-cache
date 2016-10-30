@@ -1,0 +1,66 @@
+#!/usr/bin/env bash
+
+image_archive="image-archive.tar"
+function cache_images() {
+  images_to_cache=$(docker images | awk '{print $1, "|", $3, "|", $7$8}' | grep -v '<none>' | tail -n +2)
+  image_ids=$(echo $images_to_cache | cut -d \| -f 2 | xargs | while read -a image_id; do docker history -q $image_id | grep -v '<missing>'; done | uniq)
+
+  if [ -n "$images_to_cache" ]; then
+    printf "Removing old image cache ...\n\n"
+    rm -f $image_archive
+
+    printf "Saving the following images:\n$images_to_cache\n\n"
+    docker save -o /tmp/$image_archive $(echo ${image_ids[@]});
+
+    ! [ $? -eq 0 ] && exit 1
+
+    sudo mv /tmp/$image_archive $destination
+    echo "Images saved to $cached_image_archive_path"
+
+    echo "Done."
+  else
+    echo "No images found."
+  fi
+}
+
+function restore_images() {
+  if [ -e $cached_image_archive_path ]; then
+    echo "Restoring images ..."
+    docker load < $cached_image_archive_path
+    echo "Images restored."
+    docker images
+    ignore_semaphore_cache
+  else
+   echo "No image backup found. Please use the 'snapshot' action to create one."
+  fi
+}
+
+function ignore_semaphore_cache() {
+  semaphore_cache_dir=$(basename $SEMAPHORE_CACHE_DIR)
+  cache_ignored=$(grep $semaphore_cache_dir .dockerignore &> /dev/null)
+
+  if ! [ $? -eq 0 ]; then
+    echo "Adding Semaphore's cache directory to .dockerignore"
+    echo "$semaphore_cache_dir" >> .dockerignore
+  fi
+}
+
+function docker-cache() {
+  destination=$SEMAPHORE_CACHE_DIR
+  cached_image_archive_path="$destination/$image_archive"
+
+  case "$1" in
+    "snapshot" )
+      cache_images
+      ;;
+    "restore" )
+      restore_images
+      ;;
+    * )
+      echo "'$1' action unknown"
+      echo "Usage: docker-cache <snapshot|restore>"
+      ;;
+  esac
+}
+
+docker-cache "$@"
