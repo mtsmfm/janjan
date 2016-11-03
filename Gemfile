@@ -12,7 +12,7 @@ Bundler::Source::Git::GitProxy.prepend(Module.new do
   end
 end)
 
-gem 'rails', git: 'https://github.com/mtsmfm/rails', branch: 'use-log-method'
+gem 'rails', git: 'https://github.com/rails/rails'
 gem 'active_model_serializers'
 gem 'bourbon'
 gem 'coffee-rails'
