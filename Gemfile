@@ -43,8 +43,8 @@ end
 
 group :development, :test do
   gem 'pry'
+  gem 'pry-byebug'
   gem 'pry-rails'
   gem 'pry-rescue'
-  gem 'pry-stack_explorer'
   gem 'tapp'
 end
