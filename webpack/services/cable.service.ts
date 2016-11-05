@@ -5,7 +5,7 @@ declare var ActionCable;
 
 @Injectable()
 export class CableService {
-  public channel$;
+  public channel$: Subject<any>;
   private cable;
   constructor (private _ngZone: NgZone) {
     this.channel$ = new Subject();

@@ -17,7 +17,7 @@
     "core-js": "latest",
     "es6-shim": "latest",
     "reflect-metadata": "latest",
-    "rxjs": "latest",
+    "rxjs": "5.0.0-beta.12",
     "stats-webpack-plugin": "latest",
     "ts-loader": "latest",
     "typescript": "latest",

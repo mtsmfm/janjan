@@ -1,11 +1,9 @@
 import {Injector, Component, OnInit} from '@angular/core';
-import {CanActivate, Router} from '@angular/router-deprecated';
+import {Router} from '@angular/router';
 import {RoomsService} from '../services/rooms.service';
 import {UserService} from '../services/user.service';
 import {Room} from '../interfaces/game';
-import {checkCondition} from '../check-condition';
 
-@CanActivate(checkCondition)
 @Component({
   selector: 'room-list',
   providers: [RoomsService],
@@ -34,12 +32,12 @@ export class RoomListComponent implements OnInit {
   }
   createRoom() {
     this.roomsService.createRoom().subscribe(
-      () => this.router.navigate(['/Room'])
+      () => this.router.navigateByUrl('room')
     );
   }
   join(room: Room) {
     this.roomsService.join(room).subscribe(
-      () => this.router.navigate(['/Room'])
+      () => this.router.navigateByUrl('room')
     );
   }
   ngOnInit() {

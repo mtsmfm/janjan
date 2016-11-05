@@ -1,11 +1,8 @@
 import {Component} from '@angular/core';
-import {HandComponent} from './hand.component';
-import {RiverComponent} from './river.component';
 import {Direction, Seat} from '../interfaces/game';
 
 @Component({
   selector: 'user-field',
-  directives: [HandComponent, RiverComponent],
   inputs: ['seat', 'position', 'links'],
   template: `
     <div class="user-field" attr.data-relative-position="{{getRelativePosition()}}">
