@@ -5,7 +5,7 @@ ruby '2.3.1'
 Bundler::Source::Git::GitProxy.prepend(Module.new do
   def git_retry(command)
     if command.start_with?('clone')
-      command += " --depth 1 --branch #{ref}"
+      command += " --depth 100 --single-branch --branch #{ref}"
     end
 
     super(command)
