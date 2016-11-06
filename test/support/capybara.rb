@@ -1,6 +1,7 @@
 require 'capybara/rails'
 
 ActionDispatch::IntegrationTest.include(Capybara::DSL)
+ActionDispatch::IntegrationTest.include(CapybaraScreenshotIdobata::DSL)
 
 Capybara.server = :puma
 

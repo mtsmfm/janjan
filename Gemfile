@@ -34,6 +34,7 @@ end
 
 group :test do
   gem 'capybara'
+  gem 'capybara_screenshot_idobata'
   gem 'database_rewinder'
   gem 'launchy'
   gem 'rspec-mocks'

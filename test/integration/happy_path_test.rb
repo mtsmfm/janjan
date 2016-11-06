@@ -6,6 +6,8 @@ class HappyPathTest < ActionDispatch::IntegrationTest
   end
 
   teardown do
+    save_screenshot_and_post_to_idobata unless passed?
+
     DatabaseRewinder.clean
   end
 
