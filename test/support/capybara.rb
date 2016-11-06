@@ -1,13 +1,13 @@
 require 'capybara/rails'
 
 ActionDispatch::IntegrationTest.include(Capybara::DSL)
+ActionDispatch::IntegrationTest.include(CapybaraScreenshotIdobata::DSL)
 
 Capybara.server = :puma
 
 Capybara.register_driver :selenium_chrome do |app|
   Capybara::Selenium::Driver.new(app,
-    browser: :remote,
-    desired_capabilities: :chrome,
+    browser: :chrome,
     url: ENV['CHROME_URL']
   )
 end
