@@ -27,6 +27,12 @@ class HappyPathTest < ActionDispatch::IntegrationTest
     end
 
     using_sessions(*1..4) do |i|
+      i -= 1
+      page.driver.browser.manage.window.size = Selenium::WebDriver::Dimension.new(600, 400)
+      page.driver.browser.manage.window.position = Selenium::WebDriver::Point.new(600 * (i % 2), 400 * (i / 2))
+    end
+
+    using_sessions(*1..4) do |i|
       find('input').set("user #{i}")
 
       click_on 'Login'

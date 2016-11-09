@@ -33,6 +33,7 @@ services:
       - BS_USERNAME=$BS_USERNAME
       - BS_AUTHKEY=$BS_AUTHKEY
       - CI=$CI
+      - IDOBATA_HOOK_URL=$IDOBATA_HOOK_URL
     ports:
       - 3001:3001
     depends_on:
@@ -49,19 +50,13 @@ services:
     depends_on: []
 
   chrome:
-    image: selenium/standalone-chrome-debug
+    image: mtsmfm/standalone-chrome-debug
     volumes:
       - /dev/shm:/dev/shm
     ports:
       - 5900:5900
     networks:
       - my-net
-
-  browserstacklocal:
-    image: mtsmfm/browserstacklocal
-    command: $BS_AUTHKEY
-    depends_on:
-      - spring
 
   db:
     image: postgres:9.5.4
