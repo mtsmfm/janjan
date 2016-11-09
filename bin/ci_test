@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+docker-compose up -d spring
+docker-compose exec -T chrome byzanz-record -e "sleep 5m" --width=1400 --height=800 out.gif &
+docker-compose exec spring bin/rails test
+result=$?
+docker-compose exec -T chrome pkill sleep
+wait $!
+docker cp janjan_chrome_1:/out.gif /tmp/out.gif
+curl --form image=@/tmp/out.gif $IDOBATA_HOOK_URL
+exit $result

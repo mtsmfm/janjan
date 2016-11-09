@@ -15,7 +15,7 @@ export class UserService {
       map(res => <User> res.json().user).
       do(data => this.user$.next(data)).publish().refCount();
   }
-  loadUser() {
+  loadUser() : Observable<User> {
     return this.http.get('/api/user', {body: ''}).
       catch(res => {
         if (res.status === 404) {
@@ -25,6 +25,6 @@ export class UserService {
         }
       }).
       map(res => <User> res.json().user).
-      do(data => this.user$.next(data)).publish().refCount();
+      do(data => this.user$.next(<User>data)).publish().refCount();
   }
 }

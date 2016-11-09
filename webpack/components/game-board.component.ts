@@ -1,12 +1,8 @@
 import {Component} from '@angular/core';
-import {UserFieldComponent} from './user-field.component';
-import {GameInfoComponent} from './game-info.component';
-import {GameDialogComponent} from './game-dialog.component';
 import {User, Game} from '../interfaces/game';
 
 @Component({
   selector: 'game-board',
-  directives: [UserFieldComponent, GameInfoComponent, GameDialogComponent],
   inputs: ['game', 'currentUser'],
   template: `
     <div class="game-board" *ngIf="game && currentUser">

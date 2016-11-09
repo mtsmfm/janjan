@@ -1,21 +1,16 @@
 import {Component, OnInit} from '@angular/core';
-import {CanActivate} from '@angular/router-deprecated';
 import {GameService} from '../services/game.service';
 import {UserService} from '../services/user.service';
-import {GameBoardComponent} from './game-board.component';
 import {User, Game} from '../interfaces/game';
-import {checkCondition} from '../check-condition';
 
 @Component({
   selector: 'game',
-  directives: [GameBoardComponent],
   providers: [GameService],
   template: `
     <game-board [game]="game" [currentUser]="currentUser"></game-board>
   `
 })
 
-@CanActivate(checkCondition)
 export class GameComponent implements OnInit {
   public game: Game;
   public currentUser: User;
