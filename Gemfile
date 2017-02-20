@@ -1,16 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.3.1'
-
-Bundler::Source::Git::GitProxy.prepend(Module.new do
-  def git_retry(command)
-    if command.start_with?('clone')
-      command += " --depth 100 --single-branch --branch #{ref}"
-    end
-
-    super(command)
-  end
-end)
+ruby '2.4.0'
 
 gem 'rails', git: 'https://github.com/rails/rails'
 gem 'active_model_serializers'
