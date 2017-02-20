@@ -4,7 +4,6 @@ RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ jessie-pgdg main" >> /etc
   && apt-get update -qq \
   && apt-get install -y less postgresql-client-9.5
 
-ARG RAILS_ENV=production
 ARG APP_DIR=/app
 ARG APP_USER=app
 ARG APP_UID=1000
