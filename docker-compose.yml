@@ -17,30 +17,10 @@ services:
       - 3000:3000
     depends_on:
       - db
-      - webpack
-    networks:
-      - my-net
-
-  spring:
-    <<: *web
-    # TODO run spring server
-    command: watch echo
-    environment:
-      - DATABASE_URL=postgres://postgres:@db
-      - CHROME_URL=$CHROME_URL
-      - CAPYBARA_SERVER_PORT=3001
-      - CAPYBARA_APP_HOST=$CAPYBARA_APP_HOST
-      - BS_USERNAME=$BS_USERNAME
-      - BS_AUTHKEY=$BS_AUTHKEY
-      - CI=$CI
-    ports:
-      - 3001:3001
-    depends_on:
-      - db
-      - webpack
+      - client
       - chrome
 
-  webpack:
+  client:
     <<: *web
     command: npm run server
     ports:
@@ -54,19 +34,6 @@ services:
       - /dev/shm:/dev/shm
     ports:
       - 5900:5900
-    networks:
-      - my-net
-
-  browserstacklocal:
-    image: mtsmfm/browserstacklocal
-    command: $BS_AUTHKEY
-    depends_on:
-      - spring
 
   db:
     image: postgres:9.5.4
-    networks:
-      - my-net
-
-networks:
-  my-net:

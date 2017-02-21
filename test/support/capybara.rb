@@ -8,12 +8,12 @@ Capybara.server = :puma
 Capybara.register_driver :selenium_chrome do |app|
   Capybara::Selenium::Driver.new(app,
     browser: :chrome,
-    url: ENV['CHROME_URL']
+    url: 'http://chrome:4444/wd/hub'
   )
 end
 Capybara.server_host = '0.0.0.0'
-Capybara.server_port = ENV['CAPYBARA_SERVER_PORT']
-Capybara.app_host = ENV['CAPYBARA_APP_HOST']
+Capybara.server_port = 3001
+Capybara.app_host = "http://#{Socket.gethostname}:3001"
 
 Capybara.default_driver = Capybara.javascript_driver = :selenium_chrome
 
