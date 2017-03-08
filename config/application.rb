@@ -14,12 +14,12 @@ module Janjan
     config.active_record.schema_format = :sql
 
     config.generators do |g|
-      g.stylesheets         false
-      g.javascripts         false
-      g.helper              false
-      g.template_engine     false
-      g.test_framework      false
-      g.fixture_replacement false
+      g.stylesheets         nil
+      g.javascripts         nil
+      g.helper              nil
+      g.template_engine     nil
+      g.test_framework      nil
+      g.fixture_replacement nil
     end
   end
 end
