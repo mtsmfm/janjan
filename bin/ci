@@ -1,0 +1,22 @@
+#!/usr/bin/env sh
+
+set -ex
+
+docker build . -t web --pull
+
+cat docker-compose.yml | docker run --rm -i ruby:alpine ruby -e "$(cat <<EOS
+  require "yaml"
+  y = YAML.load(STDIN.read)
+  %w(web client).each do |service|
+    y["services"][service].delete("build")
+    y["services"][service].delete("volumes")
+    y["services"][service]["image"] = "web"
+  end
+  puts y.to_yaml
+EOS
+)" > docker-compose.yml
+
+docker-compose down -v
+docker-compose build --pull
+docker-compose run web bin/setup
+docker-compose run -e CI=true web bin/rails test

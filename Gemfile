@@ -1,18 +1,8 @@
 source 'https://rubygems.org'
 
-ruby '2.3.1'
+ruby '2.4.1'
 
-Bundler::Source::Git::GitProxy.prepend(Module.new do
-  def git_retry(command)
-    if command.start_with?('clone')
-      command += " --depth 100 --single-branch --branch #{ref}"
-    end
-
-    super(command)
-  end
-end)
-
-gem 'rails', git: 'https://github.com/rails/rails'
+gem 'rails', git: 'https://github.com/rails/rails', branch: "5-1-stable"
 gem 'active_model_serializers'
 gem 'bourbon'
 gem 'coffee-rails'
@@ -34,11 +24,7 @@ end
 
 group :test do
   gem 'capybara'
-  gem 'capybara_screenshot_idobata'
-  gem 'database_rewinder'
-  gem 'launchy'
   gem 'rspec-mocks'
-  gem 'poltergeist'
   gem 'selenium-webdriver'
 end
 

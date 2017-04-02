@@ -7,7 +7,8 @@ require 'pry-rescue/minitest' unless ENV['CI']
 Dir[Rails.root.join('test/support/**')].each {|f| require f }
 
 class ActiveSupport::TestCase
-  self.use_transactional_tests = false
-end
+  # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
+  fixtures []
 
-DatabaseRewinder.clean_all
+  # Add more helper methods to be used by all tests here...
+end
