@@ -1,16 +1,6 @@
-require 'test_helper'
+require "application_system_test_case"
 
-class HappyPathTest < ActionDispatch::IntegrationTest
-  setup do
-    Capybara.current_driver = Capybara.javascript_driver
-  end
-
-  teardown do
-    save_screenshot_and_post_to_idobata unless passed?
-
-    DatabaseRewinder.clean
-  end
-
+class HappyPathsTest < ApplicationSystemTestCase
   test 'happy path' do
     stub_tiles('double_reach')
 
@@ -22,8 +12,16 @@ class HappyPathTest < ActionDispatch::IntegrationTest
       end
     end
 
-    using_sessions(*1..4, concurrently: true) do
-      visit '/'
+    using_sessions(*1..4) do |i|
+      visit root_url
+
+      width = page.driver.browser.manage.window.size.width
+      height = page.driver.browser.manage.window.size.height
+
+      page.driver.browser.manage.window.position = OpenStruct.new(
+        x: ((i - 1) % 2) * width,
+        y: ((i - 1) / 2) * height
+      )
     end
 
     using_sessions(*1..4) do |i|

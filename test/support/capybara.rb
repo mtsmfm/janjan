@@ -1,27 +1,10 @@
 require 'capybara/rails'
 
-ActionDispatch::IntegrationTest.include(Capybara::DSL)
-ActionDispatch::IntegrationTest.include(CapybaraScreenshotIdobata::DSL)
-
-Capybara.server = :puma
-
-Capybara.register_driver :selenium_chrome do |app|
-  Capybara::Selenium::Driver.new(app,
-    browser: :chrome,
-    url: 'http://chrome:4444/wd/hub'
-  )
-end
-Capybara.server_host = '0.0.0.0'
-Capybara.server_port = 3001
-Capybara.app_host = "http://#{Socket.gethostname}:3001"
-
-Capybara.default_driver = Capybara.javascript_driver = :selenium_chrome
-
-Capybara.default_max_wait_time = 30 if ENV['CI'].present?
+# FIXME often we must wait because test server (puma) runs with only one thread
+Capybara.default_max_wait_time = 10
 
 # XXX hack to boot browsers concurrently
 Capybara.instance_variable_set(:@session_pool, Concurrent::Hash.new)
-Capybara::Server.new(Capybara.app).boot
 
 module CapybaraConcurrentSupport
   def using_sessions(*session_names, concurrently: false, &block)

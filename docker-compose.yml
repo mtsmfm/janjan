@@ -7,10 +7,13 @@ services:
         - LOCAL_BUILD=true
     volumes:
       - .:/app
+      - ~/ghq:/ghq
     environment:
       - DATABASE_URL=postgres://postgres:@db
       - PORT=3000
       - HOST=0.0.0.0
+      #- BUNDLE_LOCAL__RAILS=/ghq/github.com/mtsmfm/rails
+      #- BUNDLE_DISABLE_LOCAL_BRANCH_CHECK=true
     tty: true
     stdin_open: true
     ports:
