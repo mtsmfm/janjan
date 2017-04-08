@@ -25,6 +25,7 @@
     "react-dom": "latest",
     "react-relay": "latest",
     "react-router": "< 4",
+    "react-router-dom": "^4.0.0",
     "react-router-relay": "latest",
     "stats-webpack-plugin": "latest",
     "svg-url-loader": "latest",

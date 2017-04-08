@@ -1,6 +1,6 @@
 // @flow
 
-import App from './components/App';
+import App from './containers/App';
 import AppHomeRoute from './routes/AppHomeRoute';
 import MyGraphiQL from './components/MyGraphiQL';
 import React from 'react';
@@ -16,10 +16,13 @@ ReactDOM.render(
     environment={Relay.Store}
   >
     <Route
+      path="/"
+      component={App}
+    />
+    <Route
       path="/graphiql"
       component={MyGraphiQL}
-    >
-    </Route>
+    />
   </Router>,
   document.getElementById('root')
 );

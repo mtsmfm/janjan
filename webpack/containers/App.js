@@ -9,9 +9,6 @@ class App extends React.Component {
         <LoginForm viewer={this.props.viewer}/>
         <h1>User list</h1>
         <ul>
-          {this.props.viewer.users.map(user =>
-            <li key={user.id}>{user.name} (ID: {user.id})</li>
-          )}
         </ul>
       </div>
     );

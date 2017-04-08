@@ -26,7 +26,7 @@ class LoginForm extends React.Component {
   }
 
   render() {
-    const {user} = this.props.viewer;
+    const user = this.props.viewer;
     let userArea;
     if (user) {
       userArea = (
