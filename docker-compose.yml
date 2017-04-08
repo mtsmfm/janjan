@@ -37,6 +37,7 @@ services:
       - /dev/shm:/dev/shm
     ports:
       - 5900:5900
+    stop_signal: kill
 
   db:
     image: postgres:9.5.4

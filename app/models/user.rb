@@ -15,4 +15,6 @@ class User < ApplicationRecord
   has_one :room, through: :join
   has_one :game, through: :room
   has_one :seat
+
+  has_many :tokens, dependent: :destroy
 end

@@ -1,0 +1,4 @@
+{
+  "plugins": ["babel-relay-plugin-loader"],
+  "presets": ["react", "latest", "stage-0"]
+}

@@ -2,7 +2,8 @@ FROM mtsmfm/ruby-node
 RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ jessie-pgdg main" >> /etc/apt/sources.list.d/pgdg.list \
   && wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - \
   && apt-get update -qq \
-  && apt-get install -y less postgresql-client-9.5
+  && apt-get install -y less postgresql-client-9.5 \
+  ocaml libelf-dev
 
 ARG APP_DIR=/app
 ARG APP_USER=app
