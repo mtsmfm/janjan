@@ -10,6 +10,5 @@
       = render partial: 'gtm', object: Rails.configuration.x.gtm_id
 
   %body
-    %base{href: '/'}
-    %my-app Loading...
+    #root
     = javascript_include_tag *webpack_asset_paths("application")

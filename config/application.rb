@@ -24,5 +24,11 @@ module Janjan
       g.test_framework      nil
       g.fixture_replacement nil
     end
+
+    config.autoload_paths << Rails.root.join("app", "graphql")
+    config.autoload_paths << Rails.root.join("app", "graphql", "fields")
+    config.autoload_paths << Rails.root.join("app", "graphql", "mutations")
+    config.autoload_paths << Rails.root.join("app", "graphql", "types")
+    config.autoload_paths << Rails.root.join("app", "graphql", "resolvers")
   end
 end
