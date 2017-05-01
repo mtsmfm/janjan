@@ -41,6 +41,7 @@ type Room {
 
   # Get all User
   users: [User]
+  usersCount: Int!
 }
 
 type User {

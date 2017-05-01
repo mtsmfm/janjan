@@ -7,13 +7,6 @@ import App from './containers/App';
 ReactDOM.render(
   <Router>
     <div>
-      <ul>
-        <li><Link to="/">Home</Link></li>
-        <li><Link to="/graphiql">GraphiQL</Link></li>
-      </ul>
-
-      <hr/>
-
       <Route path="/" component={App}/>
       <Route path="/graphiql" component={MyGraphiQL}/>
     </div>

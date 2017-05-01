@@ -1,6 +1,5 @@
 import React from 'react'
-import { graphql, compose } from 'react-apollo'
-import gql from 'graphql-tag'
+import {createFragmentContainer} from 'react-relay';
 import { Redirect } from 'react-router-dom'
 
 class RoomList extends React.Component {
@@ -9,60 +8,48 @@ class RoomList extends React.Component {
   }
 
   render() {
-    if (this.props.data.loading) {
-      return (
-        <div>loading...</div>
-      );
-    } else if (!this.props.data.viewer) {
+    if (!this.props.viewer) {
       return (<Redirect to="/login" />);
-    } else {
-      return (
-        <div>
-          <h1>Rooms</h1>
-          <button onClick={::this.handleCreateRoom}>Create Room</button>
-          <ul>
-            {
-              this.props.data.viewer.rooms.map(
-                room => (
-                  <li className="room">
-                    <div className="room__id">
-                    </div>
-                    <div className="room__users-count">
-                      {room.users_count} / 4
-                    </div>
-                    <button className="room__join-button">Join</button>
-                  </li>
-                )
-              )
-            }
-          </ul>
-        </div>
-      );
     }
+
+    return (
+      <div>
+        <h1>Rooms</h1>
+        <button onClick={::this.handleCreateRoom}>Create Room</button>
+        {
+          this.props.viewer.rooms ?
+            <ul>
+              {
+                this.props.viewer.rooms.map(
+                  room => (
+                    <li key={room.id} className="room">
+                      <div className="room__id">
+                      </div>
+                      <div className="room__users-count">
+                        {room.usersCount} / 4
+                      </div>
+                      <button className="room__join-button">Join</button>
+                    </li>
+                  )
+                )
+              }
+            </ul>
+          : null
+        }
+      </div>
+    );
   }
 }
 
-export default compose(
-  graphql(gql`
-    query {
-      viewer {
+export default createFragmentContainer(
+  RoomList,
+  graphql`
+    fragment RoomList_viewer on Viewer {
+      id
+      rooms {
         id
-        rooms {
-          id
-        }
+        usersCount
       }
     }
-  `),
-  graphql(gql`
-    mutation CreateRoom($input: CreateRoomInput!) {
-      CreateRoom(input: $input) {
-        viewer {
-          id
-          rooms {
-            id
-          }
-        }
-      }
-    }
-  `)
-)(RoomList)
+  `,
+);

@@ -1,7 +1,9 @@
 import React from 'react';
 import {QueryRenderer, graphql} from 'react-relay';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
 import environment from '../environment';
+import LoginForm from './LoginForm';
+import RoomList from './RoomList';
 
 export default class App extends React.Component {
   render() {
@@ -12,6 +14,8 @@ export default class App extends React.Component {
           query AppQuery {
             viewer {
               id
+              ...LoginForm_viewer
+              ...RoomList_viewer
             }
           }
         `}
@@ -19,7 +23,14 @@ export default class App extends React.Component {
           if (error) {
             return <div>{error.message}</div>;
           } else if (props) {
-            return <div>{props.viewer} is great!</div>;
+            return(
+              <Router>
+                <div>
+                  <Route path="/login" render={() => <LoginForm viewer={props.viewer}/>} />
+                  <Route exact path="/rooms" render={() => <RoomList viewer={props.viewer}/>} />
+                </div>
+              </Router>
+            )
           }
           return <div>Loading</div>;
         }}

@@ -1,24 +1,19 @@
 import React from 'react';
-import Relay from 'react-relay';
-import UserMutations from '../mutations/UserMutations';
+import {createFragmentContainer} from 'react-relay';
+import {createUser} from '../mutations/UserMutations';
+import { Redirect } from 'react-router-dom'
 
 class LoginForm extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {name: ''};
-
-    this.handleChange = this.handleChange.bind(this);
-    this.login = this.login.bind(this);
   }
 
   login(event) {
     event.preventDefault();
 
-    Relay.Store.commitUpdate(new UserMutations({
-      viewer: this.props.viewer,
-      name: this.state.name
-    }));
+    createUser(this.state.name);
   }
 
   handleChange(event) {
@@ -26,34 +21,24 @@ class LoginForm extends React.Component {
   }
 
   render() {
-    const user = this.props.viewer;
-    let userArea;
-    if (user) {
-      userArea = (
-        <div>
-          {user.id} : {user.name}
-        </div>
-      );
+    if (this.props.viewer) {
+      return <Redirect to="/rooms" />;
     }
 
     return (
-      <form onSubmit={this.login}>
-        {userArea}
-        <input value={this.state.name} onChange={this.handleChange}/>
+      <form onSubmit={::this.login}>
+        <input value={this.state.name} onChange={::this.handleChange}/>
         <button type="submit">Login</button>
       </form>
     );
   }
 }
 
-export default Relay.createContainer(LoginForm, {
-  fragments: {
-    viewer: () => Relay.QL`
-      fragment on Viewer {
-        user {
-          id, name
-        }
-      }
-    `,
-  },
-});
+export default createFragmentContainer(
+  LoginForm,
+  graphql`
+    fragment LoginForm_viewer on Viewer {
+      id, name
+    }
+  `,
+);

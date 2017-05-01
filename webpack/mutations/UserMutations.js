@@ -7,7 +7,8 @@ const mutation = graphql`
   ) {
     CreateUser(input: $input) {
       viewer {
-        id, name
+        name
+        ...RoomList_viewer
       }
     }
   }
@@ -24,11 +25,7 @@ export function createUser(name) {
     environment,
     {
       mutation,
-      variables,
-      onCompleted: (response) => {
-        console.log('Success!')
-      },
-      onError: err => console.error(err),
-    },
+      variables
+    }
   );
 }
