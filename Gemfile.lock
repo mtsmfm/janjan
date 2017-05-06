@@ -69,6 +69,13 @@ GIT
       sprockets (~> 4.x)
       sprockets-rails (< 4.0)
 
+GIT
+  remote: https://github.com/rmosolgo/graphql-ruby
+  revision: e9b60c7fb14f42292d544ed0febe87b8e85ddb45
+  branch: subscriptions
+  specs:
+    graphql (1.5.10)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -120,7 +127,6 @@ GEM
     ffi (1.9.18)
     globalid (0.3.7)
       activesupport (>= 4.1.0)
-    graphql (1.5.10)
     haml (4.0.7)
       tilt
     haml-rails (0.9.0)
@@ -240,7 +246,7 @@ DEPENDENCIES
   capybara
   coffee-rails
   em-hiredis
-  graphql
+  graphql!
   haml-rails
   listen
   pg
