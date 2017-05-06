@@ -8,7 +8,9 @@ class Api::GraphqlController < Api::ApplicationController
       end
 
     context = {current_user: current_user, controller: self}
-    context[:channel] = SecureRandom.uuid if GraphQL::Query.new(GraphqlSchema, params[:query]).subscription?
+    if GraphQL::Query.new(GraphqlSchema, params[:query]).subscription?
+      headers["x-graphql-subscription-id"] = context[:channel] = GraphqlSubscriptionDatabase::Stream.create!.id
+    end
 
     render json: GraphqlSchema.execute(params[:query], variables: variables, context: context)
   end

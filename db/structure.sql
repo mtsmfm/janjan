@@ -1,10 +1,3 @@
---
--- PostgreSQL database dump
---
-
--- Dumped from database version 9.5.3
--- Dumped by pg_dump version 9.5.4
-
 SET statement_timeout = 0;
 SET lock_timeout = 0;
 SET client_encoding = 'UTF8';
@@ -28,6 +21,26 @@ DO $$
 BEGIN
 IF NOT EXISTS (SELECT name FROM pg_available_extensions WHERE name='plpgsql' AND installed_version IS NOT NULL) THEN
 COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+END IF;
+END $$;
+
+
+
+--
+-- Name: pgcrypto; Type: EXTENSION; Schema: -; Owner: -
+--
+
+CREATE EXTENSION IF NOT EXISTS pgcrypto WITH SCHEMA public;
+
+
+--
+-- Name: EXTENSION pgcrypto; Type: COMMENT; Schema: -; Owner: -
+--
+
+DO $$
+BEGIN
+IF NOT EXISTS (SELECT name FROM pg_available_extensions WHERE name='pgcrypto' AND installed_version IS NOT NULL) THEN
+COMMENT ON EXTENSION pgcrypto IS 'cryptographic functions';
 END IF;
 END $$;
 
@@ -112,6 +125,45 @@ CREATE SEQUENCE games_id_seq
 --
 
 ALTER SEQUENCE games_id_seq OWNED BY games.id;
+
+
+--
+-- Name: graphql_subscription_database_events; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE graphql_subscription_database_events (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    graphql_subscription_database_query_id uuid NOT NULL,
+    key character varying NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: graphql_subscription_database_queries; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE graphql_subscription_database_queries (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    graphql_subscription_database_stream_id uuid NOT NULL,
+    query_string character varying NOT NULL,
+    provided_variables jsonb NOT NULL,
+    operation_name character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: graphql_subscription_database_streams; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE graphql_subscription_database_streams (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
 
 
 --
@@ -275,6 +327,30 @@ ALTER TABLE ONLY games
 
 
 --
+-- Name: graphql_subscription_database_events_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY graphql_subscription_database_events
+    ADD CONSTRAINT graphql_subscription_database_events_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: graphql_subscription_database_queries_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY graphql_subscription_database_queries
+    ADD CONSTRAINT graphql_subscription_database_queries_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: graphql_subscription_database_streams_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY graphql_subscription_database_streams
+    ADD CONSTRAINT graphql_subscription_database_streams_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: joins_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -322,6 +398,20 @@ CREATE INDEX index_games_on_room_id ON games USING btree (room_id);
 
 
 --
+-- Name: index_gsdb_events_on_gsdb_stream_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_gsdb_events_on_gsdb_stream_id ON graphql_subscription_database_events USING btree (graphql_subscription_database_query_id);
+
+
+--
+-- Name: index_gsdb_queries_on_gsdb_stream_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_gsdb_queries_on_gsdb_stream_id ON graphql_subscription_database_queries USING btree (graphql_subscription_database_stream_id);
+
+
+--
 -- Name: index_joins_on_room_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -340,6 +430,14 @@ CREATE INDEX index_joins_on_user_id ON joins USING btree (user_id);
 --
 
 CREATE INDEX index_scenes_on_game_id ON scenes USING btree (game_id);
+
+
+--
+-- Name: fk_rails_01136326df; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY graphql_subscription_database_events
+    ADD CONSTRAINT fk_rails_01136326df FOREIGN KEY (graphql_subscription_database_query_id) REFERENCES graphql_subscription_database_queries(id);
 
 
 --
@@ -375,12 +473,21 @@ ALTER TABLE ONLY games
 
 
 --
+-- Name: fk_rails_cc0af6942b; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY graphql_subscription_database_queries
+    ADD CONSTRAINT fk_rails_cc0af6942b FOREIGN KEY (graphql_subscription_database_stream_id) REFERENCES graphql_subscription_database_streams(id);
+
+
+--
 -- PostgreSQL database dump complete
 --
 
 SET search_path TO "$user", public;
 
-INSERT INTO schema_migrations (version) VALUES
-('20151013124540');
+INSERT INTO "schema_migrations" (version) VALUES
+('20151013124540'),
+('20170506043811');
 
 

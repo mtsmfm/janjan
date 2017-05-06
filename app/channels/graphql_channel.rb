@@ -1,6 +1,6 @@
-class TestChannel < ApplicationCable::Channel
+class GraphqlChannel < ApplicationCable::Channel
   def subscribed
-    stream_from stream_id
+    stream_for stream_id
   end
 
   def unsubscribed

@@ -1,10 +1,12 @@
-payload_type = GraphQL::ObjectType.define do
-  name "Payload"
-  field :str, !types.String
+RoomSubscribeType = GraphQL::ObjectType.define do
+  name 'RoomSubscribe'
+
+  field :mutation, !MutationEnumType
+  field :node, !RoomType
 end
 
 SubscriptionType = GraphQL::ObjectType.define do
   name 'Subscription'
 
-  field :test, payload_type
+  field :RoomSubscribe, RoomSubscribeType
 end

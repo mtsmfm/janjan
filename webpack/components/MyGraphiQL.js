@@ -9,26 +9,27 @@ class SubscriptionClient {
     this.cable = ActionCable.createConsumer();
   }
 
-  subscribe (options, handler) {
-    const { query, variables, operationName, context } = options;
-    const channel = "TestChannel";
+  subscribe (graphQLParams, handler) {
+    graphQLFetcher(graphQLParams).then(response => {
+      const id = response.headers.get("x-graphql-subscription-id");
+      const channel = "GraphqlChannel";
+      const { query, variables } = graphQLParams;
 
-    this.cable.subscriptions.create({ channel, query, variables }, {
-      received: (data) => {
-        debugger;
-        //const payloadData = parsedMessage.payload.data || null;
-        //const payloadErrors = parsedMessage.payload.errors ? this.formatErrors(parsedMessage.payload.errors) : null;
-        //this.subscriptions[subId].handler(payloadErrors, payloadData);
-      }
+      this.cable.subscriptions.create({ channel, id, query, variables }, {
+        received: (data) => {
+          handler(null, data)
+          //const payloadData = parsedMessage.payload.data || null;
+          //const payloadErrors = parsedMessage.payload.errors ? this.formatErrors(parsedMessage.payload.errors) : null;
+          //this.subscriptions[subId].handler(payloadErrors, payloadData);
+        }
+      });
     });
 
     handler(null, "Hi!");
 
-    return { query, variables };
+    return graphQLParams;
   }
 }
-
-const cable = ActionCable.createConsumer();
 
 function graphQLFetcher(graphQLParams) {
   return fetch(window.location.origin + '/graphql', {
@@ -39,23 +40,6 @@ function graphQLFetcher(graphQLParams) {
     },
     credentials: 'same-origin',
     body: JSON.stringify(graphQLParams),
-  }).then(response => {
-    if (response.headers.has("x-graphql-subscription-channel")) {
-      const channel = response.headers.get("x-graphql-subscription-channel");
-      const { query, variables } = graphQLParams;
-
-      return {
-        subscribe: observer => {
-          cable.subscriptions.create({ channel, query, variables }, {
-            received: (data) => {
-              observer.next(data);
-            }
-          })
-        }
-      }
-    } else {
-      return response.json();
-    }
   });
 }
 
@@ -64,7 +48,7 @@ export default class MyGraphiQL extends React.Component {
     return (
       <div style={{height: '100vh'}}>
         <style>{css}</style>
-        <GraphiQL fetcher={graphQLFetcher}/>
+        <GraphiQL fetcher={fetcher(new SubscriptionClient(), (params) => graphQLFetcher(params).then(response => response.json()))}/>
       </div>
     )
   }
