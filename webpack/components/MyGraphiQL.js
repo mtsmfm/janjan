@@ -11,23 +11,32 @@ class SubscriptionClient {
 
   subscribe (graphQLParams, handler) {
     graphQLFetcher(graphQLParams).then(response => {
-      const id = response.headers.get("x-graphql-subscription-id");
-      const channel = "GraphqlChannel";
-      const { query, variables } = graphQLParams;
-
-      this.cable.subscriptions.create({ channel, id, query, variables }, {
-        received: (data) => {
-          handler(null, data)
-          //const payloadData = parsedMessage.payload.data || null;
-          //const payloadErrors = parsedMessage.payload.errors ? this.formatErrors(parsedMessage.payload.errors) : null;
-          //this.subscriptions[subId].handler(payloadErrors, payloadData);
+      response.json().then(data => {
+        if (data.errors) {
+          handler(null, data);
+          return;
         }
-      });
+
+        const id = response.headers.get("x-graphql-subscription-id");
+        const channel = "GraphqlChannel";
+
+        this.subscription = this.cable.subscriptions.create({ channel, id }, {
+          received: (payload) => {
+            handler(null, payload);
+          }
+        });
+
+        handler(null, "Your subscription data will appear here after server publication!");
+      })
     });
 
-    handler(null, "Hi!");
-
     return graphQLParams;
+  }
+
+  unsubscribe () {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 }
 
