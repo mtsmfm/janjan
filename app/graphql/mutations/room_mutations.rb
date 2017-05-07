@@ -1,8 +1,8 @@
-module RoomMutations
+module Mutations::RoomMutations
   Create = GraphQL::Relay::Mutation.define do
     name 'CreateRoom'
 
-    return_field :viewer, ViewerType
+    return_field :viewer, Types::ViewerType
 
     resolve -> (obj, inputs, ctx) {
       current_user = ctx[:current_user]
@@ -27,7 +27,7 @@ module RoomMutations
     name 'JoinRoom'
 
     input_field :id, !types.ID
-    return_field :viewer, ViewerType
+    return_field :viewer, Types::ViewerType
 
     resolve -> (obj, inputs, ctx) {
       current_user = ctx[:current_user]

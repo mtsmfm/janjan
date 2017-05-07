@@ -1,5 +1,5 @@
-WallType = GraphQL::ObjectType.define do
+Types::WallType = GraphQL::ObjectType.define do
   name "Wall"
 
-  field :tiles, !types[TileType]
+  field :tiles, !types[Types::TileType]
 end

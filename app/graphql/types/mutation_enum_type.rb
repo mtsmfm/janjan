@@ -1,4 +1,4 @@
-MutationEnumType = GraphQL::EnumType.define do
+Types::MutationEnumType = GraphQL::EnumType.define do
   name "MutationEnum"
 
   value :CREATED

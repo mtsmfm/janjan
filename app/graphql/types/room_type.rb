@@ -1,10 +1,10 @@
-RoomType = GraphQL::ObjectType.define do
+Types::RoomType = GraphQL::ObjectType.define do
   name "Room"
 
   field :id, !types.ID
 
   field :users do
-    type types[UserType]
+    type types[Types::UserType]
     description "Get all User"
     resolve -> (obj, args, ctx) { obj.users }
   end

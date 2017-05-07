@@ -1,8 +1,8 @@
-GameType = GraphQL::ObjectType.define do
+Types::GameType = GraphQL::ObjectType.define do
   name "Game"
 
   field :id, !types.ID
-  field :wall, !WallType
-  field :seats, !types[WallType]
-  field :availableAtions, !types[AvailableActionType]
+  field :wall, !Types::WallType
+  field :seats, !types[Types::WallType]
+  field :availableAtions, !types[Types::AvailableActionType]
 end

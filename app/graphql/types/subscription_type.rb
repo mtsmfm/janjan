@@ -1,12 +1,12 @@
-RoomSubscribeType = GraphQL::ObjectType.define do
+Types::RoomSubscribeType = GraphQL::ObjectType.define do
   name 'RoomSubscribe'
 
-  field :mutation, !MutationEnumType
-  field :node, !RoomType
+  field :mutation, !Types::MutationEnumType
+  field :node, !Types::RoomType
 end
 
-SubscriptionType = GraphQL::ObjectType.define do
+Types::SubscriptionType = GraphQL::ObjectType.define do
   name 'Subscription'
 
-  field :RoomSubscribe, RoomSubscribeType
+  field :RoomSubscribe, Types::RoomSubscribeType
 end
