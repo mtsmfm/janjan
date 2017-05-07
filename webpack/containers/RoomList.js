@@ -1,7 +1,21 @@
 import React from 'react'
 import {createFragmentContainer} from 'react-relay';
-import {createRoom} from '../mutations/RoomMutations';
+import {createRoom} from '../mutations/createRoom';
+import {joinRoom} from '../mutations/joinRoom';
 import { Redirect } from 'react-router-dom'
+
+const Room = function(props) {
+  return (
+    <li className="room">
+      <div className="room__id">
+      </div>
+      <div className="room__users-count">
+        {props.room.usersCount} / 4
+      </div>
+      <button className="room__join-button" onClick={() => joinRoom(props.room.id)}>Join</button>
+    </li>
+  );
+}
 
 class RoomList extends React.Component {
   handleCreateRoom() {
@@ -9,9 +23,8 @@ class RoomList extends React.Component {
   }
 
   render() {
-    if (!this.props.viewer) {
-      return (<Redirect to="/login" />);
-    }
+    if (!this.props.viewer) { return (<Redirect to="/login" />); }
+    if (this.props.viewer.room) { return (<Redirect to="/room" />); }
 
     return (
       <div>
@@ -19,20 +32,7 @@ class RoomList extends React.Component {
         <button onClick={::this.handleCreateRoom}>Create Room</button>
         {
           <ul>
-            {
-              this.props.viewer.rooms.map(
-                room => (
-                  <li key={room.id} className="room">
-                    <div className="room__id">
-                    </div>
-                    <div className="room__users-count">
-                      {room.usersCount} / 4
-                    </div>
-                    <button className="room__join-button">Join</button>
-                  </li>
-                )
-              )
-            }
+            {this.props.viewer.rooms.map(room => <Room room={room} key={room.id} />)}
           </ul>
         }
       </div>

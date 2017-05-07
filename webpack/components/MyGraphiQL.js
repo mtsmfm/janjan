@@ -56,7 +56,7 @@ export default class MyGraphiQL extends React.Component {
   render () {
     return (
       <div style={{height: '100vh'}}>
-        <style>{css}</style>
+        <style>{css.toString()}</style>
         <GraphiQL fetcher={fetcher(new SubscriptionClient(), (params) => graphQLFetcher(params).then(response => response.json()))}/>
       </div>
     )
