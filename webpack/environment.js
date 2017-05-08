@@ -1,4 +1,5 @@
 import { Environment, Network, RecordSource, Store } from 'relay-runtime';
+import SubscriptionClient from './SubscriptionClient';
 
 // Define a function that fetches the results of an operation (query/mutation/etc)
 // and returns its results as a Promise:
@@ -22,7 +23,7 @@ function fetchQuery(
   }).then(response => response.json());
 }
 
-const network = Network.create(fetchQuery);
+const network = Network.create(fetchQuery, new SubscriptionClient());
 const source = new RecordSource();
 const store = new Store(source);
 

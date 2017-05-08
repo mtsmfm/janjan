@@ -21,9 +21,7 @@ class LoginForm extends React.Component {
   }
 
   render() {
-    if (this.props.viewer) {
-      return <Redirect to="/rooms" />;
-    }
+    if (this.props.viewer) { return <Redirect to="/rooms" />; }
 
     return (
       <form onSubmit={::this.login}>

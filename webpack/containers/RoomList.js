@@ -45,6 +45,9 @@ export default createFragmentContainer(
   graphql`
     fragment RoomList_viewer on Viewer {
       id
+      room {
+        id
+      }
       rooms {
         id
         usersCount

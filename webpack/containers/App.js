@@ -4,6 +4,7 @@ import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
 import environment from '../environment';
 import LoginForm from './LoginForm';
 import RoomList from './RoomList';
+import Room from './Room';
 
 export default class App extends React.Component {
   render() {
@@ -16,6 +17,7 @@ export default class App extends React.Component {
               id
               ...LoginForm_viewer
               ...RoomList_viewer
+              ...Room_viewer
             }
           }
         `}
@@ -26,8 +28,10 @@ export default class App extends React.Component {
             return(
               <Router>
                 <div>
-                  <Route path="/login" render={() => <LoginForm viewer={props.viewer}/>} />
+                  <Route exact path="/" render={() => <LoginForm viewer={props.viewer}/>} />
+                  <Route exact path="/login" render={() => <LoginForm viewer={props.viewer}/>} />
                   <Route exact path="/rooms" render={() => <RoomList viewer={props.viewer}/>} />
+                  <Route exact path="/room" render={() => <Room viewer={props.viewer}/>} />
                 </div>
               </Router>
             )

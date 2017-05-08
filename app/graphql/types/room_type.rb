@@ -1,7 +1,7 @@
 Types::RoomType = GraphQL::ObjectType.define do
   name "Room"
 
-  field :id, !types.ID
+  global_id_field :id
 
   field :users do
     type types[Types::UserType]
@@ -10,5 +10,8 @@ Types::RoomType = GraphQL::ObjectType.define do
   end
   field :usersCount, !types.Int do
     resolve -> (obj, args, ctx) { obj.users.count }
+  end
+  field :game, Types::GameType do
+    resolve -> (obj, args, ctx) { obj.game }
   end
 end

@@ -32,7 +32,8 @@ module Mutations::RoomMutations
     resolve -> (obj, inputs, ctx) {
       current_user = ctx[:current_user]
 
-      room = Room.find(inputs[:id])
+      room = GraphqlSchema.object_from_id(inputs[:id], ctx)
+
       return GraphQL::ExecutionError.new("Can't join") unless room.joinable?(current_user)
 
       room.with_lock do

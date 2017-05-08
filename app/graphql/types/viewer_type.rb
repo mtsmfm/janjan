@@ -1,7 +1,7 @@
 Types::ViewerType = GraphQL::ObjectType.define do
   name "Viewer"
 
-  field :id, !types.ID
+  global_id_field :id
   field :name, !types.String
 
   field :rooms do
