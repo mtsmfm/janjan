@@ -1,4 +1,16 @@
-export default class SubscriptionClient {
+export function graphQLFetcher(graphQLParams) {
+  return fetch(window.location.origin + '/graphql', {
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+    },
+    credentials: 'same-origin',
+    body: JSON.stringify(graphQLParams),
+  });
+}
+
+export class SubscriptionClient {
   constructor () {
     this.cable = ActionCable.createConsumer();
   }

@@ -15,7 +15,7 @@ module Mutations::RoomMutations
         room = current_user.room = Room.create!
       end
 
-      GraphqlSchema.subscriber.trigger("RoomSubscribe", inputs, OpenStruct.new(node: room, mutation: :CREATED))
+      GraphqlSchema.subscriber.trigger("roomSubscribe", inputs, OpenStruct.new(node: room, mutation: :CREATED))
 
       {
         viewer: current_user
@@ -40,7 +40,7 @@ module Mutations::RoomMutations
         current_user.room = room
       end
 
-      GraphqlSchema.subscriber.trigger("RoomSubscribe", inputs, OpenStruct.new(node: room, mutation: :UPDATED))
+      GraphqlSchema.subscriber.trigger("roomSubscribe", inputs, OpenStruct.new(node: room, mutation: :UPDATED))
 
       {
         viewer: current_user

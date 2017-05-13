@@ -3,19 +3,7 @@ import GraphiQL from 'graphiql';
 import fetch from 'isomorphic-fetch';
 import css from 'graphiql/graphiql.css';
 import {graphQLFetcher as fetcher} from 'graphiql-subscriptions-fetcher/dist/fetcher';
-import SubscriptionClient from '../SubscriptionClient';
-
-function graphQLFetcher(graphQLParams) {
-  return fetch(window.location.origin + '/graphql', {
-    method: 'post',
-    headers: {
-      'Content-Type': 'application/json',
-      'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-    },
-    credentials: 'same-origin',
-    body: JSON.stringify(graphQLParams),
-  });
-}
+import {SubscriptionClient, graphQLFetcher} from '../SubscriptionClient';
 
 export default class MyGraphiQL extends React.Component {
   render () {

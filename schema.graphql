@@ -81,13 +81,8 @@ type Room {
   game: Game
 }
 
-type RoomSubscribe {
-  mutation: MutationEnum!
-  node: Room!
-}
-
 type Subscription {
-  RoomSubscribe: RoomSubscribe
+  roomSubscribe: roomSubscribe
 }
 
 type Tile {
@@ -110,4 +105,9 @@ type Viewer {
 
 type Wall {
   tiles: [Tile]!
+}
+
+type roomSubscribe {
+  mutation: MutationEnum!
+  node: Room!
 }

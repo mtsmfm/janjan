@@ -2,6 +2,7 @@ import React from 'react'
 import {createFragmentContainer} from 'react-relay';
 import {createRoom} from '../mutations/createRoom';
 import {joinRoom} from '../mutations/joinRoom';
+import roomSubscribe from '../subscriptions/roomSubscribe';
 import { Redirect } from 'react-router-dom'
 
 const Room = function(props) {
@@ -18,6 +19,10 @@ const Room = function(props) {
 }
 
 class RoomList extends React.Component {
+  componentDidMount() {
+    roomSubscribe();
+  }
+
   handleCreateRoom() {
     createRoom();
   }
