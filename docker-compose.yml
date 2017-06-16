@@ -23,7 +23,7 @@ services:
       - client
       - chrome
 
-  client:
+  client: &client
     <<: *web
     command: npm run server
     ports:
@@ -31,12 +31,18 @@ services:
     environment: []
     depends_on: []
 
+  relay:
+    <<: *client
+    command: yarn run relay -- --watch
+    ports: []
+
   chrome:
     image: selenium/standalone-chrome-debug
     volumes:
       - /dev/shm:/dev/shm
     ports:
       - 5900:5900
+    stop_signal: kill
 
   db:
     image: postgres:9.5.4

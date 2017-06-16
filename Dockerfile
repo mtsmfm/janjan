@@ -1,8 +1,20 @@
+FROM python AS watchman
+RUN cd && \
+  git clone https://github.com/facebook/watchman && \
+  cd watchman && git checkout v4.7.0 && ./autogen.sh && ./configure && \
+  make && make install && \
+  cd && rm -rf watchman
+
 FROM mtsmfm/ruby-node
 RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ jessie-pgdg main" >> /etc/apt/sources.list.d/pgdg.list \
   && wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - \
   && apt-get update -qq \
-  && apt-get install -y less postgresql-client-9.5
+  && apt-get install -y less postgresql-client-9.5 \
+  ocaml libelf-dev
+
+COPY --from=watchman /usr/local/bin/watchman /usr/local/bin/watchman
+COPY --from=watchman /usr/local/var/run/watchman /usr/local/var/run/watchman
+RUN chmod go+w /usr/local/var/run/watchman
 
 ARG APP_DIR=/app
 ARG APP_USER=app

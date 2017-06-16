@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     get :rooms
     get :room
     get :game
+    get :graphiql
   end
 
   namespace :api do
@@ -22,6 +23,8 @@ Rails.application.routes.draw do
   resource :debug, only: :show do
     post :load_fixture
   end if Rails.env.development?
+
+  post :graphql, to: 'api/graphql#create'
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

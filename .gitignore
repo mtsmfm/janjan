@@ -21,3 +21,4 @@ npm-debug.log
 /node_modules
 /public/webpack
 /public/assets
+__generated__

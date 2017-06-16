@@ -1,0 +1,4 @@
+{
+  "plugins": [["relay", {"schema": "schema.graphql"}]],
+  "presets": ["react", "latest", "stage-0"]
+}

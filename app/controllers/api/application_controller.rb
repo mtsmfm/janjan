@@ -1,6 +1,10 @@
 class Api::ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
+  def login(user)
+    session[:user_id] = user.id
+  end
+
   private
 
   def authenticate_user!
@@ -36,9 +40,5 @@ class Api::ApplicationController < ActionController::Base
     return @current_user if defined? @current_user
 
     @current_user = User.find_by(id: session[:user_id])
-  end
-
-  def login(user)
-    session[:user_id] = user.id
   end
 end

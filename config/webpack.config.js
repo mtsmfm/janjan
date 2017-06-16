@@ -4,6 +4,7 @@
 var path = require('path');
 var webpack = require('webpack');
 var StatsPlugin = require('stats-webpack-plugin');
+var FlowtypePlugin = require('flowtype-loader/plugin');
 
 // must match config.webpack.dev_server.port
 var devServerPort = 3808;
@@ -14,7 +15,7 @@ var production = process.env.NODE_ENV === 'production';
 var config = {
   entry: {
     // Sources are expected to live in $app_root/webpack
-    'application': './webpack/application.ts'
+    'application': './webpack/index.js'
   },
 
   output: {
@@ -29,8 +30,11 @@ var config = {
   },
 
   resolve: {
-    root: path.join(__dirname, '..', 'webpack'),
-    extensions: ['', '.webpack.js', '.web.js', '.ts', '.js']
+    modules: [
+      path.join(__dirname, '..', 'webpack'),
+      "node_modules"
+    ],
+    extensions: ['.webpack.js', '.web.js', '.ts', '.js']
   },
 
   plugins: [
@@ -42,11 +46,17 @@ var config = {
       chunks: false,
       modules: false,
       assets: true
-    })],
+    }),
+    new FlowtypePlugin()
+  ],
 
   module: {
-    loaders: [
-      { test: /\.tsx?$/, loader: 'ts-loader' }
+    rules: [
+      { test: /\.js$/, exclude: /node_modules/, loader: "flowtype-loader", enforce: "pre" },
+      { test: /\.js$/, exclude: /node_modules/, loader: "babel-loader" },
+      { test: /\.css?$/, loaders: ['css-loader', 'postcss-loader'] },
+      { test: /\.svg?$/, loaders: ['svg-url-loader'] }
+
     ]
   }
 };
@@ -68,8 +78,9 @@ if (production) {
   );
 } else {
   config.devServer = {
-    port: devServerPort,
     host: '0.0.0.0',
+    port: devServerPort,
+    disableHostCheck: true,
     headers: { 'Access-Control-Allow-Origin': '*' }
   };
   config.output.publicPath = '//localhost:' + devServerPort + '/webpack/';
